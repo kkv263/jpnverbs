@@ -30,12 +30,9 @@ font-size: 1em;
 
 export const SearchBar = styled.input`
 margin-bottom: 2%;
-background: url('http://svgshare.com/i/45z.svg') no-repeat;
-background-position: 3.5vh;
-background-size: 20px 20px;
 background-color: white;
 width:600px;
-height: 7vh;
+height: 8.5vh;
 outline: none;
 border: 0px;
 border-radius: 8px;
@@ -43,8 +40,26 @@ box-shadow: 0px 9px 14px 0px rgba(0, 0, 0, 0.1);
 line-height: 22px;
 color: #464F51;
 font-size: 1.1em; 
-padding: 5px 20px 5px 65px;
+padding: 0px 20px 0px 20px;
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   opacity:0.5;
 }
+`
+
+export const Button = styled.input`
+width:100px;
+height:8.5vh;
+margin-left: 10px;
+border-radius: 8px;
+border-color: #EC4664;
+background-color:#EC4664;
+color: #F9f9f9;
+font-size: 1.1em; 
+outline: none;
+cursor: pointer;
+  &:hover {
+    border-color: #e92a4c;
+    background-color: #e92a4c;
+    border-bottom-color: #e71c41;
+  }
 `

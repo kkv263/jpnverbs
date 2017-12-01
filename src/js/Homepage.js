@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HomeWrapper, SearchBar, Slogan, Tip } from '../styles/Homepage.style'
+import { HomeWrapper, SearchBar, Slogan, Tip, Button } from '../styles/Homepage.style'
 
 class Homepage extends Component {
   constructor(props) {
@@ -27,9 +27,9 @@ class Homepage extends Component {
           <label>
             <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a verb in English or Japanese..." />
           </label>
-          <button type="submit"/>
+          <Button type="submit" value="Conjugate"/>
         </form>
-      <Tip>Try popular searches: する, 食べる, 読む</Tip>
+      <Tip>Try popular searches like: する, 食べる, 読む</Tip>
       </HomeWrapper> 
     );
   }
