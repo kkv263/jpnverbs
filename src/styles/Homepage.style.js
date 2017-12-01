@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 
+
 export const HomeWrapper = styled.div`
+width: 100%;
+position:relative;
+height: 100vh;
+`
+
+export const ConjugateWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 70vh;
@@ -50,16 +57,15 @@ export const Button = styled.input`
 width:100px;
 height:8.5vh;
 margin-left: 10px;
+border: 0px;
 border-radius: 8px;
-border-color: #EC4664;
 background-color:#EC4664;
+box-shadow: 0px 9px 14px 0px rgba(0, 0, 0, 0.1);
 color: #F9f9f9;
 font-size: 1.1em; 
 outline: none;
 cursor: pointer;
   &:hover {
-    border-color: #e92a4c;
     background-color: #e92a4c;
-    border-bottom-color: #e71c41;
   }
 `

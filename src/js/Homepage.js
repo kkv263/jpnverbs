@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { HomeWrapper, SearchBar, Slogan, Tip, Button } from '../styles/Homepage.style'
+import { HomeWrapper, ConjugateWrapper,
+         SearchBar, Slogan, Tip, Button,
+         } from '../styles/Homepage.style'
 
 class Homepage extends Component {
   constructor(props) {
@@ -22,15 +24,17 @@ class Homepage extends Component {
   render() {
     return (
       <HomeWrapper>
-      <Slogan>Conjugate Japanese verbs with ease.</Slogan>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a verb in English or Japanese..." />
-          </label>
-          <Button type="submit" value="Conjugate"/>
-        </form>
-      <Tip>Try popular searches like: する, 食べる, 読む</Tip>
-      </HomeWrapper> 
+        <ConjugateWrapper>
+        <Slogan>Conjugate Japanese verbs with ease.</Slogan>
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a verb in English or Japanese..." />
+            </label>
+            <Button type="submit" value="Conjugate"/>
+          </form>
+        <Tip>Try popular searches like: する, 食べる, 読む</Tip>
+        </ConjugateWrapper> 
+      </HomeWrapper>
     );
   }
 }
