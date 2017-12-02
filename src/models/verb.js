@@ -10,6 +10,7 @@ var FormSchema = new Schema({
 
 var VerbSchema = new Schema({
   rdict: String,
+  hdict: String,
   kdict: String,  
   definition: String,
   class: Number,

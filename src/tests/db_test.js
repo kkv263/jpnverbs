@@ -5,7 +5,8 @@ describe('Saving records', function(){
   it('Saves a record to the database', function(done){
 
     const verb = new Verb({
-      rdict: 'たべる',
+      rdict: 'taberu',
+      hdict: 'たべる',
       kdict: '食べる',
       definition: 'to eat',
       class: 2
