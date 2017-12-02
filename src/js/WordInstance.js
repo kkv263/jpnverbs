@@ -7,7 +7,9 @@ class WordInstance extends Component {
       <WIWrapper>
         <SearchBar></SearchBar>
         <WordWrapper>
-        
+          <div></div> 
+          <div></div> 
+          <div></div> 
         </WordWrapper>
       </WIWrapper> 
     );

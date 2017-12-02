@@ -10,7 +10,16 @@ export const WordWrapper = styled.div`
 width: 65%;
 height: 500px;
 background-color:#FED99B;
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+grid-gap: 10px;
+
+  & > div {
+    background-color:red;
+  }
 `
+
+
 
 export const SearchBar = styled.input`
 margin-bottom: 2%;
