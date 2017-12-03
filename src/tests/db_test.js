@@ -4,7 +4,7 @@ const Verb = require('../models/verb');
 describe('Saving records', function(){
   it('Saves a record to the database', function(done){
 
-    const verb = new Verb({
+    var verb = new Verb({
       rdict: 'taberu',
       hdict: 'たべる',
       kdict: '食べる',
@@ -17,6 +17,20 @@ describe('Saving records', function(){
       done();
     });
 
+  });
+
+  it('Creates record with sub form', function(done){
+    var verb = new Verb({
+      rdict: 'miru',
+      forms: [{plainp: '見る', plainn: '見ない', politep: '見ます', politen: '見ません'}]
+    });
+
+    verb.save().then(function(){
+      Verb.findOne({rdict: 'miru'}).then(function(result){
+        assert(result.forms.length === 1);
+        done();
+      });
+    });
   });
 
 });
