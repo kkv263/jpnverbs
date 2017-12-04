@@ -4,22 +4,28 @@ export const WIWrapper = styled.div`
 width: 100%;
 `
 
-
+export const WordContainer = styled.div`
+width: 100%;
+display: grid;
+grid-template-columns: 2fr 1fr;
+`
 
 export const WordWrapper = styled.div`
-width: 65%;
-height: 500px;
+height: 250px;
 background-color:#FED99B;
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
-grid-gap: 10px;
-
-  & > div {
-    background-color:red;
-  }
+grid-gap: 2%;
 `
 
+export const WordCell = styled.div`
+grid-column: ${props => props.gridColumn};
+`
 
+export const ExtraWrapper = styled.div`
+height: 500px;
+background-color:blue;
+`
 
 export const SearchBar = styled.input`
 margin-bottom: 2%;
