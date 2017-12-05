@@ -35,7 +35,7 @@ border: 1px solid #b0b0b0;
 border-radius: 8px;
 background-color:white;
 display:grid;
-grid-template-rows: 1.75fr 1fr;
+grid-template-rows: 1.75fr 1fr 1fr 1fr;
 grid-row-gap: 20px;
 `
 
