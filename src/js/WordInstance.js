@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { WIWrapper, WordWrapper, SearchBar, WordContainer, ExtraWrapper, WordCell } from '../styles/WordInstance.style';
+import { WIWrapper, WordWrapper, SearchBar, WordContainer, 
+  ExtraWrapper, WordCell, CellHeader, CellForm } from '../styles/WordInstance.style';
 
 class WordInstance extends Component {
   render() {
@@ -7,16 +8,25 @@ class WordInstance extends Component {
       <WIWrapper>
         <WordContainer>
           <WordWrapper>
-            <WordCell gridColumn='1 / 4'>present</WordCell> 
-            <div></div> 
-            <div>postive</div> 
-            <div>negative</div> 
-            <div>plain</div> 
-            <div>食べる</div> 
-            <div>食べない</div> 
-            <div>polite</div> 
-            <div>食べます</div> 
-            <div>食べない</div> 
+            <WordCell borderSize="0px 1px 1px 0px" >
+              <CellForm>Present</CellForm>
+            </WordCell> 
+            <WordCell borderSize="0px 0px 1px 0px">
+              <CellHeader>Positive</CellHeader>
+            </WordCell> 
+            <WordCell borderSize="0px 0px 1px 0px">
+              <CellHeader>Negative</CellHeader>
+            </WordCell> 
+            <WordCell borderSize="0px 1px 0px 0px">
+              <CellHeader>Plain</CellHeader>
+            </WordCell> 
+            <WordCell>食べる</WordCell> 
+            <WordCell>食べない</WordCell> 
+            <WordCell borderSize="0px 1px 0px 0px">
+              <CellHeader>Negative</CellHeader>
+            </WordCell> 
+            <WordCell>食べます</WordCell> 
+            <WordCell>食べません</WordCell> 
           </WordWrapper>
           <ExtraWrapper>
           </ExtraWrapper>
