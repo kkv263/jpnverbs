@@ -10,9 +10,8 @@ class App extends Component {
     return (
       <div>
         <Switch>
-         {/* Uncomment later when finish WordInstance */}
-         {/* <Route exact path='/' component={Homepage}/> */}
-         <Route exact path='/' component={WordInstance}/>
+         <Route exact path='/' component={Homepage}/>
+         <Route exact path='/test' component={WordInstance}/>
          <Route component={NotFound} status={404}/>
         </Switch>
       </div>
