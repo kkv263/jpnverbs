@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var FormSchema = new Schema({
+  form: String,
   plainp: String,
   plainn: String,
   politep: String,
