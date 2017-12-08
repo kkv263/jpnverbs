@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 var FormSchema = new Schema({
   form: String,
-  plainp: String,
-  plainn: String,
-  politep: String,
-  politen: String,
+  plainp: [String],
+  plainn: [String],
+  politep: [String],
+  politen: [String],
 });
 
 var VerbSchema = new Schema({
