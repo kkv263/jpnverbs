@@ -22,7 +22,7 @@ describe('Saving records', function(){
   it('Creates record with sub form', function(done){
     var verb = new Verb({
       rdict: 'miru',
-      forms: [{form: 'Present', plainp: ['見る'], plainn: ['見ない'], politep: ['見ます'], politen: ['見ません']}]
+      forms: [{form: 'Present', plainp: '見る', plainn: '見ない', politep: '見ます', politen: '見ません'}]
     });
 
     verb.save().then(function(){
