@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const data = require('./verbs.json');
-const Verb = require('./models/verb');
+const data = require('../verbs.json');
+const Verb = require('../models/verb');
 
 var class2 = {
   'Present': ['る','ない','ます','ません'],
