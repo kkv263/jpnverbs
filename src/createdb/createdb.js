@@ -21,7 +21,7 @@ var ichidan = {
   'Conjectural' : ['るだろう', 'ないだろう', 'るでしょう', 'ないでしょう'],
   'Alternative' : ['たり', 'なかったり', 'ましたり', 'ませんでしたり'],
   'Imperative' : ['ろ', 'るな', 'なさい', 'なさるな']
-}
+};
 
 function godanEndings (verb) {
   godan = new Object();
@@ -102,8 +102,20 @@ function godanEndings (verb) {
 }
 
 function irregularEndings (verb) {
+  irregular = new Object();
+  endingArray = [];
 
+  if (verb === '来る'　|| 'くる')
+    irregular = ichidan;
+    irregular.Imperative[0] = 'い';
+
+  if (verb === 'する'){
+  }
+
+  return irregular;
 }
+
+console.log(conjugate('来る', irregularEndings ('来る')));
 
 // Connect to DB
 // mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
