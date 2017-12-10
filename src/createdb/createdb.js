@@ -9,10 +9,11 @@ var class2 = {
   'Te' : ['て', 'なくて', 'まして', 'ませんで', ],
   'Present_Progressive': ['ている', 'ていない','ています', 'ていません'],
   'Volitional': ['よう', 'まい', 'ましょう', 'ますまい'],
-  'Desire (Present)' : ['たい', 'たくない', 'たいです','たくないです'],
-  'Desire (Past)' : ['たかった', 'たくなかった', 'たかったです','たくなかったです'],
+  'Desire_Present' : ['たい', 'たくない', 'たいです','たくないです'],
+  'Desire_Past' : ['たかった', 'たくなかった', 'たかったです','たくなかったです'],
   'Conditional': ['たら','なかったら','ましたら','ませんでしたら'],
   'Provisional': ['れば', 'なければ', 'ますなら(ば)','ませんなら(ば)'],
+  'Potential' : ['られる', 'られない', 'られます', 'られません'],
   'Passive' : ['られる', 'られない', 'られます', 'られません'],
   'Causative': ['させる', 'させない', 'させます', 'させません'],
   'Causative_Alt': ['さす', 'ささない', 'さします', 'さしません'],
@@ -29,34 +30,36 @@ function godanEndings (verb) {
   var endingArray = [];
   switch (ending) {
     case 'う':
-      endingArray = ['って', 'った', 'う','わ', 'い'];
+      endingArray = ['って', 'った', 'う','わ', 'い', 'お', 'え'];
       break;
     case 'つ':
-      endingArray = ['って', 'った', 'つ','た', 'ち'];
+      endingArray = ['って', 'った', 'つ','た', 'ち','と','て'];
       break;
     case 'る':
-      endingArray = ['って', 'った', 'る','ら', 'り'];
+      endingArray = ['って', 'った', 'る','ら', 'り','ろ', 'れ'];
       break;
     case 'む':
-      endingArray = ['んで', 'んだ',  'む','ま', 'み'];
+      endingArray = ['んで', 'んだ',  'む','ま', 'み','も', 'め'];
       break;
     case 'ぶ':
-      endingArray = ['んで', 'んだ',  'ぶ','ば', 'び'];
+      endingArray = ['んで', 'んだ',  'ぶ','ば', 'び','ぼ', 'べ'];
       break;
     case 'ぬ':
-      endingArray = ['んで', 'んだ',  'ぬ','な', 'に'];
+      endingArray = ['んで', 'んだ',  'ぬ','な', 'に','の', 'ね'];
       break;
     case 'す':
-      endingArray = ['して', 'した',  'す','さ', 'し'];
+      endingArray = ['して', 'した',  'す','さ', 'し','そ', 'せ'];
       break;
     case 'ぐ':
-      endingArray = ['いで', 'いだ',  'ぐ','が', 'ぎ'];
+      endingArray = ['いで', 'いだ',  'ぐ','が', 'ぎ','ご', 'げ'];
       break;
     case 'く':
-      endingArray = ['いて', 'いた', 'く','か', 'き'];
+      endingArray = ['いて', 'いた', 'く','か', 'き','こ', 'け'];
       break;
   }
 
+
+  // possible refactor later on
   class1.Present = [endingArray[2], endingArray[3] + 'ない', 
   endingArray[4] + 'ます', endingArray[4] + 'ません'];
   class1.Past = [endingArray[1], endingArray[3] + 'なかった', 
@@ -65,7 +68,32 @@ function godanEndings (verb) {
   endingArray[4] + 'まして', endingArray[4] + 'ませんで'];
   class1.Present_Progressive = [endingArray[0] + 'いる', endingArray[0] + 'いない',
   endingArray[0] + 'います', endingArray[0] + 'いません'];
-
+  class1.Volitional = [endingArray[5] + 'う', endingArray[2] + 'まい', 
+  endingArray[4] + 'ましょう', endingArray[4] + 'ますまい'];
+  class1.Desire_Present = [endingArray[4] + 'たい', endingArray[4] + 'たくない',
+  endingArray[4] + 'たいです', endingArray[4] + 'たくないです'];
+  class1.Desire_Past = [endingArray[4] + 'たかった', endingArray[4] + 'たくなかった',
+  endingArray[4] + 'たかったです', endingArray[4] + 'たくなかったです'];
+  class1.Conditional= [endingArray[1] + 'ら', endingArray[3] + 'なかったら', 
+  endingArray[4] + 'ましたら', endingArray[4] + 'ませんでしたら'];
+  class1.Provisional = [endingArray[6] + 'ば', endingArray[3] + 'なければ',
+  endingArray[4] + 'ますなら(ば)',  endingArray[4] + 'ませんなら(ば)'];
+  class1.Potential = [endingArray[6] + 'る', endingArray[6] + 'ない',
+  endingArray[6] + 'ます', endingArray[6] + 'ません'];
+  class1.Passive = [endingArray[3] + 'れる', endingArray[3] + 'れない',
+  endingArray[3] + 'れます', endingArray[3] + 'れません'];
+  class1.Causative = [endingArray[3] + 'せる', endingArray[3] + 'せない',
+  endingArray[3] + 'せます', endingArray[3] + 'せません'];
+  class1.Causative_Alt = [endingArray[3] + 'す', endingArray[3] + 'さない',
+  endingArray[3] + 'します', endingArray[3] + 'しません'];
+  class1.Causative_Passive = [endingArray[3] + 'せられる', endingArray[3] + 'せられない',
+  endingArray[3] + 'せられます', endingArray[3] + 'せられません'];
+  class1.Conjectural = [endingArray[2] + 'だろう', endingArray[3] + 'ないだろう', 
+  endingArray[2] + 'でしょう', endingArray[3] + 'ないでしょう'];
+  class1.Alternative = [endingArray[1] + 'り', endingArray[3] + 'なかったり', 
+  endingArray[4] + 'ましたり', endingArray[4] + 'ませんでしたり'];
+  class1.Imperative = [endingArray[6], endingArray[2] + 'な',
+  endingArray[4] + 'なさい', endingArray[4] + 'なさるな'];
 
   return(class1);
 }
