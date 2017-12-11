@@ -42,7 +42,11 @@ function assignEndings (verb, type) {
         break;
     }
   } else if (type === 2) {
-      endingArray = ['て', 'た', 'る', '', '', 'よ', 'れ', 'られ', 'さ'];
+      endingArray = ['て', 'た', 'る', '', '', 'よ', 'れ', 'られ', 'さ', 'ろ'];
+  } else {
+      if (verb === '来る' || verb === 'くる'){
+        endingArray = endingArray = ['て', 'た', 'る', '', '', 'よ', 'れ', 'られ', 'さ', 'い'];
+      }
   }
 
   // possible refactor later on
@@ -78,7 +82,7 @@ function assignEndings (verb, type) {
   endingArray[2] + 'でしょう', endingArray[3] + 'ないでしょう'];
   formsObject.Alternative = [endingArray[1] + 'り', endingArray[3] + 'なかったり', 
   endingArray[4] + 'ましたり', endingArray[4] + 'ませんでしたり'];
-  formsObject.Imperative = [type === 2 ? 'ろ' : endingArray[6], endingArray[2] + 'な',
+  formsObject.Imperative = [type !== 1 ? endingArray[9] : endingArray[6], endingArray[2] + 'な',
   endingArray[4] + 'なさい', endingArray[4] + 'なさるな'];
   return(formsObject);
 }
@@ -104,7 +108,7 @@ function conjugate (verb, type) {
   return formsArray;
 }
 
-console.log(conjugate('食べる', 2));
+console.log(conjugate('来る', 3));
 
 // Connect to DB
 // mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
