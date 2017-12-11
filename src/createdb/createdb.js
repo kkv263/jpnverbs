@@ -45,7 +45,10 @@ function assignEndings (verb, type) {
       endingArray = ['て', 'た', 'る', '', '', 'よ', 'れ', 'られ', 'さ', 'ろ'];
   } else {
       if (verb === '来る' || verb === 'くる'){
-        endingArray = endingArray = ['て', 'た', 'る', '', '', 'よ', 'れ', 'られ', 'さ', 'い'];
+        endingArray = ['て', 'た', 'る', '', '', 'よ', 'れ', 'られ', 'さ', 'い'];
+      }
+      else {
+        endingArray = ['して', 'した', 'する', 'し', 'し', 'しよ', 'でき', '', 'さ', 'しろ'];
       }
   }
 
@@ -66,18 +69,18 @@ function assignEndings (verb, type) {
   endingArray[4] + 'たかったです', endingArray[4] + 'たくなかったです'];
   formsObject.Conditional= [endingArray[1] + 'ら', endingArray[3] + 'なかったら', 
   endingArray[4] + 'ましたら', endingArray[4] + 'ませんでしたら'];
-  formsObject.Provisional = [endingArray[6] + 'ば', endingArray[3] + 'なければ',
+  formsObject.Provisional = [(verb === 'する' ? 'すれ' : endingArray[6]) + 'ば', endingArray[3] + 'なければ',
   endingArray[4] + 'ますなら(ば)',  endingArray[4] + 'ませんなら(ば)'];
   formsObject.Potential = [endingArray[(type === 2 ? 7 : 6)] + 'る', endingArray[(type === 2 ? 7 : 6)] + 'ない',
   endingArray[(type === 2 ? 7 : 6)] + 'ます', endingArray[(type === 2 ? 7 : 6)] + 'ません'];
-  formsObject.Passive = type === 2 ? formsObject.Potential : ([endingArray[3] +  + 'れる', endingArray[3] + 'れない',
-  endingArray[3] + 'れます', endingArray[3] + 'れません']);
-  formsObject.Causative = [endingArray[(type === 2 ? 8 : 3)] + 'せる', endingArray[(type === 2 ? 8 : 3)] + 'せない',
-  endingArray[(type === 2 ? 8 : 3)] + 'せます', endingArray[(type === 2 ? 8 : 3)] + 'せません'];
-  formsObject.Causative_Alt = [endingArray[(type === 2 ? 8 : 3)] + 'す', endingArray[(type === 2 ? 8 : 3)] + 'さない',
-  endingArray[(type === 2 ? 8 : 3)] + 'します', endingArray[(type === 2 ? 8 : 3)] + 'しません'];
-  formsObject.Causative_Passive = [endingArray[(type === 2 ? 8 : 3)] + 'せられる', endingArray[(type === 2 ? 8 : 3)] + 'せられない',
-  endingArray[(type === 2 ? 8 : 3)] + 'せられます', endingArray[(type === 2 ? 8 : 3)] + 'せられません'];
+  formsObject.Passive = (type === 2 ? formsObject.Potential : ([endingArray[(type !== 1 ? 8 : 3)]  + 'れる', endingArray[(type !== 1 ? 8 : 3)] + 'れない',
+  endingArray[(type !== 1 ? 8 : 3)] + 'れます', endingArray[(type !== 1 ? 8 : 3)] + 'れません']));
+  formsObject.Causative = [endingArray[(type !== 1 ? 8 : 3)] + 'せる', endingArray[(type !== 1 ? 8 : 3)] + 'せない',
+  endingArray[(type !== 1 ? 8 : 3)] + 'せます', endingArray[(type !== 1 ? 8 : 3)] + 'せません'];
+  formsObject.Causative_Alt = [endingArray[(type !== 1 ? 8 : 3)] + 'す', endingArray[(type !== 1 ? 8 : 3)] + 'さない',
+  endingArray[(type !== 1 ? 8 : 3)] + 'します', endingArray[(type !== 1 ? 8 : 3)] + 'しません'];
+  formsObject.Causative_Passive = [endingArray[(type !== 1 ? 8 : 3)] + 'せられる', endingArray[(type !== 1 ? 8 : 3)] + 'せられない',
+  endingArray[(type !== 1 ? 8 : 3)] + 'せられます', endingArray[(type !== 1 ? 8 : 3)] + 'せられません'];
   formsObject.Conjectural = [endingArray[2] + 'だろう', endingArray[3] + 'ないだろう', 
   endingArray[2] + 'でしょう', endingArray[3] + 'ないでしょう'];
   formsObject.Alternative = [endingArray[1] + 'り', endingArray[3] + 'なかったり', 
@@ -89,7 +92,13 @@ function assignEndings (verb, type) {
 
 // Conjugate forms function
 function conjugate (verb, type) {
-  var stem = verb.substring(0, verb.length-1);
+
+  if (verb === 'する'){
+    var stem = '';
+  }
+  else {
+    var stem = verb.substring(0, verb.length-1);
+  }
   var formsArray = [];
   var vclass = assignEndings (verb, type);
 
@@ -109,6 +118,7 @@ function conjugate (verb, type) {
 }
 
 console.log(conjugate('来る', 3));
+console.log(conjugate('する', 3));
 
 // Connect to DB
 // mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
