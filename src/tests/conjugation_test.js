@@ -1191,6 +1191,203 @@ describe('Conjugation tests', function(){
     done();
   });
 
+  it('Conjugate Godan Verb - "aru" Class', function(done){
+    var verbtest = data2[16908]['k_ele'][0]['keb'][0];
+    var typetest = data2[16908]['sense'][0]['pos'][0];
+    var godan= conjugateVerb.conjugate(verbtest, typetest);
+
+    var godan_test = [ { form: 'Present',
+    plainp: '下さる',
+    plainn: '下さらない',
+    politep: '下さいます',
+    politen: '下さいません' },
+  { form: 'Past',
+    plainp: '下さった',
+    plainn: '下さらなかった',
+    politep: '下さいました',
+    politen: '下さいませんでした' },
+  { form: 'Te',
+    plainp: '下さって',
+    plainn: '下さらなくて',
+    politep: '下さいまして',
+    politen: '下さいませんで' },
+  { form: 'Present_Progressive',
+    plainp: '下さっている',
+    plainn: '下さっていない',
+    politep: '下さっています',
+    politen: '下さっていません' },
+  { form: 'Volitional',
+    plainp: '下さろう',
+    plainn: '下さるまい',
+    politep: '下さいましょう',
+    politen: '下さいますまい' },
+  { form: 'Desire_Present',
+    plainp: '下さいたい',
+    plainn: '下さいたくない',
+    politep: '下さいたいです',
+    politen: '下さいたくないです' },
+  { form: 'Desire_Past',
+    plainp: '下さいたかった',
+    plainn: '下さいたくなかった',
+    politep: '下さいたかったです',
+    politen: '下さいたくなかったです' },
+  { form: 'Conditional',
+    plainp: '下さったら',
+    plainn: '下さらなかったら',
+    politep: '下さいましたら',
+    politen: '下さいませんでしたら' },
+  { form: 'Provisional',
+    plainp: '下されば',
+    plainn: '下さらなければ',
+    politep: '下さいますなら(ば)',
+    politen: '下さいませんなら(ば)' },
+  { form: 'Potential',
+    plainp: '下される',
+    plainn: '下されない',
+    politep: '下されます',
+    politen: '下されません' },
+  { form: 'Passive',
+    plainp: '下さられる',
+    plainn: '下さられない',
+    politep: '下さられます',
+    politen: '下さられません' },
+  { form: 'Causative',
+    plainp: '下さらせる',
+    plainn: '下さらせない',
+    politep: '下さらせます',
+    politen: '下さらせません' },
+  { form: 'Causative_Alt',
+    plainp: '下さらす',
+    plainn: '下さらさない',
+    politep: '下さらします',
+    politen: '下さらしません' },
+  { form: 'Causative_Passive',
+    plainp: '下さらせられる',
+    plainn: '下さらせられない',
+    politep: '下さらせられます',
+    politen: '下さらせられません' },
+  { form: 'Conjectural',
+    plainp: '下さるだろう',
+    plainn: '下さらないだろう',
+    politep: '下さるでしょう',
+    politen: '下さらないでしょう' },
+  { form: 'Alternative',
+    plainp: '下さったり',
+    plainn: '下さらなかったり',
+    politep: '下さいましたり',
+    politen: '下さいませんでしたり' },
+  { form: 'Imperative',
+    plainp: '下さい',
+    plainn: '下さるな',
+    politep: '下さいなさい',
+    politen: '下さいなさるな' } ];
+    for (var i = 0; i < godan.length; i ++) {
+      assert.deepStrictEqual(godan[i], godan_test[i], 'ConjugationError: Form(s) do not match');
+    }
+
+    done();
+
+  });
+
+    it('Conjugate Godan Verb - "aru" ending irregular', function(done){
+    var verbtest = data2[101737]['r_ele'][0]['reb'][0];
+    var typetest = data2[101737]['sense'][0]['pos'][0];
+    var godan= conjugateVerb.conjugate(verbtest, typetest);
+
+    var godan_test = [ { form: 'Present',
+    plainp: 'でもある',
+    plainn: 'でもない',
+    politep: 'でもあります',
+    politen: 'でもありません' },
+  { form: 'Past',
+    plainp: 'でもあった',
+    plainn: 'でもなかった',
+    politep: 'でもありました',
+    politen: 'でもありませんでした' },
+  { form: 'Te',
+    plainp: 'でもあって',
+    plainn: 'でもなくて',
+    politep: 'でもありまして',
+    politen: 'でもありませんで' },
+  { form: 'Present_Progressive',
+    plainp: 'でもあっている',
+    plainn: 'でもあっていない',
+    politep: 'でもあっています',
+    politen: 'でもあっていません' },
+  { form: 'Volitional',
+    plainp: 'でもあろう',
+    plainn: 'でもあるまい',
+    politep: 'でもありましょう',
+    politen: 'でもありますまい' },
+  { form: 'Desire_Present',
+    plainp: 'でもありたい',
+    plainn: 'でもありたくない',
+    politep: 'でもありたいです',
+    politen: 'でもありたくないです' },
+  { form: 'Desire_Past',
+    plainp: 'でもありたかった',
+    plainn: 'でもありたくなかった',
+    politep: 'でもありたかったです',
+    politen: 'でもありたくなかったです' },
+  { form: 'Conditional',
+    plainp: 'でもあったら',
+    plainn: 'でもなかったら',
+    politep: 'でもありましたら',
+    politen: 'でもありませんでしたら' },
+  { form: 'Provisional',
+    plainp: 'でもあれば',
+    plainn: 'でもなければ',
+    politep: 'でもありますなら(ば)',
+    politen: 'でもありませんなら(ば)' },
+  { form: 'Potential',
+    plainp: 'でもあれる',
+    plainn: 'でもあれない',
+    politep: 'でもあれます',
+    politen: 'でもあれません' },
+  { form: 'Passive',
+    plainp: 'でもあられる',
+    plainn: 'でもあられない',
+    politep: 'でもあられます',
+    politen: 'でもあられません' },
+  { form: 'Causative',
+    plainp: 'でもあらせる',
+    plainn: 'でもあらせない',
+    politep: 'でもあらせます',
+    politen: 'でもあらせません' },
+  { form: 'Causative_Alt',
+    plainp: 'でもあらす',
+    plainn: 'でもあらさない',
+    politep: 'でもあらします',
+    politen: 'でもあらしません' },
+  { form: 'Causative_Passive',
+    plainp: 'でもあらせられる',
+    plainn: 'でもあらせられない',
+    politep: 'でもあらせられます',
+    politen: 'でもあらせられません' },
+  { form: 'Conjectural',
+    plainp: 'でもあるだろう',
+    plainn: 'でもないだろう',
+    politep: 'でもあるでしょう',
+    politen: 'でもないでしょう' },
+  { form: 'Alternative',
+    plainp: 'でもあったり',
+    plainn: 'でもなかったり',
+    politep: 'でもありましたり',
+    politen: 'でもありませんでしたり' },
+  { form: 'Imperative',
+    plainp: 'でもあれ',
+    plainn: 'でもあるな',
+    politep: 'でもありなさい',
+    politen: 'でもありなさるな' } ];
+
+    for (var i = 0; i < godan.length; i ++) {
+      assert.deepStrictEqual(godan[i], godan_test[i], 'ConjugationError: Form(s) do not match');
+    }
+
+    done();
+
+  });
+
   it('Conjugate Kuru Verb', function(done){
     var verbtest = data2[52067]['k_ele'][0]['keb'][0];
     var typetest = data2[52067]['sense'][0]['pos'][0];
@@ -1583,6 +1780,8 @@ describe('Conjugation tests', function(){
     done();
 
   });
+
+
 
 
 });

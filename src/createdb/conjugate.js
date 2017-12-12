@@ -27,7 +27,13 @@
           endingArray = ['って', 'った', 'つ','た', 'ち','と','て'];
           break;
         case 'る':
-          endingArray = ['って', 'った', 'る','ら', 'り','ろ', 'れ'];
+          endingArray = ['って', 'った', 'る','ら', 'り','ろ', 'れ', '_'];
+          if (/v5aru/.test(typeSpec)){
+            endingArray[4] = 'い';
+            endingArray[9] = 'い';
+          } else if (/v5r-i/.test(typeSpec)){
+            endingArray[7] = '_';
+          } 
           break;
         case 'む':
           endingArray = ['んで', 'んだ',  'む','ま', 'み','も', 'め'];
@@ -69,11 +75,11 @@
     }
 
     // possible refactor later on
-    formsObject.Present = [endingArray[2], (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;' ? "_" : endingArray[3]) + 'ない', 
+    formsObject.Present = [endingArray[2], endingArray[typeSpec === '&v5r-i;' ? 7 : 3] + 'ない', 
     endingArray[4] + 'ます', endingArray[4] + 'ません'];
-    formsObject.Past = [endingArray[1], (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;'? "_" :endingArray[3]) + 'なかった', 
+    formsObject.Past = [endingArray[1], endingArray[typeSpec === '&v5r-i;' ? 7 : 3] + 'なかった', 
     endingArray[4] + 'ました', endingArray[4] + 'ませんでした'];
-    formsObject.Te = [endingArray[0], (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;'? "_" :endingArray[3]) + 'なくて',
+    formsObject.Te = [endingArray[0], endingArray[typeSpec === '&v5r-i;' ? 7 : 3] + 'なくて',
     endingArray[4] + 'まして', endingArray[4] + 'ませんで'];
     formsObject.Present_Progressive = [endingArray[0] + 'いる', endingArray[0] + 'いない',
     endingArray[0] + 'います', endingArray[0] + 'いません'];
@@ -83,9 +89,9 @@
     endingArray[4] + 'たいです', endingArray[4] + 'たくないです'];
     formsObject.Desire_Past = [endingArray[4] + 'たかった', endingArray[4] + 'たくなかった',
     endingArray[4] + 'たかったです', endingArray[4] + 'たくなかったです'];
-    formsObject.Conditional= [endingArray[1] + 'ら', (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;' ? "_" :endingArray[3]) + 'なかったら', 
+    formsObject.Conditional= [endingArray[1] + 'ら', endingArray[typeSpec === '&v5r-i;' ? 7 : 3] + 'なかったら', 
     endingArray[4] + 'ましたら', endingArray[4] + 'ませんでしたら'];
-    formsObject.Provisional = [(/&vs.*/.test(typeSpec) ? 'すれ' : endingArray[6]) + 'ば', endingArray[3] + 'なければ',
+    formsObject.Provisional = [(/&vs.*/.test(typeSpec) ? 'すれ' : endingArray[6]) + 'ば', endingArray[typeSpec === '&v5r-i;' ? 7 : 3] + 'なければ',
     endingArray[4] + 'ますなら(ば)',  endingArray[4] + 'ませんなら(ば)'];
     formsObject.Potential = [endingArray[(type === 2 ? 7 : 6)] + 'る', endingArray[(type === 2 ? 7 : 6)] + 'ない',
     endingArray[(type === 2 ? 7 : 6)] + 'ます', endingArray[(type === 2 ? 7 : 6)] + 'ません'];
@@ -97,11 +103,11 @@
     endingArray[(type !== 1 ? 8 : 3)] + 'します', endingArray[(type !== 1 ? 8 : 3)] + 'しません'];
     formsObject.Causative_Passive = [endingArray[(type !== 1 ? 8 : 3)] + 'せられる', endingArray[(type !== 1 ? 8 : 3)] + 'せられない',
     endingArray[(type !== 1 ? 8 : 3)] + 'せられます', endingArray[(type !== 1 ? 8 : 3)] + 'せられません'];
-    formsObject.Conjectural = [endingArray[2] + 'だろう', endingArray[3] + 'ないだろう', 
-    endingArray[2] + 'でしょう', endingArray[3] + 'ないでしょう'];
-    formsObject.Alternative = [endingArray[1] + 'り', (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;' ? "_" :endingArray[3]) + 'なかったり', 
+    formsObject.Conjectural = [endingArray[2] + 'だろう', endingArray[typeSpec === '&v5r-i;' ? 7 : 3] + 'ないだろう', 
+    endingArray[2] + 'でしょう', endingArray[typeSpec === '&v5r-i;' ? 7 : 3] + 'ないでしょう'];
+    formsObject.Alternative = [endingArray[1] + 'り', endingArray[typeSpec === '&v5r-i;' ? 7 : 3] + 'なかったり', 
     endingArray[4] + 'ましたり', endingArray[4] + 'ませんでしたり'];
-    formsObject.Imperative = [type !== 1 ? endingArray[9] : endingArray[6], endingArray[2] + 'な',
+    formsObject.Imperative = [(type !== 1 || typeSpec === '&v5aru;') ? endingArray[9] : endingArray[6], endingArray[2] + 'な',
     endingArray[4] + 'なさい', endingArray[4] + 'なさるな'];
     return(formsObject);
   }
@@ -125,9 +131,10 @@ module.exports = {
         formObject.form = forms;
         formObject.plainp = stem.concat(vclass[forms][0]);
         formObject.plainn = (/_/.test(vclass[forms][1])) ? 
-          stem.substring(0,stem.length-1).concat(vclass[forms][1]).replace('_', '') : stem.concat(vclass[forms][1]);
+        stem.substring(0,stem.length-1).concat(vclass[forms][1]).replace('_', '') : stem.concat(vclass[forms][1]);
         formObject.politep = stem.concat(vclass[forms][2]);
-        formObject.politen = stem.concat(vclass[forms][3]);
+        formObject.politen = (/_/.test(vclass[forms][3])) ? 
+        stem.substring(0,stem.length-1).concat(vclass[forms][3]).replace('_', '') : stem.concat(vclass[forms][3]);
         formsArray.push(formObject);
       }
     } 

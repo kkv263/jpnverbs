@@ -12,14 +12,14 @@ const conjugateVerb = require('./conjugate');
 //   });
 
 
-var verbtest = data2[169056]['k_ele'][0]['keb'][0];
-var typetest = data2[169056]['sense'][0]['pos'][0];
-var tester = (conjugateVerb.conjugate(verbtest, typetest));
-console.log(tester);
+// var verbtest = data2[101737]['r_ele'][0]['reb'][0];
+// var typetest = data2[101737]['sense'][0]['pos'][0];
+// var tester = (conjugateVerb.conjugate(verbtest, typetest));
+// console.log(tester);
 
 //dont do vz, vs-c, vr 
 
-// var re = /&vs-s*;/
+// var re = /&v5r-i*;/
 // for (var i = 0; i < data2.length; i++){
 //   if(re.test(data2[i]['sense'][0]['pos'][0])){
 //       console.log(i);
