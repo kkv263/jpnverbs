@@ -56,15 +56,20 @@
         endingArray = ['て', 'た', 'る', '', '', 'よ', 'れ', 'られ', 'さ', 'ろ'];
     } else {
         if (/&vk;/.test(typeSpec)){
+          type = 2;
           endingArray = ['て', 'た', 'る', '', '', 'よ', 'れ', 'られ', 'さ', 'い'];
         }
         else {
           endingArray = ['して', 'した', 'する', 'し', 'し', 'しよ', 'でき', '', 'さ', 'しろ'];
+          if (/&vs-s;/.test(typeSpec)){
+            endingArray[3] = 'さ';
+            endingArray[6] = 'しえ';
+          }
         }
     }
 
     // possible refactor later on
-    formsObject.Present = [endingArray[2], (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;'? "_" : endingArray[3]) + 'ない', 
+    formsObject.Present = [endingArray[2], (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;' ? "_" : endingArray[3]) + 'ない', 
     endingArray[4] + 'ます', endingArray[4] + 'ません'];
     formsObject.Past = [endingArray[1], (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;'? "_" :endingArray[3]) + 'なかった', 
     endingArray[4] + 'ました', endingArray[4] + 'ませんでした'];
@@ -72,7 +77,7 @@
     endingArray[4] + 'まして', endingArray[4] + 'ませんで'];
     formsObject.Present_Progressive = [endingArray[0] + 'いる', endingArray[0] + 'いない',
     endingArray[0] + 'います', endingArray[0] + 'いません'];
-    formsObject.Volitional = [endingArray[5] + 'う', (type === 2 ? '': endingArray[2]) + 'まい', 
+    formsObject.Volitional = [endingArray[5] + 'う', (type === 2 && typeSpec !== '&vk;' ) ? 'まい' : endingArray[2] + 'まい', 
     endingArray[4] + 'ましょう', endingArray[4] + 'ますまい'];
     formsObject.Desire_Present = [endingArray[4] + 'たい', endingArray[4] + 'たくない',
     endingArray[4] + 'たいです', endingArray[4] + 'たくないです'];
@@ -80,11 +85,11 @@
     endingArray[4] + 'たかったです', endingArray[4] + 'たくなかったです'];
     formsObject.Conditional= [endingArray[1] + 'ら', (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;' ? "_" :endingArray[3]) + 'なかったら', 
     endingArray[4] + 'ましたら', endingArray[4] + 'ませんでしたら'];
-    formsObject.Provisional = [(verb === 'する' ? 'すれ' : endingArray[6]) + 'ば', endingArray[3] + 'なければ',
+    formsObject.Provisional = [(/&vs.*/.test(typeSpec) ? 'すれ' : endingArray[6]) + 'ば', endingArray[3] + 'なければ',
     endingArray[4] + 'ますなら(ば)',  endingArray[4] + 'ませんなら(ば)'];
-    formsObject.Potential = [endingArray[(type !== 1 ? 7 : 6)] + 'る', endingArray[(type !== 1 ? 7 : 6)] + 'ない',
-    endingArray[(type !== 1 ? 7 : 6)] + 'ます', endingArray[(type !== 1 ? 7 : 6)] + 'ません'];
-    formsObject.Passive = (type !== 1 ? formsObject.Potential : ([endingArray[(type !== 1 ? 8 : 3)]  + 'れる', endingArray[(type !== 1 ? 8 : 3)] + 'れない',
+    formsObject.Potential = [endingArray[(type === 2 ? 7 : 6)] + 'る', endingArray[(type === 2 ? 7 : 6)] + 'ない',
+    endingArray[(type === 2 ? 7 : 6)] + 'ます', endingArray[(type === 2 ? 7 : 6)] + 'ません'];
+    formsObject.Passive = (type === 2 ? formsObject.Potential : ([endingArray[(type !== 1 ? 8 : 3)]  + 'れる', endingArray[(type !== 1 ? 8 : 3)] + 'れない',
     endingArray[(type !== 1 ? 8 : 3)] + 'れます', endingArray[(type !== 1 ? 8 : 3)] + 'れません']));
     formsObject.Causative = [endingArray[(type !== 1 ? 8 : 3)] + 'せる', endingArray[(type !== 1 ? 8 : 3)] + 'せない',
     endingArray[(type !== 1 ? 8 : 3)] + 'せます', endingArray[(type !== 1 ? 8 : 3)] + 'せません'];
@@ -108,7 +113,7 @@ module.exports = {
     var vclass = assignEndings (verb, type);
 
     if(/&vs.*;/.test(type)){
-      stem = verb.replace(/$する/, "");
+      stem = verb.replace(/為?.る$/, "");
     }
     else {
       var stem = verb.substring(0, verb.length-1);
