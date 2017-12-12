@@ -1,16 +1,31 @@
 const mongoose = require('mongoose');
-const data = require('../verbs.json');
 const data2 = require('./JMdict.json');
 const Verb = require('../models/verb');
 
-function assignEndings (verb, type) {
+function assignEndings (verb, typeSpec) {
   formsObject = new Object();
   var endingArray = [];
+  var type = 0;
+
+  if (/&vs;/.test(typeSpec)){
+    verb = verb.concat('する');
+  }
+
+  if (/&v5.*;/.test(typeSpec)){
+    type=1;
+  }
+  else if ( /&v1.*;/.test(typeSpec)){
+    type = 2;
+  }
   if (type === 1){
     var ending = verb.charAt(verb.length-1);
     switch (ending) {
       case 'う':
         endingArray = ['って', 'った', 'う','わ', 'い', 'お', 'え'];
+        if (/v5u-s/.test(typeSpec)){
+          endingArray[0] = 'うて';
+          endingArray[1] = 'うた';
+        }
         break;
       case 'つ':
         endingArray = ['って', 'った', 'つ','た', 'ち','と','て'];
@@ -35,7 +50,7 @@ function assignEndings (verb, type) {
         break;
       case 'く':
         endingArray = ['いて', 'いた', 'く','か', 'き','こ', 'け'];
-        if (verb === '行く'){
+        if (/v5k-s/.test(typeSpec)){
           endingArray[0] = 'って';
           endingArray[1] = 'った';
         }
@@ -44,7 +59,7 @@ function assignEndings (verb, type) {
   } else if (type === 2) {
       endingArray = ['て', 'た', 'る', '', '', 'よ', 'れ', 'られ', 'さ', 'ろ'];
   } else {
-      if (verb === '来る' || verb === 'くる'){
+      if (/&vk;/.test(typeSpec)){
         endingArray = ['て', 'た', 'る', '', '', 'よ', 'れ', 'られ', 'さ', 'い'];
       }
       else {
@@ -53,11 +68,11 @@ function assignEndings (verb, type) {
   }
 
   // possible refactor later on
-  formsObject.Present = [endingArray[2], endingArray[3] + 'ない', 
+  formsObject.Present = [endingArray[2], (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;'? "_" : endingArray[3]) + 'ない', 
   endingArray[4] + 'ます', endingArray[4] + 'ません'];
-  formsObject.Past = [endingArray[1], endingArray[3] + 'なかった', 
+  formsObject.Past = [endingArray[1], (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;'? "_" :endingArray[3]) + 'なかった', 
   endingArray[4] + 'ました', endingArray[4] + 'ませんでした'];
-  formsObject.Te = [endingArray[0], endingArray[3] + 'なくて',
+  formsObject.Te = [endingArray[0], (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;'? "_" :endingArray[3]) + 'なくて',
   endingArray[4] + 'まして', endingArray[4] + 'ませんで'];
   formsObject.Present_Progressive = [endingArray[0] + 'いる', endingArray[0] + 'いない',
   endingArray[0] + 'います', endingArray[0] + 'いません'];
@@ -67,7 +82,7 @@ function assignEndings (verb, type) {
   endingArray[4] + 'たいです', endingArray[4] + 'たくないです'];
   formsObject.Desire_Past = [endingArray[4] + 'たかった', endingArray[4] + 'たくなかった',
   endingArray[4] + 'たかったです', endingArray[4] + 'たくなかったです'];
-  formsObject.Conditional= [endingArray[1] + 'ら', endingArray[3] + 'なかったら', 
+  formsObject.Conditional= [endingArray[1] + 'ら', (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;' ? "_" :endingArray[3]) + 'なかったら', 
   endingArray[4] + 'ましたら', endingArray[4] + 'ませんでしたら'];
   formsObject.Provisional = [(verb === 'する' ? 'すれ' : endingArray[6]) + 'ば', endingArray[3] + 'なければ',
   endingArray[4] + 'ますなら(ば)',  endingArray[4] + 'ませんなら(ば)'];
@@ -83,7 +98,7 @@ function assignEndings (verb, type) {
   endingArray[(type !== 1 ? 8 : 3)] + 'せられます', endingArray[(type !== 1 ? 8 : 3)] + 'せられません'];
   formsObject.Conjectural = [endingArray[2] + 'だろう', endingArray[3] + 'ないだろう', 
   endingArray[2] + 'でしょう', endingArray[3] + 'ないでしょう'];
-  formsObject.Alternative = [endingArray[1] + 'り', endingArray[3] + 'なかったり', 
+  formsObject.Alternative = [endingArray[1] + 'り', (typeSpec === '&v5aru;' || typeSpec === '&v5r-i;' ? "_" :endingArray[3]) + 'なかったり', 
   endingArray[4] + 'ましたり', endingArray[4] + 'ませんでしたり'];
   formsObject.Imperative = [type !== 1 ? endingArray[9] : endingArray[6], endingArray[2] + 'な',
   endingArray[4] + 'なさい', endingArray[4] + 'なさるな'];
@@ -93,21 +108,23 @@ function assignEndings (verb, type) {
 // Conjugate forms function
 function conjugate (verb, type) {
 
-  if (verb === 'する'){
-    var stem = '';
+  var formsArray = [];
+  var vclass = assignEndings (verb, type);
+
+  if(/&vs.*;/.test(type)){
+    stem = verb.replace(/$する/, "");
   }
   else {
     var stem = verb.substring(0, verb.length-1);
   }
-  var formsArray = [];
-  var vclass = assignEndings (verb, type);
 
   for (var forms in vclass) {
     if (vclass.hasOwnProperty(forms)){
       formObject = new Object();
       formObject.form = forms;
       formObject.plainp = stem.concat(vclass[forms][0]);
-      formObject.plainn= stem.concat(vclass[forms][1]);
+      formObject.plainn = (/_/.test(vclass[forms][1])) ? 
+        stem.substring(0,stem.length-1).concat(vclass[forms][1]).replace('_', '') : stem.concat(vclass[forms][1]);
       formObject.politep = stem.concat(vclass[forms][2]);
       formObject.politen = stem.concat(vclass[forms][3]);
       formsArray.push(formObject);
@@ -116,9 +133,6 @@ function conjugate (verb, type) {
 
   return formsArray;
 }
-
-console.log(conjugate('来る', 3));
-console.log(conjugate('する', 3));
 
 // Connect to DB
 // mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
@@ -129,21 +143,21 @@ console.log(conjugate('する', 3));
 //   });
 
 
-// for (var i = 0; i < data.length; i ++){
-//   if (data[i] !== null){
-//     if (data[i]['kdict'] === 'N/A'){
-//       if (data[i]['class'] === 2){
-//         conjugate(data[i]['hdict'], ichidan);
-//       }
-//     }
-//     else
-//       if (data[i]['class'] === 2){
-//         conjugate(data[i]['kdict'], ichidan);
-//       }
+var verbtest = data2[27738]['k_ele'][0]['keb'][0];
+var typetest = data2[27738]['sense'][0]['pos'][0];
+console.log(conjugate(verbtest, typetest));
+//dont do vz, vs-c, vr 
+
+// var re = /&v5r-i*;/
+// for (var i = 0; i < data2.length; i++){
+//   if(re.test(data2[i]['sense'][0]['pos'][0])){
+//       console.log(i);
+//       console.log(data2[i]['r_ele']);
+//       console.log(data2[i]['sense'][0]['gloss']);
+//       console.log(data2[i]['sense'][0]['pos']);
 //   }
 // }
 
-//console.log(data2[0]['r_ele'][0]);
 
 // var verb = new Verb({
 //   rdict: data[3]['rdict'],
