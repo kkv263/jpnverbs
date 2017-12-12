@@ -1,32 +1,30 @@
 const assert = require('assert');
-const Verb = require('../models/verb');
+const Entry = require('../models/entry');
 
 describe('Saving records', function(){
   it('Saves a record to the database', function(done){
 
-    var verb = new Verb({
+    var entry = new Entry({
       rdict: 'taberu',
-      hdict: 'たべる',
-      kdict: '食べる',
-      definition: 'to eat',
-      class: 2
+      hdict: ['たべる'],
+      kdict: ['食べる'],
     });
 
-    verb.save().then(function(){
-      assert(!verb.isNew);
+    entry.save().then(function(){
+      assert(!entry.isNew);
       done();
     });
 
   });
 
   it('Creates record with sub form', function(done){
-    var verb = new Verb({
+    var entry = new Entry({
       rdict: 'miru',
       forms: [{form: 'Present', plainp: '見る', plainn: '見ない', politep: '見ます', politen: '見ません'}]
     });
 
-    verb.save().then(function(){
-      Verb.findOne({rdict: 'miru'}).then(function(result){
+    entry.save().then(function(){
+      Entry.findOne({rdict: 'miru'}).then(function(result){
         assert(result.forms.length === 1);
         done();
       });

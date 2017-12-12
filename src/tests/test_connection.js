@@ -17,7 +17,7 @@ before(function(done){
 
 // Drop the collection before each test
   beforeEach(function(done){
-    mongoose.connection.collections.verbs.drop(function(){
+    mongoose.connection.collections.entries.drop(function(){
       done();
     });
 });

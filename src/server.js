@@ -3,7 +3,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var Verb = require('./models/verb');
+var Entry = require('./models/entry');
 
 var app = express();
 var router = express.Router();
@@ -11,7 +11,7 @@ var router = express.Router();
 var port = process.env.API_PORT || 3001;
 
 //connect to db
-mongoose.connect('mongodb://localhost/verbsdev', { useMongoClient: true });
+mongoose.connect('mongodb://localhost/entrysdev', { useMongoClient: true });
 mongoose.connection.once('open', function(){
   console.log('Connection has been made...');
   }).on('error', function(error){
@@ -41,11 +41,11 @@ router.get('/', function(req, res) {
  res.json({ message: 'API working!'});
 });
 
-router.route('/verbs').get(function(req, res) {
-  Verb.find(function(err, verbs) {
+router.route('/entrys').get(function(req, res) {
+  Entry.find(function(err, entrys) {
     if (err)
       res.send(err);
-    res.json(verbs);
+    res.json(entrys);
   });
 });
 
