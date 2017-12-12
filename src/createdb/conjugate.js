@@ -82,9 +82,9 @@
     endingArray[4] + 'ましたら', endingArray[4] + 'ませんでしたら'];
     formsObject.Provisional = [(verb === 'する' ? 'すれ' : endingArray[6]) + 'ば', endingArray[3] + 'なければ',
     endingArray[4] + 'ますなら(ば)',  endingArray[4] + 'ませんなら(ば)'];
-    formsObject.Potential = [endingArray[(type === 2 ? 7 : 6)] + 'る', endingArray[(type === 2 ? 7 : 6)] + 'ない',
-    endingArray[(type === 2 ? 7 : 6)] + 'ます', endingArray[(type === 2 ? 7 : 6)] + 'ません'];
-    formsObject.Passive = (type === 2 ? formsObject.Potential : ([endingArray[(type !== 1 ? 8 : 3)]  + 'れる', endingArray[(type !== 1 ? 8 : 3)] + 'れない',
+    formsObject.Potential = [endingArray[(type !== 1 ? 7 : 6)] + 'る', endingArray[(type !== 1 ? 7 : 6)] + 'ない',
+    endingArray[(type !== 1 ? 7 : 6)] + 'ます', endingArray[(type !== 1 ? 7 : 6)] + 'ません'];
+    formsObject.Passive = (type !== 1 ? formsObject.Potential : ([endingArray[(type !== 1 ? 8 : 3)]  + 'れる', endingArray[(type !== 1 ? 8 : 3)] + 'れない',
     endingArray[(type !== 1 ? 8 : 3)] + 'れます', endingArray[(type !== 1 ? 8 : 3)] + 'れません']));
     formsObject.Causative = [endingArray[(type !== 1 ? 8 : 3)] + 'せる', endingArray[(type !== 1 ? 8 : 3)] + 'せない',
     endingArray[(type !== 1 ? 8 : 3)] + 'せます', endingArray[(type !== 1 ? 8 : 3)] + 'せません'];
