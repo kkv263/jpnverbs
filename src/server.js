@@ -11,7 +11,7 @@ var router = express.Router();
 var port = process.env.API_PORT || 3001;
 
 //connect to db
-mongoose.connect('mongodb://localhost/entrysdev', { useMongoClient: true });
+mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
 mongoose.connection.once('open', function(){
   console.log('Connection has been made...');
   }).on('error', function(error){
@@ -41,11 +41,11 @@ router.get('/', function(req, res) {
  res.json({ message: 'API working!'});
 });
 
-router.route('/entrys').get(function(req, res) {
-  Entry.find(function(err, entrys) {
+router.route('/entries').get(function(req, res) {
+  Entry.find(function(err, entries) {
     if (err)
       res.send(err);
-    res.json(entrys);
+    res.json(entries);
   });
 });
 

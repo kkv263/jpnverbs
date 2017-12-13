@@ -10,18 +10,18 @@ var FormSchema = new Schema({
 });
 
 var InfoSchema = new Schema({
-  definition: [String],
+  definition: String,
   pos: [String],
   xref: [String],
-  misc: [String],
+  misc: [[String]],
 });
 
 var EntrySchema = new Schema({
-  rdict: String,
   hdict: [String],
   kdict: [String],  
   info: [InfoSchema],
-  forms: [FormSchema]
+  forms: [FormSchema],
+  conjugate: Boolean
 });
 
 
