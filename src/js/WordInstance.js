@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { WIWrapper, WordWrapper, SearchBar, WordContainer, 
-  ExtraWrapper, WordCell, CellHeader, CellForm, WordTable,
-  Button, WordHeader, WordAttributes, WordTitleWrapper,
-  AttributesWrapper, WordDefinition, DefinitionList, Notes, 
-  WordFooter,} from '../styles/WordInstance.style';
+  WordCell, CellHeader, CellForm, WordTable, Button, 
+  WordHeader, WordAttributes, WordTitleWrapper,
+  AttributesWrapper, WordDefinition, DefinitionList, 
+  Notes, WordFooter, FormWrapper,} from '../styles/WordInstance.style';
 
 
 class WordInstance extends Component {
@@ -181,10 +181,10 @@ class WordInstance extends Component {
                 <Notes ><li>Usually written using kana alone</li></Notes>
               </DefinitionList>
             </AttributesWrapper>
-            {formsList}
           </WordWrapper>
-          <ExtraWrapper>
-          </ExtraWrapper>
+          <FormWrapper>
+            {formsList}
+          </FormWrapper>
         </WordContainer>
       </WIWrapper> 
     );

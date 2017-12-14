@@ -14,9 +14,8 @@ const conjugateEntry = require('./conjugate');
 //dont do vz, vs-c, vr 
 var re = /&v[^2-4zr]-?[^c]*;/
 const miscArray = ['misc', 'field', 'lsource', 'ant', 'dial', 'pri', 's_inf'];
-
 for (var i = 0; i < data2.length; i++){
-  // for (var i = 387; i < 390; i++){
+  if (re.test(data2[i]['sense'][0]['pos'][0])){
       var entry = new Entry();
       var conjugate = false;
 
@@ -61,7 +60,6 @@ for (var i = 0; i < data2.length; i++){
         (entry.info).push({definition: definition, pos: pos, xref:xref, misc:misc});
       }
 
-      if (re.test(data2[i]['sense'][0]['pos'][0])){
         if ('k_ele' in data2[i]){
           conjugate = true;
           entry.forms = conjugateEntry.conjugate(data2[i]['k_ele'][0]['keb'][0], data2[i]['sense'][0]['pos'][0]);
@@ -69,16 +67,15 @@ for (var i = 0; i < data2.length; i++){
           conjugate = true;
           entry.forms = conjugateEntry.conjugate(data2[i]['r_ele'][0]['reb'][0], data2[i]['sense'][0]['pos'][0]);
         }
-      } 
       entry.conjugate = conjugate;
 
-      if (i === 387){
-        console.log(entry);
-        console.log(entry.info[0].misc);
-      }
       // entry.save().then(function() {
       //   mongoose.disconnect();
       // });
+
+      // console.log('Saving: ' + i);
+    }
+
 }
 
 
