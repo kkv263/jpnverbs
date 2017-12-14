@@ -2,49 +2,72 @@ import styled from 'styled-components';
 
 export const WIWrapper = styled.div`
 width: 100%;
-background-color:#f9f9f9;
+background-color:white;
 `
 
 export const WordTitleWrapper = styled.div`
 margin-left: 2.5%;
 margin-top: 2.5%;
+margin-bottom: 5%;
 `
 
 export const WordHeader = styled.h1`
-font-size: 2em;
+font-size: 3em;
 color: ${props => props.Color};
+`
+
+export const WordFooter = styled.h1`
+color: #909090;
+font-weight: 100;
+font-size: 1.5em;
+`
+
+export const AttributesWrapper = styled.div`
+margin-left: 2.5%;
+margin-bottom: 5%;
+margin-top: 5%;
 `
 
 export const WordAttributes = styled.p`
 font-weight: 100;
-color: #909090;
+font-size: 1.5em;
+color: #45B29D;
+`
+
+export const DefinitionList = styled.ol`
+`
+export const WordDefinition = styled.li`
+font-size: 1.5em;
 margin-top: 5px;
+margin-left: 2.5%;
+font-family: 'Hind Siliguri', sans-serif;
+color : #3E4E50;
+`
+
+export const Notes = styled.ul`
+color: #909090;
+margin-left: 2.5%;
+list-style: none;
+font-family: 'Hind Siliguri', sans-serif;
 `
 
 export const WordContainer = styled.div`
 display: grid;
 grid-template-columns: 1.5fr 1fr;
 grid-column-gap: 20px;
-border-radius: 8px;
 margin-left: 2.5%;
 margin-right: 2.5%;
 `
 
 export const WordWrapper = styled.div`
-border: 1px solid #b0b0b0;
-border-radius: 8px;
 background-color:white;
-display:grid;
-grid-template-rows: 1.75fr 1fr 1fr 1fr;
-grid-row-gap: 20px;
 `
 
 export const WordTable = styled.div`
 height: 140px;
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
-margin-left: 2.5%;
-margin-right: 2.5%;
+margin: 2.5%;
 border: 1px solid #ededed;
 border-radius: 3px;
 background-color:white;
@@ -53,7 +76,7 @@ background-color:white;
 export const WordCell = styled.div`
 grid-column: ${props => props.gridColumn};
 font-family: "Sawarabi Mincho";
-font-size: .8em;
+font-size: 1em;
 color: #778486;
 padding: 10px 10px;
 `
@@ -61,8 +84,9 @@ padding: 10px 10px;
 export const CellHeader = styled.p`
 font-weight: 100;
 font-size: 1em;
-color:black;
+color:#3E4E50;
 text-decoration: underline;
+font-family: 'Hind Siliguri', sans-serif;
 `
 
 export const CellForm = styled.h1`

@@ -4,12 +4,12 @@ const Entry = require('../models/entry');
 const conjugateEntry = require('./conjugate');
 
 // Connect to DB
-mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
-mongoose.connection.once('open', function(){
-  console.log('Connection has been made...');
-  }).on('error', function(error){
-    console.log('Connection error:', error);
-  });
+// mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
+// mongoose.connection.once('open', function(){
+//   console.log('Connection has been made...');
+//   }).on('error', function(error){
+//     console.log('Connection error:', error);
+//   });
 
 //dont do vz, vs-c, vr 
 var re = /&v[^2-4zr]-?[^c]*;/
@@ -72,9 +72,13 @@ for (var i = 0; i < data2.length; i++){
       } 
       entry.conjugate = conjugate;
 
-      entry.save().then(function() {
-        mongoose.disconnect();
-      });
+      if (i === 387){
+        console.log(entry);
+        console.log(entry.info[0].misc);
+      }
+      // entry.save().then(function() {
+      //   mongoose.disconnect();
+      // });
 }
 
 

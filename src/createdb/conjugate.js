@@ -81,13 +81,13 @@
     endingArray[4] + 'ました', endingArray[4] + 'ませんでした'];
     formsObject.Te = [endingArray[0], endingArray[typeSpec === '&v5r-i;' ? 7 : 3] + 'なくて',
     endingArray[4] + 'まして', endingArray[4] + 'ませんで'];
-    formsObject.Present_Progressive = [endingArray[0] + 'いる', endingArray[0] + 'いない',
+    formsObject['Present Progressive'] = [endingArray[0] + 'いる', endingArray[0] + 'いない',
     endingArray[0] + 'います', endingArray[0] + 'いません'];
     formsObject.Volitional = [endingArray[5] + 'う', (type === 2 && typeSpec !== '&vk;' ) ? 'まい' : endingArray[2] + 'まい', 
     endingArray[4] + 'ましょう', endingArray[4] + 'ますまい'];
-    formsObject.Desire_Present = [endingArray[4] + 'たい', endingArray[4] + 'たくない',
+    formsObject['Desire (Present)'] = [endingArray[4] + 'たい', endingArray[4] + 'たくない',
     endingArray[4] + 'たいです', endingArray[4] + 'たくないです'];
-    formsObject.Desire_Past = [endingArray[4] + 'たかった', endingArray[4] + 'たくなかった',
+    formsObject['Desire (Past)'] = [endingArray[4] + 'たかった', endingArray[4] + 'たくなかった',
     endingArray[4] + 'たかったです', endingArray[4] + 'たくなかったです'];
     formsObject.Conditional= [endingArray[1] + 'ら', endingArray[typeSpec === '&v5r-i;' ? 7 : 3] + 'なかったら', 
     endingArray[4] + 'ましたら', endingArray[4] + 'ませんでしたら'];
@@ -99,9 +99,9 @@
     endingArray[(type !== 1 ? 8 : 3)] + 'れます', endingArray[(type !== 1 ? 8 : 3)] + 'れません']));
     formsObject.Causative = [endingArray[(type !== 1 ? 8 : 3)] + 'せる', endingArray[(type !== 1 ? 8 : 3)] + 'せない',
     endingArray[(type !== 1 ? 8 : 3)] + 'せます', endingArray[(type !== 1 ? 8 : 3)] + 'せません'];
-    formsObject.Causative_Alt = [endingArray[(type !== 1 ? 8 : 3)] + 'す', endingArray[(type !== 1 ? 8 : 3)] + 'さない',
+    formsObject['Causative (Alt.)'] = [endingArray[(type !== 1 ? 8 : 3)] + 'す', endingArray[(type !== 1 ? 8 : 3)] + 'さない',
     endingArray[(type !== 1 ? 8 : 3)] + 'します', endingArray[(type !== 1 ? 8 : 3)] + 'しません'];
-    formsObject.Causative_Passive = [endingArray[(type !== 1 ? 8 : 3)] + 'せられる', endingArray[(type !== 1 ? 8 : 3)] + 'せられない',
+    formsObject['Causative Passive'] = [endingArray[(type !== 1 ? 8 : 3)] + 'せられる', endingArray[(type !== 1 ? 8 : 3)] + 'せられない',
     endingArray[(type !== 1 ? 8 : 3)] + 'せられます', endingArray[(type !== 1 ? 8 : 3)] + 'せられません'];
     formsObject.Conjectural = [endingArray[2] + 'だろう', endingArray[typeSpec === '&v5r-i;' ? 7 : 3] + 'ないだろう', 
     endingArray[2] + 'でしょう', endingArray[typeSpec === '&v5r-i;' ? 7 : 3] + 'ないでしょう'];
