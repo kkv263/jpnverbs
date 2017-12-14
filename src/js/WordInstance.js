@@ -159,9 +159,9 @@ class WordInstance extends Component {
       <WIWrapper>
           <form onSubmit={this.handleSubmit}>
             <label>
-              <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a verb in English or Japanese..." />
+              <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
             </label>
-            <Button type="submit" value="Conjugate"/>
+            <Button type="submit" value="Search"/>
           </form>
         <WordContainer>
           <WordWrapper>

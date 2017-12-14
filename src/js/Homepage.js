@@ -25,14 +25,14 @@ class Homepage extends Component {
     return (
       <HomeWrapper>
         <ConjugateWrapper>
-        <Slogan>Conjugate Japanese verbs with ease.</Slogan>
+        <Slogan>An Online Japanese-English Dictionary </Slogan>
           <form onSubmit={this.handleSubmit}>
             <label>
-              <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a verb in English or Japanese..." />
+              <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
             </label>
-            <Button type="submit" value="Conjugate"/>
+            <Button type="submit" value="Search"/>
           </form>
-        <Tip>Try popular searches like: する, 食べる, 読む</Tip>
+        <Tip>Try popular searches like: 日本語, 食べる, 読む</Tip>
         </ConjugateWrapper> 
       </HomeWrapper>
     );
