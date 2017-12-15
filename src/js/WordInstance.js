@@ -4,7 +4,7 @@ import { WIWrapper, WordWrapper, SearchBar, WordContainer,
   WordHeader, WordAttributes, WordTitleWrapper,
   AttributesWrapper, WordDefinition, DefinitionList, 
   Notes, WordFooter, FormWrapper,} from '../styles/WordInstance.style';
-
+import axios from 'axios';
 
 class WordInstance extends Component {
   constructor(props) {
@@ -15,6 +15,16 @@ class WordInstance extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  // componentDidMount(){
+  //   axios.get('http://localhost:3001/api/entries')
+  //     .then(data => {
+
+  //       this.setState({
+  //       });
+
+  //     });
+  // }
 
   handleChange(event) {
     this.setState({value: event.target.value});
@@ -130,8 +140,8 @@ class WordInstance extends Component {
     politen: '拘りなさるな',
     } ]
 
-    const formsList = forms.map ( (forms) => 
-    <WordTable>
+    const formsList = forms.map ((forms, index) => 
+    <WordTable key={index}>
       <WordCell>
         <CellForm>{forms.form}</CellForm>
       </WordCell> 

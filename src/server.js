@@ -1,5 +1,5 @@
 'use strict'
-
+var user = require('./cred');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
@@ -10,8 +10,11 @@ var router = express.Router();
 
 var port = process.env.API_PORT || 3001;
 
+// const mongoUrl = 'mongodb://localhost/test'
+const mongoUrl = 'mongodb://' + user.user + ':' + user.pw +'@ds059207.mlab.com:59207/conjugations';
+
 //connect to db
-mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
+mongoose.connect(mongoUrl, { useMongoClient: true });
 mongoose.connection.once('open', function(){
   console.log('Connection has been made...');
   }).on('error', function(error){
