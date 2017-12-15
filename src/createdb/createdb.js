@@ -15,7 +15,7 @@ const conjugateEntry = require('./conjugate');
 
 //dont do vz, vs-c, vr 
 var re = /&v[^2-4zr]-?[^c]*;/
-const miscArray = ['misc', 'field', 'lsource', 'ant', 'dial', 'pri', 's_inf'];
+const miscArray = ['misc', 'field', 'ant', 'dial', 'pri', 's_inf'];
 for (var i = 0; i < data2.length; i++){
   if (re.test(data2[i]['sense'][0]['pos'][0])){
       var entry = new Entry();
@@ -49,8 +49,8 @@ for (var i = 0; i < data2.length; i++){
         if ('pos' in data2[i]['sense'][j]){
           pos = data2[i]['sense'][j]['pos'];
           for (var k = 0; k < pos.length; k++){
-            if (pos[k] in tagMap) {
-              pos[k] = tagMap[pos[k]];
+            if (pos[k] in verbMap) {
+              pos[k] = verbMap[pos[k]];
             }
           }
         }  
@@ -61,6 +61,14 @@ for (var i = 0; i < data2.length; i++){
         for (var k = 0; k < miscArray.length; k ++){
           if (miscArray[k] in data2[i]['sense'][j]){
             misc = data2[i]['sense'][j][miscArray[k]];
+            for (var m = 0; m < misc.length; m++){
+              if (misc[m] in miscMap) {
+                misc[m] = miscMap[misc[m]];
+              }
+              else {
+                misc[m] = misc[m].charAt(0).toUpperCase() + misc[m].slice(1);
+              }
+            }
           }  
         }
 
