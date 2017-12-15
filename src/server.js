@@ -10,8 +10,8 @@ var router = express.Router();
 
 var port = process.env.API_PORT || 3001;
 
-// const mongoUrl = 'mongodb://localhost/test'
-const mongoUrl = 'mongodb://' + user.user + ':' + user.pw +'@ds059207.mlab.com:59207/conjugations';
+const mongoUrl = 'mongodb://localhost/test'
+// const mongoUrl = 'mongodb://' + user.user + ':' + user.pw +'@ds059207.mlab.com:59207/conjugations';
 
 //connect to db
 mongoose.connect(mongoUrl, { useMongoClient: true });
@@ -53,7 +53,7 @@ router.route('/entries').get(function(req, res) {
 });
 
 //Use our router configuration when we call /api
-app.use('/api', router);
+app.use('/api/v1', router);
 //starts the server and listens for requests
 app.listen(port, function() {
  console.log(`api running on port ${port}`);

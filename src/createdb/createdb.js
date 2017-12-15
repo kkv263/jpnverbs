@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const data2 = require('./JMdict.json');
 const Entry = require('../models/entry');
 const conjugateEntry = require('./conjugate');
-
+var user = require('./cred');
 // const mongoUrl = 'mongodb://localhost/test'
-const mongoUrl = 'mongodb://kkv263:purpl512!@ds059207.mlab.com:59207/conjugations';
+
+const mongoUrl = 'mongodb://' + user.user + ':' + user.pw +'@ds059207.mlab.com:59207/conjugations';
 
 //Connect to DB
 mongoose.connect(mongoUrl, { useMongoClient: true });
