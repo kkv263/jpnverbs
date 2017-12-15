@@ -1,7 +1,9 @@
+const tagMap = require ('./tagmap');
 const mongoose = require('mongoose');
 const data2 = require('./JMdict.json');
 const Entry = require('../models/entry');
 const conjugateEntry = require('./conjugate');
+
 
 // Connect to DB
 // mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
@@ -46,6 +48,11 @@ for (var i = 0; i < data2.length; i++){
         var definition = data2[i]['sense'][j]['gloss'].join('; ');
         if ('pos' in data2[i]['sense'][j]){
           pos = data2[i]['sense'][j]['pos'];
+          for (var k = 0; k < pos.length; k++){
+            if (pos[k] in tagMap) {
+              pos[k] = tagMap[pos[k]];
+            }
+          }
         }  
         if ('xref' in data2[i]['sense'][j]){
           xref = data2[i]['sense'][j]['xref'];
