@@ -10,8 +10,8 @@ var router = express.Router();
 
 var port = process.env.API_PORT || 3001;
 
-const mongoUrl = 'mongodb://localhost/test'
-// const mongoUrl = 'mongodb://' + user.user + ':' + user.pw +'@ds059207.mlab.com:59207/conjugations';
+//const mongoUrl = 'mongodb://localhost/test'
+const mongoUrl = 'mongodb://' + user.user + ':' + user.pw +'@ds059207.mlab.com:59207/conjugations';
 
 //connect to db
 mongoose.connect(mongoUrl, { useMongoClient: true });
@@ -44,10 +44,11 @@ router.get('/', function(req, res) {
  res.json({ message: 'API working!'});
 });
 
-router.route('/entries').get(function(req, res) {
-  Entry.find(function(err, entries) {
+router.route('/entries/:name').get(function(req, res) {
+  Entry.findOne({'kdict' : req.params.name}, function(err, entries) {
     if (err)
       res.send(err);
+    console.log(req.params.name);
     res.json(entries);
   });
 });

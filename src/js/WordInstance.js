@@ -5,6 +5,7 @@ import { WIWrapper, WordWrapper, SearchBar, WordContainer,
   AttributesWrapper, WordDefinition, DefinitionList, 
   Notes, WordFooter, FormWrapper,} from '../styles/WordInstance.style';
 import axios from 'axios';
+const queryString = require('query-string');
 
 class WordInstance extends Component {
   constructor(props) {
@@ -16,15 +17,20 @@ class WordInstance extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // componentDidMount(){
-  //   axios.get('http://localhost:3001/api/entries')
-  //     .then(data => {
+  componentDidMount(){
+    var query = this.props.location.search;
+    var parsed = queryString.parse(query);
+    console.log(parsed);
+    console.log(parsed.value)
 
-  //       this.setState({
-  //       });
+    axios.get('/api/v1/entries/' + parsed.value)
+      .then(data => {
+        console.log(data.data);
+        this.setState({
+        });
 
-  //     });
-  // }
+      });
+  }
 
   handleChange(event) {
     this.setState({value: event.target.value});
@@ -167,7 +173,7 @@ class WordInstance extends Component {
 
     return (
       <WIWrapper>
-          <form onSubmit={this.handleSubmit}>
+          <form action="http://localhost:3001/api/v1/test" method="post" onSubmit={this.handleSubmit}>
             <label>
               <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
             </label>

@@ -31,7 +31,7 @@ class Homepage extends Component {
             <label>
               <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
             </label>
-            <Link to={this.state.value}><Button type="submit" value="Search"/></Link>
+            <Link to={'/search?value=' + this.state.value}><Button type="submit" value="Search"/></Link>
           </form>
         <Tip>Try popular searches like: 飲む, 食べる, 読む</Tip>
 
