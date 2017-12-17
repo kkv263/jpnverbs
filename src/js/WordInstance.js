@@ -11,7 +11,12 @@ class WordInstance extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
+      forms: [],
+      kanji: '',
+      kother: [],
+      hira: '',
+      info: []
   };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,13 +25,17 @@ class WordInstance extends Component {
   componentDidMount(){
     var query = this.props.location.search;
     var parsed = queryString.parse(query);
-    console.log(parsed);
-    console.log(parsed.value)
 
     axios.get('/api/v1/entries/' + parsed.value)
       .then(data => {
-        console.log(data.data);
+        var entry = data.data;
+        
         this.setState({
+          forms: entry.forms,
+          kanji: entry.kdict[0],
+          kother: entry.kdict.slice(1),
+          hira: entry.hdict[0],
+          info: entry.info
         });
 
       });
@@ -42,110 +51,7 @@ class WordInstance extends Component {
 
   render() {
 
-    const forms =    
-    [ { form: 'Present',
-    plainp: '拘る',
-    plainn: '拘らない',
-    politep: '拘ります',
-    politen: '拘りません',
-    },
-  { form: 'Past',
-    plainp: '拘った',
-    plainn: '拘らなかった',
-    politep: '拘りました',
-    politen: '拘りませんでした',
-    },
-  { form: 'Te',
-    plainp: '拘って',
-    plainn: '拘らなくて',
-    politep: '拘りまして',
-    politen: '拘りませんで',
-    },
-  { form: 'Present Progressive',
-    plainp: '拘っている',
-    plainn: '拘っていない',
-    politep: '拘っています',
-    politen: '拘っていません',
-    },
-  { form: 'Volitional',
-    plainp: '拘ろう',
-    plainn: '拘るまい',
-    politep: '拘りましょう',
-    politen: '拘りますまい',
-    },
-  { form: 'Desire (Present)',
-    plainp: '拘りたい',
-    plainn: '拘りたくない',
-    politep: '拘りたいです',
-    politen: '拘りたくないです',
-    },
-  { form: 'Desire (Past)',
-    plainp: '拘りたかった',
-    plainn: '拘りたくなかった',
-    politep: '拘りたかったです',
-    politen: '拘りたくなかったです',
-    },
-  { form: 'Conditional',
-    plainp: '拘ったら',
-    plainn: '拘らなかったら',
-    politep: '拘りましたら',
-    politen: '拘りませんでしたら',
-    },
-  { form: 'Provisional',
-    plainp: '拘れば',
-    plainn: '拘らなければ',
-    politep: '拘りますなら(ば)',
-    politen: '拘りませんなら(ば)',
-    },
-  { form: 'Potential',
-    plainp: '拘れる',
-    plainn: '拘れない',
-    politep: '拘れます',
-    politen: '拘れません',
-    },
-  { form: 'Passive',
-    plainp: '拘られる',
-    plainn: '拘られない',
-    politep: '拘られます',
-    politen: '拘られません',
-    },
-  { form: 'Causative',
-    plainp: '拘らせる',
-    plainn: '拘らせない',
-    politep: '拘らせます',
-    politen: '拘らせません',
-    },
-  { form: 'Causative (Alt.)',
-    plainp: '拘らす',
-    plainn: '拘らさない',
-    politep: '拘らします',
-    politen: '拘らしません',
-    },
-  { form: 'Causative Passive',
-    plainp: '拘らせられる',
-    plainn: '拘らせられない',
-    politep: '拘らせられます',
-    politen: '拘らせられません',
-    },
-  { form: 'Conjectural',
-    plainp: '拘るだろう',
-    plainn: '拘らないだろう',
-    politep: '拘るでしょう',
-    politen: '拘らないでしょう',
-    },
-  { form: 'Alternative',
-    plainp: '拘ったり',
-    plainn: '拘らなかったり',
-    politep: '拘りましたり',
-    politen: '拘りませんでしたり',
-    },
-  { form: 'Imperative',
-    plainp: '拘れ',
-    plainn: '拘るな',
-    politep: '拘りなさい',
-    politen: '拘りなさるな',
-    } ]
-
+    const forms = this.state.forms;
     const formsList = forms.map ((forms, index) => 
     <WordTable key={index}>
       <WordCell>
@@ -168,8 +74,21 @@ class WordInstance extends Component {
         <p>{forms.politen}</p>
       </WordCell> 
     </WordTable>
-    
     ); 
+
+    const info = this.state.info;
+    const infoList = info.map ((info,index) => 
+    <div key={index}>
+      <WordAttributes>{info.pos.join(', ')}</WordAttributes>
+      <WordDefinition>{info.definition}</WordDefinition>
+      <Notes>{info.misc}</Notes>
+    </div>
+    );
+
+    const otherForms = this.state.kother;
+    var length = otherForms.length;
+    const otherFormsList = otherForms.map((otherForms, index) =>
+    <span key={index}>{otherForms + (length - 1 === index ? '' : '・')}</span>);
 
     return (
       <WIWrapper>
@@ -182,19 +101,13 @@ class WordInstance extends Component {
         <WordContainer>
           <WordWrapper>
             <WordTitleWrapper>
-              <WordHeader Color = "#45B29D">拘る</WordHeader>
-              <WordHeader Color = "#3E4E50">こたわる</WordHeader>
-              <WordFooter>Alternative Forms: 拘わる </WordFooter>
+              <WordHeader Color = "#45B29D">{this.state.kanji}</WordHeader>
+              <WordHeader Color = "#3E4E50">{this.state.hira}</WordHeader>
+              {otherForms.length !== 0 ? (<WordFooter>Other or Similar : {otherFormsList} </WordFooter>) : null}
             </WordTitleWrapper>
             <AttributesWrapper>
               <DefinitionList>
-                <WordAttributes>Godan verb with る ending, intransitive verb</WordAttributes>
-                <WordDefinition> to fuss over; to be particular about</WordDefinition>
-                <Notes><li>Usually written using kana alone</li></Notes>
-                <WordDefinition> to be obsessive about; to be fixated on</WordDefinition>
-                <Notes><li>Usually written using kana alone</li></Notes>
-                <WordDefinition> to obstruct; to hinder</WordDefinition>
-                <Notes ><li>Usually written using kana alone</li></Notes>
+                {infoList}
               </DefinitionList>
             </AttributesWrapper>
           </WordWrapper>

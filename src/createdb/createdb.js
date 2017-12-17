@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const data2 = require('./JMdict.json');
 const Entry = require('../models/entry');
 const conjugateEntry = require('./conjugate');
-var user = require('./cred');
+var user = require('../cred');
 // const mongoUrl = 'mongodb://localhost/test'
 
 const mongoUrl = 'mongodb://' + user.user + ':' + user.pw +'@ds059207.mlab.com:59207/conjugations';
@@ -19,6 +19,7 @@ mongoose.connection.once('open', function(){
 //dont do vz, vs-c, vr 
 var re = /&v[^2-4zr]-?[^c]*;/
 const miscArray = ['misc', 'field', 'ant', 'dial', 'pri', 's_inf'];
+console.log('Creating database');
 for (var i = 0; i < data2.length; i++){
   if (re.test(data2[i]['sense'][0]['pos'][0])){
       var entry = new Entry();
@@ -40,6 +41,15 @@ for (var i = 0; i < data2.length; i++){
       } 
       entry.kdict = kanjiArray;
       entry.hdict = hiraArray;
+
+      if ('k_ele' in data2[i]){
+        conjugate = true;
+        entry.forms = conjugateEntry.conjugate(data2[i]['k_ele'][0]['keb'][0], data2[i]['sense'][0]['pos'][0]);
+      }else{
+        conjugate = true;
+        entry.forms = conjugateEntry.conjugate(data2[i]['r_ele'][0]['reb'][0], data2[i]['sense'][0]['pos'][0]);
+      }
+      entry.conjugate = conjugate;
 
       for (var j = 0; j < data2[i]['sense'].length; j++){
         // each loop new schema for these three
@@ -78,24 +88,12 @@ for (var i = 0; i < data2.length; i++){
         (entry.info).push({definition: definition, pos: pos, xref:xref, misc:misc});
       }
 
-        if ('k_ele' in data2[i]){
-          conjugate = true;
-          entry.forms = conjugateEntry.conjugate(data2[i]['k_ele'][0]['keb'][0], data2[i]['sense'][0]['pos'][0]);
-        }else{
-          conjugate = true;
-          entry.forms = conjugateEntry.conjugate(data2[i]['r_ele'][0]['reb'][0], data2[i]['sense'][0]['pos'][0]);
-        }
-      entry.conjugate = conjugate;
 
-      entry.save().then(function() {
+
+      entry.save(function(){
+        console.log ('Saving' );
+      }).then(function() {
         mongoose.disconnect();
       });
-
-      console.log('Saving: ' + i);
     }
-
 }
-
-
-
-

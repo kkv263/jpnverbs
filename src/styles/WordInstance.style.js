@@ -8,7 +8,7 @@ background-color:white;
 export const WordTitleWrapper = styled.div`
 margin-left: 2.5%;
 margin-top: 2.5%;
-margin-bottom: 5%;
+margin-bottom: 1%;
 `
 
 export const WordHeader = styled.h1`
@@ -25,7 +25,6 @@ font-size: 1.5em;
 export const AttributesWrapper = styled.div`
 margin-left: 2.5%;
 margin-bottom: 5%;
-margin-top: 5%;
 `
 
 export const WordAttributes = styled.p`

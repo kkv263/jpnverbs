@@ -45,10 +45,9 @@ router.get('/', function(req, res) {
 });
 
 router.route('/entries/:name').get(function(req, res) {
-  Entry.findOne({'kdict' : req.params.name}, function(err, entries) {
+  Entry.findOne({"$or": [{'kdict': req.params.name}, {'hdict' : req.params.name}]}, function(err, entries) {
     if (err)
       res.send(err);
-    console.log(req.params.name);
     res.json(entries);
   });
 });
