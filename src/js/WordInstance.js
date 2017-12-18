@@ -81,7 +81,8 @@ class WordInstance extends Component {
     <div key={index}>
       <WordAttributes>{info.pos.join(', ')}</WordAttributes>
       <WordDefinition>{info.definition}</WordDefinition>
-      <Notes>{info.misc}</Notes>
+      <Notes>{info.misc.map((misc, jndex) => {return (<li>{misc}</li>)})}</Notes>
+      <Notes>{info.xref.map((xref) => {return <li>See: {xref.join('・')}</li>})}</Notes>
     </div>
     );
 

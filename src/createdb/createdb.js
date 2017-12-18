@@ -8,13 +8,16 @@ var user = require('../cred');
 
 const mongoUrl = 'mongodb://' + user.user + ':' + user.pw +'@ds059207.mlab.com:59207/conjugations';
 
-//Connect to DB
-mongoose.connect(mongoUrl, { useMongoClient: true });
-mongoose.connection.once('open', function(){
-  console.log('Connection has been made...');
-  }).on('error', function(error){
-    console.log('Connection error:', error);
-  });
+// //Connect to DB
+// mongoose.connect(mongoUrl, { useMongoClient: true });
+// mongoose.connection.once('open', function(){
+//   console.log('Connection has been made...');
+//   }).on('error', function(error){
+//     console.log('Connection error:', error);
+//   });
+
+// mongoose.set('debug', true);
+
 
 //dont do vz, vs-c, vr 
 var re = /&v[^2-4zr]-?[^c]*;/
@@ -69,6 +72,11 @@ for (var i = 0; i < data2.length; i++){
         }  
         if ('xref' in data2[i]['sense'][j]){
           xref = data2[i]['sense'][j]['xref'];
+          for (var k = 0; k < xref.length; k++){
+            xref[k] = xref[k].split('・');
+            if (!isNaN(xref[k][xref[k].length-1]))
+              xref[k].splice(xref[k].length-1,1);
+          }
         }  
 
         for (var k = 0; k < miscArray.length; k ++){
@@ -79,8 +87,21 @@ for (var i = 0; i < data2.length; i++){
                 misc[m] = miscMap[misc[m]];
               }
               else {
+                misc[m] = misc[m].replace(/usu./i, 'usually');
+                misc[m] = misc[m].replace(/esp./i, 'especially');
+                misc[m] = misc[m].replace(/orig./i, 'original');
+                misc[m] = misc[m].replace(/oft./i, 'often');
+                misc[m] = misc[m].replace(/neg./i, 'negative');
+                misc[m] = misc[m].replace(/aux./i, 'auxilary');
+                misc[m] = misc[m].replace(/occ./i, 'occasionally');
+                misc[m] = misc[m].replace(/var./i, 'variation');
+                misc[m] = misc[m].replace(/lit./i, 'literary');
+                misc[m] = misc[m].replace(/equiv./i, 'equivalent');
                 misc[m] = misc[m].charAt(0).toUpperCase() + misc[m].slice(1);
               }
+            }
+            if (misc.length > 2) {
+              console.log(kanjiArray);
             }
           }  
         }
@@ -90,10 +111,10 @@ for (var i = 0; i < data2.length; i++){
 
 
 
-      entry.save(function(){
-        console.log ('Saving' );
-      }).then(function() {
-        mongoose.disconnect();
-      });
+      // entry.save().then(function() {
+      //   mongoose.disconnect();
+      // });
     }
 }
+
+console.log('Inserting...');

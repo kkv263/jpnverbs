@@ -12,7 +12,7 @@ var FormSchema = new Schema({
 var InfoSchema = new Schema({
   definition: String,
   pos: [String],
-  xref: [String],
+  xref: [[String]],
   misc: [[String]],
 });
 
