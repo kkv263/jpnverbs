@@ -45,7 +45,7 @@ router.get('/', function(req, res) {
 });
 
 router.route('/entries/:name').get(function(req, res) {
-  Entry.findOne({"$or": [{'kdict': req.params.name}, {'hdict' : req.params.name}]}, function(err, entries) {
+  Entry.find({"$or": [{'kdict': req.params.name}, {'hdict' : req.params.name}]}, function(err, entries) {
     if (err)
       res.send(err);
     res.json(entries);

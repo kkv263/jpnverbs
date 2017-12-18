@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import { HomeWrapper, ConjugateWrapper,
          SearchBar, Slogan, Tip, Button,
          } from '../styles/Homepage.style'
+import axios from 'axios';
 
 class Homepage extends Component {
   constructor(props) {
@@ -20,6 +20,21 @@ class Homepage extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    var searchValue = this.state.value;
+    axios.get('/api/v1/entries/' + searchValue)
+    .then(data => {
+      var entry = data.data;
+     
+      if (entry.length === 1){
+        this.props.history.push("/entry/" + searchValue);
+      }else{
+        this.props.history.push("/search/" + searchValue);
+      }
+
+      this.setState({
+      });
+
+    });
   }
 
   render() {
@@ -31,7 +46,7 @@ class Homepage extends Component {
             <label>
               <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
             </label>
-            <Link to={'/search?value=' + this.state.value}><Button type="submit" value="Search"/></Link>
+            <Button type="submit" value="Search"/>
           </form>
         <Tip>Try popular searches like: 飲む, 食べる, 読む</Tip>
 

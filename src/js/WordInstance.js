@@ -5,7 +5,6 @@ import { WIWrapper, WordWrapper, SearchBar, WordContainer,
   AttributesWrapper, WordDefinition, DefinitionList, 
   Notes, WordFooter, FormWrapper,} from '../styles/WordInstance.style';
 import axios from 'axios';
-const queryString = require('query-string');
 
 class WordInstance extends Component {
   constructor(props) {
@@ -22,18 +21,17 @@ class WordInstance extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount(){
-    var query = this.props.location.search;
-    var parsed = queryString.parse(query);
+  componentWillMount(){
+    var query = this.props.match.params.name
 
-    axios.get('/api/v1/entries/' + parsed.value)
+    axios.get('/api/v1/entries/' + query)
       .then(data => {
-        var entry = data.data;
+        var entry = data.data[0];
         
         this.setState({
           forms: entry.forms,
           kanji: entry.kdict[0],
-          kother: entry.kdict.slice(1),
+          kother: (entry.kdict.slice(1)).concat(entry.hdict.slice(1)),
           hira: entry.hdict[0],
           info: entry.info
         });
@@ -93,7 +91,7 @@ class WordInstance extends Component {
 
     return (
       <WIWrapper>
-          <form action="http://localhost:3001/api/v1/test" method="post" onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit}>
             <label>
               <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
             </label>
@@ -104,7 +102,7 @@ class WordInstance extends Component {
             <WordTitleWrapper>
               <WordHeader Color = "#45B29D">{this.state.kanji}</WordHeader>
               <WordHeader Color = "#3E4E50">{this.state.hira}</WordHeader>
-              {otherForms.length !== 0 ? (<WordFooter>Other or Similar : {otherFormsList} </WordFooter>) : null}
+              {otherForms.length !== 0 ? (<WordFooter>Alternative Forms: {otherFormsList} </WordFooter>) : null}
             </WordTitleWrapper>
             <AttributesWrapper>
               <DefinitionList>
