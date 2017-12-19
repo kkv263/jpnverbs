@@ -48,6 +48,21 @@ class Search extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    var searchValue = this.state.value;
+    axios.get('/api/v1/entries/' + searchValue)
+    .then(data => {
+      var entry = data.data;
+     
+      if (entry.length === 1){
+        this.props.history.push("/entry/" + searchValue);
+      }else{
+        window.location.href="/search/" + searchValue;
+      }
+
+      this.setState({
+      });
+
+    });
   }
 
   render() {
