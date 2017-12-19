@@ -45,6 +45,21 @@ class WordInstance extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    var searchValue = this.state.value;
+    axios.get('/api/v1/entries/' + searchValue)
+    .then(data => {
+      var entry = data.data;
+     
+      if (entry.length === 1){
+        window.location.href="/entry/" + searchValue;
+      }else{
+        this.props.history.push("/search/" + searchValue);
+      }
+
+      this.setState({
+      });
+
+    });
   }
 
   render() {
