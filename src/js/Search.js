@@ -91,7 +91,7 @@ class Search extends Component {
     return (
       this.state.loading ? null : (<SearchContainer>
         <SearchTitleWrapper>
-        <NumberFound>{resultsLength} results found for "{searchValue}"</NumberFound>
+        <NumberFound>{resultsLength} You searched for "{searchValue}"</NumberFound>
           <form onSubmit={this.handleSubmit}>
             <label>
               <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />

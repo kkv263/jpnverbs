@@ -3,7 +3,7 @@ import { WIWrapper, WordWrapper, SearchBar, WordContainer,
   WordCell, CellHeader, CellForm, WordTable, Button, 
   WordHeader, WordAttributes, WordTitleWrapper,
   AttributesWrapper, WordDefinition, DefinitionList, 
-  Notes, WordFooter, FormWrapper,} from '../styles/WordInstance.style';
+  Notes, WordFooter, FormWrapper, SubititleHeader,} from '../styles/WordInstance.style';
 import axios from 'axios';
 
 class WordInstance extends Component {
@@ -102,7 +102,7 @@ class WordInstance extends Component {
     const otherForms = this.state.kother;
     var length = otherForms.length;
     const otherFormsList = otherForms.map((otherForms, index) =>
-    <span key={index}>{otherForms + (length - 1 === index ? '' : '・')}</span>);
+    <p key={index}>{otherForms + (length - 1 === index ? '' : '')}</p>);
 
     return (
       <WIWrapper>
@@ -121,11 +121,13 @@ class WordInstance extends Component {
             </WordTitleWrapper>
             <AttributesWrapper>
               <DefinitionList>
+              <SubititleHeader>Definitions</SubititleHeader>
                 {infoList}
               </DefinitionList>
             </AttributesWrapper>
           </WordWrapper>
           <FormWrapper>
+          <SubititleHeader>Conjugations</SubititleHeader>
             {formsList}
           </FormWrapper>
         </WordContainer>

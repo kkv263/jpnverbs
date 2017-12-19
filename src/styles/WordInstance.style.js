@@ -6,7 +6,6 @@ background-color:white;
 `
 
 export const WordTitleWrapper = styled.div`
-margin-left: 2.5%;
 margin-top: 2.5%;
 margin-bottom: 1%;
 `
@@ -23,7 +22,6 @@ font-size: 1.5em;
 `
 
 export const AttributesWrapper = styled.div`
-margin-left: 2.5%;
 margin-bottom: 5%;
 `
 
@@ -51,20 +49,20 @@ font-family: 'Hind Siliguri', sans-serif;
 `
 
 export const WordContainer = styled.div`
-margin-left: 2.5%;
+margin-left: 5%;
 margin-right: 2.5%;
+display:grid;
 `
 
 export const WordWrapper = styled.div`
-background-color:white;
+width: 65%;
 `
 
 export const WordTable = styled.div`
 height: 140px;
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
-margin: 2.5%;
-border: 1px solid #ededed;
+border-left: 3px solid #ededed;
 border-radius: 3px;
 background-color:white;
 `
@@ -72,7 +70,7 @@ background-color:white;
 export const WordCell = styled.div`
 grid-column: ${props => props.gridColumn};
 font-family: "Sawarabi Mincho";
-font-size: .9em;
+font-size: 1em;
 color: #778486;
 padding: 10px 10px;
 `
@@ -91,8 +89,17 @@ font-size: 1.1em;
 `
 
 export const FormWrapper = styled.div`
-display: grid;
-grid-template-columns: 1fr 1fr;
+width: 65%;
+display:grid;
+grid-row-gap: 15px;
+`
+
+export const SubititleHeader = styled.div`
+color:#3E4E50;
+font-size: 2.5em;
+font-family: 'Hind Siliguri', sans-serif;
+margin-bottom: 10px;
+border-bottom: 2px solid #ededed;
 `
 
 export const SearchBar = styled.input`
