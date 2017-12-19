@@ -14,13 +14,6 @@ justify-content: center;
 flex-direction: column;
 `
 
-export const NumberFound = styled.h1`
-color: #f9f9f9;
-margin-bottom: 2%;
-font-family: 'Cabin', sans-serif;
-font-size: 1.75em;
-`
-
 export const SearchBar = styled.input`
 width: 600px;
 height: 9vh;
@@ -59,7 +52,7 @@ width: 70%;
 margin-left: 5%;
 margin-top: 5%;
 display: grid;
-grid-template-rows: 1fr;
+grid-template-rows: .1fr 1fr;
 grid-row-gap: 50px;
 `
 
@@ -90,6 +83,7 @@ export const WordAttributes = styled.p`
 font-weight: 100;
 font-size: 1em;
 color: #45B29D;
+margin: 10px 0;
 `
 
 export const WordDefinition = styled.li`
@@ -98,6 +92,12 @@ margin-top: 5px;
 margin-left: 2.5%;
 font-family: 'Hind Siliguri', sans-serif;
 color : #3E4E50;
+`
+
+export const ResultsText = styled.h1`
+font-family: 'Hind Siliguri', sans-serif;
+color : #3E4E50;
+font-size: 1.5em;
 `
 
 export const ResultsRight = styled.div`

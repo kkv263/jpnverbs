@@ -1,4 +1,9 @@
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
+
+export const fadeIn = keyframes`
+0%   { opacity: 0;}
+100%  { opacity: 1;}
+`
 
 export const WIWrapper = styled.div`
 width: 100%;
@@ -23,16 +28,17 @@ font-size: 1.5em;
 
 export const AttributesWrapper = styled.div`
 margin-bottom: 5%;
+animation: ${fadeIn} .25s;
+
 `
 
 export const WordAttributes = styled.p`
 font-weight: 100;
 font-size: 1.5em;
 color: #45B29D;
+margin: 10px 0;
 `
 
-export const DefinitionList = styled.ol`
-`
 export const WordDefinition = styled.li`
 font-size: 1.5em;
 margin-top: 5px;
@@ -62,9 +68,10 @@ export const WordTable = styled.div`
 height: 140px;
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
-border-left: 3px solid #ededed;
+border: 3px solid #ededed;
 border-radius: 3px;
 background-color:white;
+margin-top:-3px;
 `
 
 export const WordCell = styled.div`
@@ -85,26 +92,46 @@ font-family: 'Hind Siliguri', sans-serif;
 
 export const CellForm = styled.h1`
 color:#45B29D;
-font-size: 1.1em;
+font-size: 1.25em;
 `
 
 export const FormWrapper = styled.div`
 width: 65%;
 display:grid;
-grid-row-gap: 15px;
+grid-row-gap: 0px;
+margin-top: 10px;
+animation: ${fadeIn} .25s;
+
 `
 
-export const SubititleHeader = styled.div`
-color:#3E4E50;
-font-size: 2.5em;
-font-family: 'Hind Siliguri', sans-serif;
+export const FormTitle = styled.h1`
+font-size: 1.2em;
 margin-bottom: 10px;
-border-bottom: 2px solid #ededed;
+color:#3E4E50;
+`
+
+export const Tab = styled.div`
+margin-bottom: 10px;
+border-bottom: 2px solid #d0d0d0;
+`
+
+export const SubtitleHeader = styled.h1`
+display:inline-block;
+margin-right: 50px;
+margin-bottom: -2px;
+color: ${props => props.active ? '#3E4E50' : '#d0d0d0'}; 
+font-size: 1.75em;
+font-family: 'Hind Siliguri', sans-serif;
+border-bottom: 2px solid ${props => props.active ? '#45B29D' : 'none'};
+cursor: pointer;
+transition: color ease .1s;
+&:hover {
+    color: #3E4E50;
+  }
 `
 
 export const SearchBar = styled.input`
 margin-bottom: 2.5%;
-margin-left: 2.5%;
 width: 600px;
 height: 6vh;
 outline: none;

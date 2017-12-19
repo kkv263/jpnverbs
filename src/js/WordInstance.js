@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { WIWrapper, WordWrapper, SearchBar, WordContainer, 
   WordCell, CellHeader, CellForm, WordTable, Button, 
   WordHeader, WordAttributes, WordTitleWrapper,
-  AttributesWrapper, WordDefinition, DefinitionList, 
-  Notes, WordFooter, FormWrapper, SubititleHeader,} from '../styles/WordInstance.style';
+  AttributesWrapper, WordDefinition, Notes, 
+  WordFooter, FormWrapper, SubtitleHeader, Tab, 
+  FormTitle} from '../styles/WordInstance.style';
 import axios from 'axios';
 
 class WordInstance extends Component {
@@ -15,7 +16,9 @@ class WordInstance extends Component {
       kanji: '',
       kother: [],
       hira: '',
-      info: []
+      info: [],
+      activeTab: 0,
+      loading: true,
   };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,7 +36,8 @@ class WordInstance extends Component {
           kanji: entry.kdict[0],
           kother: (entry.kdict.slice(1)).concat(entry.hdict.slice(1)),
           hira: entry.hdict[0],
-          info: entry.info
+          info: entry.info,
+          loading: false
         });
 
       });
@@ -56,13 +60,17 @@ class WordInstance extends Component {
         this.props.history.push("/search/" + searchValue);
       }
 
-      this.setState({
-      });
-
     });
   }
 
+  handleTab(value){
+    var updatedArray = [false, false];
+    updatedArray[value] = true;
+    this.setState({ activeTab: value});
+  }
+
   render() {
+    var activeTab = this.state.activeTab;
 
     const forms = this.state.forms;
     const formsList = forms.map ((forms, index) => 
@@ -94,44 +102,61 @@ class WordInstance extends Component {
     <div key={index}>
       <WordAttributes>{info.pos.join(', ')}</WordAttributes>
       <WordDefinition>{info.definition}</WordDefinition>
-      <Notes>{info.misc.map((misc, jndex) => {return (<li>{misc}</li>)})}</Notes>
-      <Notes>{info.xref.map((xref) => {return <li>See: {xref.join('・')}</li>})}</Notes>
+      <Notes>{info.misc.map((misc, jndex) => {return (<li key={jndex}>{misc}</li>)})}</Notes>
+      <Notes>{info.xref.map((xref, jndex) => {return <li key={jndex}>See: {xref.join('・')}</li>})}</Notes>
     </div>
     );
 
     const otherForms = this.state.kother;
     var length = otherForms.length;
     const otherFormsList = otherForms.map((otherForms, index) =>
-    <p key={index}>{otherForms + (length - 1 === index ? '' : '')}</p>);
+    <span key={index}>{otherForms + (length - 1 === index ? '' : ', ')}</span>);
+
+    var showTabs;
+
+    switch(activeTab){
+      case 0:
+        showTabs = (
+          <AttributesWrapper>
+            <ol>
+              {infoList}
+            </ol>
+          </AttributesWrapper>);
+          break;
+      case 1:
+        showTabs = (          
+        <FormWrapper>
+        <FormTitle>Conjugation Table for: {this.state.kanji} ({info[0].pos.join(', ')})</FormTitle>
+          {formsList}
+        </FormWrapper>);
+          break;
+      default:
+          break;
+    }
 
     return (
-      <WIWrapper>
+      this.state.loading ? null : (<WIWrapper>
+        <WordContainer>
           <form onSubmit={this.handleSubmit}>
             <label>
               <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
             </label>
             <Button type="submit" value="Search"/>
           </form>
-        <WordContainer>
           <WordWrapper>
             <WordTitleWrapper>
               <WordHeader Color = "#45B29D">{this.state.kanji}</WordHeader>
               <WordHeader Color = "#3E4E50">{this.state.hira}</WordHeader>
-              {otherForms.length !== 0 ? (<WordFooter>Alternative Forms: {otherFormsList} </WordFooter>) : null}
+              {otherForms.length !== 0 ? (<WordFooter>Alternative Forms: <p>{otherFormsList}</p> </WordFooter>) : null}
             </WordTitleWrapper>
-            <AttributesWrapper>
-              <DefinitionList>
-              <SubititleHeader>Definitions</SubititleHeader>
-                {infoList}
-              </DefinitionList>
-            </AttributesWrapper>
+            <Tab>
+              <SubtitleHeader active = {activeTab === 0} onClick={() => this.handleTab(0)}>Define</SubtitleHeader>
+              <SubtitleHeader active = {activeTab === 1} onClick={() => this.handleTab(1)}>Conjugate</SubtitleHeader>
+            </Tab>
           </WordWrapper>
-          <FormWrapper>
-          <SubititleHeader>Conjugations</SubititleHeader>
-            {formsList}
-          </FormWrapper>
+          {showTabs}
         </WordContainer>
-      </WIWrapper> 
+      </WIWrapper>)
     );
   }
 }

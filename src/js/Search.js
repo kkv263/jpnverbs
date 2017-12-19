@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { SearchContainer, SearchTitleWrapper, SearchBar, Button,
-    NumberFound, ResultsGridWrapper, ResultsLeft, ResultsRight,
-    ResultsItem, WordDefinition, WordAttributes, LinkText} from '../styles/Search.style';
+    ResultsGridWrapper, ResultsLeft, ResultsRight, ResultsItem, 
+    WordDefinition, WordAttributes, LinkText, ResultsText} from '../styles/Search.style';
 import axios from "axios";
 import { Link } from 'react-router-dom'
 
@@ -74,7 +74,7 @@ class Search extends Component {
     const entriesList = entry.map ((entry, index) => 
     <ResultsItem key={index}>
       <ResultsLeft>{(entry.kdict[0] ? entry.kdict[0] : entry.hdict[0])} 
-        <Link to={"/entry/" + (entry.kdict[0] ? entry.kdict[0] : entry.hdict[0])}><LinkText>see conjugations▸</LinkText></Link>
+        <Link to={"/entry/" + (entry.kdict[0] ? entry.kdict[0] : entry.hdict[0])}><LinkText>see more...▸</LinkText></Link>
       </ResultsLeft>
       <ResultsRight>
         <ol>
@@ -91,7 +91,6 @@ class Search extends Component {
     return (
       this.state.loading ? null : (<SearchContainer>
         <SearchTitleWrapper>
-        <NumberFound>{resultsLength} You searched for "{searchValue}"</NumberFound>
           <form onSubmit={this.handleSubmit}>
             <label>
               <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
@@ -100,6 +99,7 @@ class Search extends Component {
           </form>
         </SearchTitleWrapper>
         <ResultsGridWrapper>
+        <ResultsText>"{searchValue}" - {resultsLength} similar results found:</ResultsText>
           {entriesList}
         </ResultsGridWrapper>
       </SearchContainer>)
