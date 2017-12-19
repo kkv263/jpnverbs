@@ -29,10 +29,10 @@ class Search extends Component {
 
     axios.get('/api/v1/entries/' + query)
       .then(data => {
-        var entry = data.data;
+        var entry = []
+        if (data.data !== null)
+          entry = data.data;
 
-        console.log(entry[0].info[0].definition);
-        
         this.setState({
           resultsLength: entry.length,
           loading:false,
@@ -52,7 +52,6 @@ class Search extends Component {
     axios.get('/api/v1/entries/' + searchValue)
     .then(data => {
       var entry = data.data;
-     
       if (entry.length === 1){
         this.props.history.push("/entry/" + searchValue);
       }else{
@@ -98,10 +97,16 @@ class Search extends Component {
             <Button type="submit" value="Search"/>
           </form>
         </SearchTitleWrapper>
-        <ResultsGridWrapper>
-        <ResultsText>"{searchValue}" - {resultsLength} similar results found:</ResultsText>
+        {entry.length !== 0 ?         
+        (<ResultsGridWrapper>
+          <ResultsText>「 {searchValue} 」 - {resultsLength} similar results found:</ResultsText>
           {entriesList}
-        </ResultsGridWrapper>
+        </ResultsGridWrapper>) : 
+        (<div style ={{marginTop: "50px"}}>
+          <ResultsText center>Sorry! It looks like we were not able to find results for「 {searchValue} 」,</ResultsText>
+          <ResultsText center weight>Be sure to check your spelling, and try a different search. </ResultsText>
+        </div>)}
+
       </SearchContainer>)
     );
   }

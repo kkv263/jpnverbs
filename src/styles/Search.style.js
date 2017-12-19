@@ -98,6 +98,8 @@ export const ResultsText = styled.h1`
 font-family: 'Hind Siliguri', sans-serif;
 color : #3E4E50;
 font-size: 1.5em;
+text-align: ${props => props.center ? 'center' : ''}; 
+font-size: ${props => props.weight ? '1em' : ''}; 
 `
 
 export const ResultsRight = styled.div`
