@@ -47,10 +47,13 @@ cursor: pointer;
   }
 `
 
-export const ResultsGridWrapper = styled.div`
-width: 70%;
-margin-left: 5%;
+export const BottomContainer = styled.div`
+margin-left:5%;
 margin-top: 5%;
+`
+
+export const ResultsGridWrapper = styled.div`
+width: 60%;
 display: grid;
 grid-template-rows: .1fr 1fr;
 grid-row-gap: 50px;
@@ -103,5 +106,20 @@ font-size: ${props => props.weight ? '1em' : ''};
 `
 
 export const ResultsRight = styled.div`
+`
+
+export const PaginationContainer = styled.div`
+width:50%;
+`
+
+export const PaginationButton = styled.div`
+display: inline-block;
+vertical-align:top;
+width: 10%;
+color: #3E4E50;
+border-bottom: #45B29D 3px solid;
+text-align:center;
+font-size: 1.5em;
+cursor:pointer;
 `
 

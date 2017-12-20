@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { SearchContainer, SearchTitleWrapper, SearchBar, Button,
     ResultsGridWrapper, ResultsLeft, ResultsRight, ResultsItem, 
-    WordDefinition, WordAttributes, LinkText, ResultsText} from '../styles/Search.style';
+    WordDefinition, WordAttributes, LinkText, ResultsText, PaginationContainer, 
+    BottomContainer, PaginationButton} from '../styles/Search.style';
 import axios from "axios";
 import { Link } from 'react-router-dom'
 
@@ -99,15 +100,20 @@ class Search extends Component {
           </form>
         </SearchTitleWrapper>
         {entry.length !== 0 ?         
-        (<ResultsGridWrapper>
+        (<BottomContainer>
+          <ResultsGridWrapper>
           <ResultsText>「 {searchValue} 」 - {resultsLength} similar results found:</ResultsText>
           {entriesList}
-        </ResultsGridWrapper>) : 
-        (<div style ={{marginTop: "50px"}}>
+        <PaginationContainer>
+          <PaginationButton>1</PaginationButton>
+        </PaginationContainer>
+        </ResultsGridWrapper>
+        </BottomContainer>) : 
+        (<BottomContainer >
           <ResultsText center>Sorry! It looks like we were not able to find results for「 {searchValue} 」,</ResultsText>
           <ResultsText center weight>Be sure to check your spelling, and try a different search. </ResultsText>
-        </div>)}
-
+        </BottomContainer>)}
+        
       </SearchContainer>)
     );
   }
