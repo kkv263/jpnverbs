@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+var mongoosePaginate = require('mongoose-paginate');
 
 var FormSchema = new Schema({
   form: String,
@@ -24,7 +25,7 @@ var EntrySchema = new Schema({
   conjugate: Boolean
 });
 
-
+EntrySchema.plugin(mongoosePaginate);
 
 const Entry = mongoose.model("entry", EntrySchema);
 

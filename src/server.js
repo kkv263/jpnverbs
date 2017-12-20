@@ -44,13 +44,37 @@ router.get('/', function(req, res) {
  res.json({ message: 'API working!'});
 });
 
-router.route('/entries/:name').get(function(req, res) {
-  Entry.find({"$or": [{'kdict': req.params.name}, {'hdict' : req.params.name}]}, function(err, entries) {
-    if (err)
-      res.send(err);
-    res.json(entries);
-  });
+//implement limit and skip with frontend for pagination. :D.
+router.route('/entries/:name/').get(function(req, res) {
+  var value = req.params.name;
+
+// Entry.find({"$or": [{'kdict': new RegExp(".*" + value + ".*")}, {'hdict' : value}]})
+// .limit(10).skip().exec(function(err, entries){
+//     if (err)
+//       res.send(err);
+//     res.json(entries);
+//   });
+
+var query = {"$or": [{'kdict': new RegExp(".*" + value + ".*")}, {'hdict' : value}]};
+var options = {
+  select:   '',
+  sort:     {},
+  page: 1,
+  limit: 10
+};
+
+Entry.paginate(query, options, function(err, result) {
+  // result.docs 
+  // result.total 
+  // result.limit - 10 
+  // result.page - 3 
+  // result.pages 
+  res.json(result);
 });
+
+
+});
+
 
 //Use our router configuration when we call /api
 app.use('/api/v1', router);

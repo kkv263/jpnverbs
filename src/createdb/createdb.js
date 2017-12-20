@@ -20,7 +20,7 @@ mongoose.connection.once('open', function(){
 mongoose.set('debug', true);
 
 function matchPos(regex, array){
-
+// return -1 or array pos... ugh
   for (var i = 0; i < array.length; i ++){
     if (regex.test(array[i]))
       return true;

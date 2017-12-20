@@ -29,7 +29,6 @@ font-size: 1.5em;
 export const AttributesWrapper = styled.div`
 margin-bottom: 5%;
 animation: ${fadeIn} .25s;
-
 `
 
 export const WordAttributes = styled.p`
@@ -58,10 +57,10 @@ export const WordContainer = styled.div`
 margin-left: 5%;
 margin-right: 2.5%;
 display:grid;
+width: 65%;
 `
 
 export const WordWrapper = styled.div`
-width: 65%;
 `
 
 export const WordTable = styled.div`
@@ -96,7 +95,6 @@ font-size: 1.25em;
 `
 
 export const FormWrapper = styled.div`
-width: 65%;
 display:grid;
 grid-row-gap: 0px;
 margin-top: 10px;
