@@ -1781,7 +1781,103 @@ describe('Conjugation tests', function(){
 
   });
 
+  it('Conjugate Noun Suru Verb', function(done){
+    var verbtest = data2[34485]['k_ele'][0]['keb'][0];
+    var typetest = data2[34485]['sense'][0]['pos'][1];
+    var suru = conjugateVerb.conjugate(verbtest, typetest);
 
+    var suru_test = [ { form: 'Present',
+    plainp: '辛勝する',
+    plainn: '辛勝しない',
+    politep: '辛勝します',
+    politen: '辛勝しません' },
+  { form: 'Past',
+    plainp: '辛勝した',
+    plainn: '辛勝しなかった',
+    politep: '辛勝しました',
+    politen: '辛勝しませんでした' },
+  { form: 'Te',
+    plainp: '辛勝して',
+    plainn: '辛勝しなくて',
+    politep: '辛勝しまして',
+    politen: '辛勝しませんで' },
+  { form: 'Present Progressive',
+    plainp: '辛勝している',
+    plainn: '辛勝していない',
+    politep: '辛勝しています',
+    politen: '辛勝していません' },
+  { form: 'Volitional',
+    plainp: '辛勝しよう',
+    plainn: '辛勝するまい',
+    politep: '辛勝しましょう',
+    politen: '辛勝しますまい' },
+  { form: 'Desire (Present)',
+    plainp: '辛勝したい',
+    plainn: '辛勝したくない',
+    politep: '辛勝したいです',
+    politen: '辛勝したくないです' },
+  { form: 'Desire (Past)',
+    plainp: '辛勝したかった',
+    plainn: '辛勝したくなかった',
+    politep: '辛勝したかったです',
+    politen: '辛勝したくなかったです' },
+  { form: 'Conditional',
+    plainp: '辛勝したら',
+    plainn: '辛勝しなかったら',
+    politep: '辛勝しましたら',
+    politen: '辛勝しませんでしたら' },
+  { form: 'Provisional',
+    plainp: '辛勝すれば',
+    plainn: '辛勝しなければ',
+    politep: '辛勝しますなら(ば)',
+    politen: '辛勝しませんなら(ば)' },
+  { form: 'Potential',
+    plainp: '辛勝できる',
+    plainn: '辛勝できない',
+    politep: '辛勝できます',
+    politen: '辛勝できません' },
+  { form: 'Passive',
+    plainp: '辛勝される',
+    plainn: '辛勝されない',
+    politep: '辛勝されます',
+    politen: '辛勝されません' },
+  { form: 'Causative',
+    plainp: '辛勝させる',
+    plainn: '辛勝させない',
+    politep: '辛勝させます',
+    politen: '辛勝させません' },
+  { form: 'Causative (Alt.)',
+    plainp: '辛勝さす',
+    plainn: '辛勝ささない',
+    politep: '辛勝さします',
+    politen: '辛勝さしません' },
+  { form: 'Causative Passive',
+    plainp: '辛勝させられる',
+    plainn: '辛勝させられない',
+    politep: '辛勝させられます',
+    politen: '辛勝させられません' },
+  { form: 'Conjectural',
+    plainp: '辛勝するだろう',
+    plainn: '辛勝しないだろう',
+    politep: '辛勝するでしょう',
+    politen: '辛勝しないでしょう' },
+  { form: 'Alternative',
+    plainp: '辛勝したり',
+    plainn: '辛勝しなかったり',
+    politep: '辛勝しましたり',
+    politen: '辛勝しませんでしたり' },
+  { form: 'Imperative',
+    plainp: '辛勝しろ',
+    plainn: '辛勝するな',
+    politep: '辛勝しなさい',
+    politen: '辛勝しなさるな' } ];
+    for (var i = 0; i < suru.length; i ++) {
+      assert.deepStrictEqual(suru[i], suru_test[i], 'ConjugationError: Form(s) do not match');
+    }
+
+    done();
+
+  });
 
 
 });

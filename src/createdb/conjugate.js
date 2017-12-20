@@ -121,6 +121,9 @@ module.exports = {
     if(/&vs.*;/.test(type)){
       stem = verb.replace(/為?.る$/, "");
     }
+    else if (/&vs;/.test(type)){
+      stem = verb; 
+    }
     else {
       var stem = verb.substring(0, verb.length-1);
     }

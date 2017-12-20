@@ -8,26 +8,36 @@ var user = require('../cred');
 
 const mongoUrl = 'mongodb://' + user.user + ':' + user.pw +'@ds059207.mlab.com:59207/conjugations';
 
-// //Connect to DB
-// mongoose.connect(mongoUrl, { useMongoClient: true });
-// mongoose.connection.once('open', function(){
-//   console.log('Connection has been made...');
-//   }).on('error', function(error){
-//     console.log('Connection error:', error);
-//   });
+//Connect to DB
+mongoose.Promise = global.Promise;
+mongoose.connect(mongoUrl, { useMongoClient: true });
+mongoose.connection.once('open', function(){
+  console.log('Connection has been made...');
+  }).on('error', function(error){
+    console.log('Connection error:', error);
+  });
 
-// mongoose.set('debug', true);
+mongoose.set('debug', true);
 
+function matchPos(regex, array){
+
+  for (var i = 0; i < array.length; i ++){
+    if (regex.test(array[i]))
+      return true;
+  }
+  return false;
+}
 
 //dont do vz, vs-c, vr 
 var re = /&v[^2-4zr]-?[^c]*;/
 const miscArray = ['misc', 'field', 'ant', 'dial', 'pri', 's_inf'];
 console.log('Creating database');
-for (var i = 0; i < data2.length; i++){
-  if (re.test(data2[i]['sense'][0]['pos'][0])){
+// around 180,000 entries
+for (var i = (30000) * 5; i < data2.length; i++){
+  if (matchPos(re, data2[i]['sense'][0]['pos'])){
+      console.log(i);
       var entry = new Entry();
       var conjugate = false;
-
       // grabs all kanji if exists
       var kanjiArray = [];
 
@@ -47,10 +57,16 @@ for (var i = 0; i < data2.length; i++){
 
       if ('k_ele' in data2[i]){
         conjugate = true;
-        entry.forms = conjugateEntry.conjugate(data2[i]['k_ele'][0]['keb'][0], data2[i]['sense'][0]['pos'][0]);
+        if (data2[i]['sense'][0]['pos'][0] === '&n;' && data2[i]['sense'][0]['pos'][1] === '&vs;') 
+          entry.forms = conjugateEntry.conjugate(data2[i]['k_ele'][0]['keb'][0], data2[i]['sense'][0]['pos'][1]);
+        else
+          entry.forms = conjugateEntry.conjugate(data2[i]['k_ele'][0]['keb'][0], data2[i]['sense'][0]['pos'][0]);
       }else{
         conjugate = true;
-        entry.forms = conjugateEntry.conjugate(data2[i]['r_ele'][0]['reb'][0], data2[i]['sense'][0]['pos'][0]);
+        if (data2[i]['sense'][0]['pos'][0] === '&n;' && data2[i]['sense'][0]['pos'][1] === '&vs;') 
+          entry.forms = conjugateEntry.conjugate(data2[i]['r_ele'][0]['reb'][0], data2[i]['sense'][0]['pos'][1]);
+        else
+          entry.forms = conjugateEntry.conjugate(data2[i]['r_ele'][0]['reb'][0], data2[i]['sense'][0]['pos'][0]);
       }
       entry.conjugate = conjugate;
 
@@ -100,9 +116,6 @@ for (var i = 0; i < data2.length; i++){
                 misc[m] = misc[m].charAt(0).toUpperCase() + misc[m].slice(1);
               }
             }
-            if (misc.length > 2) {
-              console.log(kanjiArray);
-            }
           }  
         }
 
@@ -110,10 +123,9 @@ for (var i = 0; i < data2.length; i++){
       }
 
 
-
-      // entry.save().then(function() {
-      //   mongoose.disconnect();
-      // });
+      entry.save().then(function() {
+        mongoose.disconnect();
+      })
     }
 }
 
