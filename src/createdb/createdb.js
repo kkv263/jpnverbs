@@ -23,9 +23,9 @@ function matchPos(regex, array){
 // return -1 or array pos... ugh
   for (var i = 0; i < array.length; i ++){
     if (regex.test(array[i]))
-      return true;
+      return i;
   }
-  return false;
+  return -1;
 }
 
 //dont do vz, vs-c, vr 
@@ -34,7 +34,8 @@ const miscArray = ['misc', 'field', 'ant', 'dial', 'pri', 's_inf'];
 console.log('Creating database');
 // around 180,000 entries
 for (var i = (30000) * 5; i < data2.length; i++){
-  if (matchPos(re, data2[i]['sense'][0]['pos'])){
+  var conIndex = matchPos(re, data2[i]['sense'][0]['pos']);
+  if ( conIndex !== -1){
       console.log(i);
       var entry = new Entry();
       var conjugate = false;
@@ -57,16 +58,10 @@ for (var i = (30000) * 5; i < data2.length; i++){
 
       if ('k_ele' in data2[i]){
         conjugate = true;
-        if (data2[i]['sense'][0]['pos'][0] === '&n;' && data2[i]['sense'][0]['pos'][1] === '&vs;') 
-          entry.forms = conjugateEntry.conjugate(data2[i]['k_ele'][0]['keb'][0], data2[i]['sense'][0]['pos'][1]);
-        else
-          entry.forms = conjugateEntry.conjugate(data2[i]['k_ele'][0]['keb'][0], data2[i]['sense'][0]['pos'][0]);
+          entry.forms = conjugateEntry.conjugate(data2[i]['k_ele'][0]['keb'][0], data2[i]['sense'][0]['pos'][conIndex]);
       }else{
         conjugate = true;
-        if (data2[i]['sense'][0]['pos'][0] === '&n;' && data2[i]['sense'][0]['pos'][1] === '&vs;') 
-          entry.forms = conjugateEntry.conjugate(data2[i]['r_ele'][0]['reb'][0], data2[i]['sense'][0]['pos'][1]);
-        else
-          entry.forms = conjugateEntry.conjugate(data2[i]['r_ele'][0]['reb'][0], data2[i]['sense'][0]['pos'][0]);
+          entry.forms = conjugateEntry.conjugate(data2[i]['r_ele'][0]['reb'][0], data2[i]['sense'][0]['pos'][conIndex]);
       }
       entry.conjugate = conjugate;
 
@@ -125,7 +120,7 @@ for (var i = (30000) * 5; i < data2.length; i++){
 
       entry.save().then(function() {
         mongoose.disconnect();
-      })
+      });
     }
 }
 

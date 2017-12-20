@@ -21,14 +21,15 @@ class Homepage extends Component {
   handleSubmit(event) {
     event.preventDefault();
     var searchValue = this.state.value;
-    axios.get('/api/v1/entries/' + searchValue)
+    axios.get('/api/v1/entries/' + searchValue + '/1')
     .then(data => {
-      var entry = data.data;
+      var entry = data.data.docs;
+
      
       if (entry.length === 1){
         this.props.history.push("/entry/" + searchValue);
       }else{
-        this.props.history.push("/search/" + searchValue);
+        this.props.history.push("/search/" + searchValue + '/1');
       }
 
       this.setState({

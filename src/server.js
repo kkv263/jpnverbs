@@ -45,9 +45,9 @@ router.get('/', function(req, res) {
 });
 
 //implement limit and skip with frontend for pagination. :D.
-router.route('/entries/:name/').get(function(req, res) {
+router.route('/entries/:name/:page').get(function(req, res) {
   var value = req.params.name;
-
+  var page = req.params.page;
 // Entry.find({"$or": [{'kdict': new RegExp(".*" + value + ".*")}, {'hdict' : value}]})
 // .limit(10).skip().exec(function(err, entries){
 //     if (err)
@@ -58,8 +58,8 @@ router.route('/entries/:name/').get(function(req, res) {
 var query = {"$or": [{'kdict': new RegExp(".*" + value + ".*")}, {'hdict' : value}]};
 var options = {
   select:   '',
-  sort:     {},
-  page: 1,
+  sort:     {kdict: "desc"},
+  page: page,
   limit: 10
 };
 

@@ -12,7 +12,7 @@ class App extends Component {
       <div>
         <Switch>
          <Route exact path='/' component={Homepage}/>
-         <Route exact path='/search/:name' component={Search}/>
+         <Route exact path='/search/:name/:page' component={Search}/>
          <Route exact path='/entry/:name' component={WordInstance} />
          <Route component={NotFound} status={404}/>
         </Switch>

@@ -29,7 +29,7 @@ class WordInstance extends Component {
 
     axios.get('/api/v1/entries/' + query)
       .then(data => {
-        var entry = data.data[0];
+        var entry = data.data.docs[0];
         
         this.setState({
           forms: entry.forms,
@@ -52,7 +52,7 @@ class WordInstance extends Component {
     var searchValue = this.state.value;
     axios.get('/api/v1/entries/' + searchValue)
     .then(data => {
-      var entry = data.data;
+      var entry = data.data.docs;
      
       if (entry.length === 1){
         window.location.href="/entry/" + searchValue;
