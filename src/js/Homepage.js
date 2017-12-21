@@ -21,7 +21,7 @@ class Homepage extends Component {
   handleSubmit(event) {
     event.preventDefault();
     var searchValue = this.state.value;
-    axios.get('/api/v1/entries/' + searchValue + '/1')
+    axios.get('/api/v1/search/' + searchValue + '/1')
     .then(data => {
       var entry = data.data.docs;
 

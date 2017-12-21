@@ -44,16 +44,9 @@ router.get('/', function(req, res) {
  res.json({ message: 'API working!'});
 });
 
-//implement limit and skip with frontend for pagination. :D.
-router.route('/entries/:name/:page').get(function(req, res) {
-  var value = req.params.name;
-  var page = req.params.page;
-// Entry.find({"$or": [{'kdict': new RegExp(".*" + value + ".*")}, {'hdict' : value}]})
-// .limit(10).skip().exec(function(err, entries){
-//     if (err)
-//       res.send(err);
-//     res.json(entries);
-//   });
+router.route('/search/:name/:page').get(function(req, res) {
+var value = req.params.name;
+var page = req.params.page;
 
 var query = {"$or": [{'kdict': new RegExp(".*" + value + ".*")}, {'hdict' : value}]};
 var options = {
@@ -64,15 +57,21 @@ var options = {
 };
 
 Entry.paginate(query, options, function(err, result) {
-  // result.docs 
-  // result.total 
-  // result.limit - 10 
-  // result.page - 3 
-  // result.pages 
+  if (err)
+    res.send(err);
   res.json(result);
 });
 
 
+});
+
+router.route ('/entry/:name').get (function(req, res) {
+  var value = req.params.name;
+  Entry.findOne({"$or": [{'kdict': value}, {'hdict' : value}]}, function(err, entries){
+    if (err)
+      res.send(err);
+    res.json(entries);
+  });
 });
 
 

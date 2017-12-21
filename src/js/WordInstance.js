@@ -27,9 +27,9 @@ class WordInstance extends Component {
   componentWillMount(){
     var query = this.props.match.params.name
 
-    axios.get('/api/v1/entries/' + query)
+    axios.get('/api/v1/entry/' + query)
       .then(data => {
-        var entry = data.data.docs[0];
+        var entry = data.data;
         
         this.setState({
           forms: entry.forms,
@@ -50,14 +50,13 @@ class WordInstance extends Component {
   handleSubmit(event) {
     event.preventDefault();
     var searchValue = this.state.value;
-    axios.get('/api/v1/entries/' + searchValue)
+    axios.get('/api/v1/search/' + searchValue + '/1')
     .then(data => {
       var entry = data.data.docs;
-     
       if (entry.length === 1){
         window.location.href="/entry/" + searchValue;
       }else{
-        this.props.history.push("/search/" + searchValue);
+        this.props.history.push("/search/" + searchValue + '/1');
       }
 
     });

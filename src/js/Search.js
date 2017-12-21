@@ -26,12 +26,12 @@ class Search extends Component {
 
   componentWillMount() {
     var queryName = this.props.match.params.name;
-    var queryPage = parseInt(this.props.match.params.page);
+    var queryPage = parseInt(this.props.match.params.page, 10);
     this.setState({
       searchValue: queryName
     });
 
-    axios.get('/api/v1/entries/' + queryName + '/' + queryPage)
+    axios.get('/api/v1/search/' + queryName + '/' + queryPage)
       .then(data => {
         var entry = [];
         var pages = [];
@@ -78,7 +78,7 @@ class Search extends Component {
   handleSubmit(event) {
     event.preventDefault();
     var searchValue = this.state.value;
-    axios.get('/api/v1/entries/' + searchValue + '/1')
+    axios.get('/api/v1/search/' + searchValue + '/1')
     .then(data => {
       var entry = data.data.docs;
       if (entry.length === 1){
