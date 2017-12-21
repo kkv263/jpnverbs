@@ -17,7 +17,7 @@ class Search extends Component {
       loading: true,
       entry: [],
       pages: [],
-      activePage: '1',
+      activePage: '',
   };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -56,6 +56,10 @@ class Search extends Component {
     this.setState({value: event.target.value});
   }
 
+  handlePage(event) {
+    window.location.href="/search/" + this.state.searchValue + '/' + event;
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     var searchValue = this.state.value;
@@ -81,7 +85,7 @@ class Search extends Component {
     var activePage = this.state.activePage;
 
     const pagesList = pages.map((page,index) =>
-      <PaginationButton key = {index} active={page === activePage}>{page}</PaginationButton>
+      <PaginationButton key={index} onClick = {() => this.handlePage(page)} active={page === activePage}>{page}</PaginationButton>
     );
 
     const entry = this.state.entry;
@@ -92,7 +96,7 @@ class Search extends Component {
       </ResultsLeft>
       <ResultsRight>
         <ol>
-          {(entry.info).map((info, jndex) => {return (<div>
+          {(entry.info).map((info, jndex) => {return (<div key={jndex}>
           <WordAttributes>{info.pos.join(', ')}</WordAttributes>
           <WordDefinition>{info.definition}</WordDefinition>
           </div>)})}
