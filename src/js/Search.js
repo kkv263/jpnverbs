@@ -16,6 +16,8 @@ class Search extends Component {
       resultsLength: '',
       loading: true,
       entry: [],
+      pages: [],
+      activePage: '1',
   };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,15 +32,21 @@ class Search extends Component {
 
     axios.get('/api/v1/entries/' + queryName + '/' + queryPage)
       .then(data => {
-        var entry = []
+        var entry = [];
+        var pages = [];
         if (data.data !== null)
           entry = data.data.docs;
 
+        for (var i = 1; i < data.data.pages + 1; i++){
+          pages.push(i + '');
+        }
 
         this.setState({
           resultsLength: data.data.total,
           loading:false,
-          entry: entry
+          entry: entry,
+          pages: pages,
+          activePage: queryPage
         });
 
       });
@@ -69,7 +77,12 @@ class Search extends Component {
   render() {
     var searchValue = this.state.searchValue;
     var resultsLength = this.state.resultsLength;
-    
+    var pages = this.state.pages;
+    var activePage = this.state.activePage;
+
+    const pagesList = pages.map((page,index) =>
+      <PaginationButton key = {index} active={page === activePage}>{page}</PaginationButton>
+    );
 
     const entry = this.state.entry;
     const entriesList = entry.map ((entry, index) => 
@@ -105,7 +118,7 @@ class Search extends Component {
           <ResultsText>「 {searchValue} 」 - {resultsLength} similar results found:</ResultsText>
           {entriesList}
         <PaginationContainer>
-          <PaginationButton>1</PaginationButton>
+          {pagesList}
         </PaginationContainer>
         </ResultsGridWrapper>
         </BottomContainer>) : 

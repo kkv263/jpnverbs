@@ -116,10 +116,15 @@ export const PaginationButton = styled.div`
 display: inline-block;
 vertical-align:top;
 width: 10%;
-color: #3E4E50;
-border-bottom: #45B29D 3px solid;
+color: ${props => props.active ? '#3E4E50' : '#d0d0d0'}; 
+border-bottom: ${props => props.active ? '#45B29D' : 'none'} 3px solid;
 text-align:center;
 font-size: 1.5em;
 cursor:pointer;
+transition: color ease .1s;
+&:hover {
+    color: #3E4E50;
+  }
 `
+
 
