@@ -48,12 +48,13 @@ cursor: pointer;
 `
 
 export const BottomContainer = styled.div`
-margin-left:5%;
 margin-top: 5%;
+margin-bottom: 5%;
 `
 
 export const ResultsGridWrapper = styled.div`
 width: 60%;
+margin-left:5%;
 display: grid;
 grid-template-rows: .1fr 1fr;
 grid-row-gap: 50px;
@@ -110,15 +111,18 @@ export const ResultsRight = styled.div`
 
 export const PaginationContainer = styled.div`
 width:50%;
+margin-left: 10%;
+margin-top: 2.5%;
 `
 
 export const PaginationButton = styled.div`
-display: inline-block;
+display: inline-block; 
+visibility:  ${props => props.noDisplay ? 'hidden' : ''}; 
 vertical-align:top;
-width: 10%;
+width: 50px;
 color: ${props => props.active ? '#3E4E50' : '#d0d0d0'}; 
 border-bottom: ${props => props.active ? '#45B29D' : 'none'} 3px solid;
-text-align:center;
+text-align: center;
 font-size: 1.5em;
 cursor:pointer;
 transition: color ease .1s;

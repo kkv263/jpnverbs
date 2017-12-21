@@ -17,7 +17,8 @@ class Search extends Component {
       loading: true,
       entry: [],
       pages: [],
-      activePage: '',
+      activePage: 0,
+      totalPages: 0
   };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,7 +26,7 @@ class Search extends Component {
 
   componentWillMount() {
     var queryName = this.props.match.params.name;
-    var queryPage = this.props.match.params.page;
+    var queryPage = parseInt(this.props.match.params.page);
     this.setState({
       searchValue: queryName
     });
@@ -36,9 +37,13 @@ class Search extends Component {
         var pages = [];
         if (data.data !== null)
           entry = data.data.docs;
+        var numPages = 4;
+        var offset = Math.floor((queryPage - 1) / numPages);
+        var start = offset*numPages;
+        var totalPages = data.data.pages;
 
-        for (var i = 1; i < data.data.pages + 1; i++){
-          pages.push(i + '');
+        for (var i = start; i < ((start + numPages) > totalPages ? totalPages : (start + numPages)); i++){
+          pages.push((i + 1));
         }
 
         this.setState({
@@ -46,7 +51,8 @@ class Search extends Component {
           loading:false,
           entry: entry,
           pages: pages,
-          activePage: queryPage
+          activePage: queryPage,
+          totalPages: totalPages
         });
 
       });
@@ -57,7 +63,16 @@ class Search extends Component {
   }
 
   handlePage(event) {
-    window.location.href="/search/" + this.state.searchValue + '/' + event;
+    var activePage = this.state.activePage;
+    if (event === 'prev') 
+      activePage -= 1;
+    else if (event === 'next')
+      activePage += 1;
+    else {
+      activePage = event;
+    }
+    
+    window.location.href="/search/" + this.state.searchValue + '/' + activePage;
   }
 
   handleSubmit(event) {
@@ -121,10 +136,12 @@ class Search extends Component {
           <ResultsGridWrapper>
           <ResultsText>「 {searchValue} 」 - {resultsLength} similar results found:</ResultsText>
           {entriesList}
-        <PaginationContainer>
-          {pagesList}
-        </PaginationContainer>
         </ResultsGridWrapper>
+        <PaginationContainer>
+        <PaginationButton noDisplay={activePage === 1} onClick = {() => this.handlePage('prev')}>‹</PaginationButton>
+          {pagesList}
+        <PaginationButton noDisplay={activePage === this.state.totalPages} onClick = {() => this.handlePage('next')}>›</PaginationButton>
+        </PaginationContainer>
         </BottomContainer>) : 
         (<BottomContainer >
           <ResultsText center>Sorry! It looks like we were not able to find results for「 {searchValue} 」,</ResultsText>

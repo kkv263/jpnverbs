@@ -58,7 +58,7 @@ router.route('/entries/:name/:page').get(function(req, res) {
 var query = {"$or": [{'kdict': new RegExp(".*" + value + ".*")}, {'hdict' : value}]};
 var options = {
   select:   '',
-  sort:     {kdict: "desc"},
+  sort: {kdict: "desc"},
   page: page,
   limit: 10
 };
