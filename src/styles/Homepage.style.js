@@ -68,3 +68,25 @@ cursor: pointer;
     background-color: #e92a4c;
   }
 `
+
+export const AboutWrapper = styled.div`
+width: 100%;
+display:grid;
+grid-template-columns: 1fr 1fr 1fr 1fr;
+`
+
+export const AboutItem = styled.div`
+height: 80vh;
+`
+
+export const AboutTextHeader = styled.h1`
+font-size: 2.5em;
+text-align:center;
+font-family: 'Cabin', sans-serif;
+`
+export const AboutTextImage = styled.div`
+width:60%;
+margin-left: 20%;
+height:55%;
+background:blue;
+`

@@ -49,7 +49,7 @@ var value = req.params.name;
 var page = req.params.page;
 
 //var query = {"$or": [{'kdict.0': value}, {'hdict' : value},]};
-var query =   {"$or": [{'kdict.0': value}, {'hdict' : value}, {'forms.plainp': value}, {'forms.plainn': value},{'forms.politep': value},{'forms.politen': value}]};
+var query =   {"$or": [{'kdict': value}, {'hdict' : value}, {'forms.plainp': value}, {'forms.plainn': value},{'forms.politep': value},{'forms.politen': value}]};
 var options = {
   select: 'kdict hdict info',
   page: page,
@@ -68,7 +68,7 @@ Entry.paginate(query, options, function(err, result) {
 
 router.route ('/entry/:name').get (function(req, res) {
   var value = req.params.name;
-  Entry.findOne({"$or": [{'kdict': value}, {'hdict' : value}]}, function(err, entries){
+  Entry.findOne({"$or": [{'kdict.0': value}, {'hdict' : value}]}, function(err, entries){
     if (err)
       res.send(err);
     res.json(entries);

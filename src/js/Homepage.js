@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HomeWrapper, ConjugateWrapper,
          SearchBar, Slogan, Tip, Button,
-         } from '../styles/Homepage.style'
+         AboutWrapper, AboutItem, AboutTextHeader, AboutTextImage} from '../styles/Homepage.style'
 import axios from 'axios';
 
 class Homepage extends Component {
@@ -52,6 +52,24 @@ class Homepage extends Component {
         <Tip>Try searches like: 飲む, 食べる, 読む</Tip>
 
         </ConjugateWrapper> 
+        <AboutWrapper>
+          <AboutItem>
+            <AboutTextImage></AboutTextImage>
+            <AboutTextHeader>Conjugation</AboutTextHeader> 
+          </AboutItem>
+          <AboutItem>
+            <AboutTextImage></AboutTextImage>
+            <AboutTextHeader>Definition</AboutTextHeader> 
+          </AboutItem>
+          <AboutItem>
+            <AboutTextImage></AboutTextImage>
+            <AboutTextHeader>Audio</AboutTextHeader> 
+          </AboutItem>
+          <AboutItem>
+            <AboutTextImage></AboutTextImage>
+            <AboutTextHeader>Example</AboutTextHeader> 
+          </AboutItem>
+        </AboutWrapper>
       </HomeWrapper>
     );
   }
