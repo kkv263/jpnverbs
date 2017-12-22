@@ -27,7 +27,7 @@ class Homepage extends Component {
 
      
       if (entry.length === 1){
-        this.props.history.push("/entry/" + searchValue);
+        this.props.history.push("/entry/" + entry[0].kdict[0]);
       }else{
         this.props.history.push("/search/" + searchValue + '/1');
       }
@@ -49,7 +49,7 @@ class Homepage extends Component {
             </label>
             <Button type="submit" value="Search"/>
           </form>
-        <Tip>Try popular searches like: 飲む, 食べる, 読む</Tip>
+        <Tip>Try searches like: 飲む, 食べる, 読む</Tip>
 
         </ConjugateWrapper> 
       </HomeWrapper>

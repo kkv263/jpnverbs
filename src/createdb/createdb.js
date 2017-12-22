@@ -29,7 +29,7 @@ function matchPos(regex, array){
 }
 
 //dont do vz, vs-c, vr 
-var re = /&v[^2-4zr]-?[^c]*;/
+var re = /&v[^2-4zrti]-?[^c]*;/
 const miscArray = ['misc', 'field', 'ant', 'dial', 'pri', 's_inf'];
 console.log('Creating database');
 // around 180,000 entries

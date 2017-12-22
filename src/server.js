@@ -48,10 +48,10 @@ router.route('/search/:name/:page').get(function(req, res) {
 var value = req.params.name;
 var page = req.params.page;
 
-var query = {"$or": [{'kdict': new RegExp(".*" + value + ".*")}, {'hdict' : value}]};
+//var query = {"$or": [{'kdict.0': value}, {'hdict' : value},]};
+var query =   {"$or": [{'kdict.0': value}, {'hdict' : value}, {'forms.plainp': value}, {'forms.plainn': value},{'forms.politep': value},{'forms.politen': value}]};
 var options = {
-  select:   '',
-  sort: {kdict: "desc"},
+  select: 'kdict hdict info',
   page: page,
   limit: 10
 };
@@ -60,6 +60,7 @@ Entry.paginate(query, options, function(err, result) {
   if (err)
     res.send(err);
   res.json(result);
+}) .then(function(result) {
 });
 
 

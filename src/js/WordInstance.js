@@ -54,7 +54,7 @@ class WordInstance extends Component {
     .then(data => {
       var entry = data.data.docs;
       if (entry.length === 1){
-        window.location.href="/entry/" + searchValue;
+        window.location.href="/entry/" + entry[0].kdict[0];
       }else{
         this.props.history.push("/search/" + searchValue + '/1');
       }

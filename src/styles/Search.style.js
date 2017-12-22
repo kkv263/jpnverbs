@@ -113,6 +113,7 @@ export const PaginationContainer = styled.div`
 width:50%;
 margin-left: 10%;
 margin-top: 2.5%;
+display:  ${props => props.noDisplay ? 'none' : ''}; 
 `
 
 export const PaginationButton = styled.div`

@@ -22,6 +22,7 @@ class Search extends Component {
   };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePage = this.handlePage.bind(this);
   }
 
   componentWillMount() {
@@ -82,7 +83,7 @@ class Search extends Component {
     .then(data => {
       var entry = data.data.docs;
       if (entry.length === 1){
-        this.props.history.push("/entry/" + searchValue);
+        this.props.history.push("/entry/" + entry[0].kdict[0]);
       }else{
         window.location.href="/search/" + searchValue + '/1';
       }
@@ -137,7 +138,7 @@ class Search extends Component {
           <ResultsText>「 {searchValue} 」 - {resultsLength} similar results found:</ResultsText>
           {entriesList}
         </ResultsGridWrapper>
-        <PaginationContainer>
+        <PaginationContainer noDisplay={this.state.totalPages === 1}>
         <PaginationButton noDisplay={activePage === 1} onClick = {() => this.handlePage('prev')}>‹</PaginationButton>
           {pagesList}
         <PaginationButton noDisplay={activePage === this.state.totalPages} onClick = {() => this.handlePage('next')}>›</PaginationButton>
