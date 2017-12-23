@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { HomeWrapper, ConjugateWrapper,
-         SearchBar, Slogan, Tip, Button,
-         AboutWrapper, AboutItem, AboutTextHeader, AboutTextImage} from '../styles/Homepage.style'
+         SearchBar, Slogan, Tip, Button, AboutSlogan,
+         AboutWrapper, AboutItem, AboutTextHeader, AboutTextImage, 
+         AboutTextSubtitle, Footer, AboutInfoWrapper, AboutContainer} from '../styles/Homepage.style'
 import axios from 'axios';
 
 class Homepage extends Component {
@@ -52,24 +53,36 @@ class Homepage extends Component {
         <Tip>Try searches like: 飲む, 食べる, 読む</Tip>
 
         </ConjugateWrapper> 
-        <AboutWrapper>
-          <AboutItem>
-            <AboutTextImage></AboutTextImage>
-            <AboutTextHeader>Conjugation</AboutTextHeader> 
-          </AboutItem>
-          <AboutItem>
-            <AboutTextImage></AboutTextImage>
-            <AboutTextHeader>Definition</AboutTextHeader> 
-          </AboutItem>
-          <AboutItem>
-            <AboutTextImage></AboutTextImage>
-            <AboutTextHeader>Audio</AboutTextHeader> 
-          </AboutItem>
-          <AboutItem>
-            <AboutTextImage></AboutTextImage>
-            <AboutTextHeader>Example</AboutTextHeader> 
-          </AboutItem>
-        </AboutWrapper>
+        <AboutContainer>
+          <AboutSlogan>
+          </AboutSlogan>
+          <AboutInfoWrapper>
+            <AboutItem>
+              <AboutTextImage></AboutTextImage>
+              <AboutTextHeader>Definition</AboutTextHeader> 
+              <AboutTextSubtitle>Define and conjugate words.</AboutTextSubtitle>
+            </AboutItem>
+            <AboutItem>
+              <AboutTextImage></AboutTextImage>
+              <AboutTextHeader>Kanji</AboutTextHeader> 
+              <AboutTextSubtitle>Provide additional information for Kanji characters.</AboutTextSubtitle> 
+            </AboutItem>
+            <AboutItem>
+              <AboutTextImage></AboutTextImage>
+              <AboutTextHeader>Audio</AboutTextHeader> 
+              <AboutTextSubtitle>Audio listening and understanding enunciation and pronouciation.</AboutTextSubtitle>
+            </AboutItem>
+            <AboutItem>
+              <AboutTextImage></AboutTextImage>
+              <AboutTextHeader>Examples</AboutTextHeader> 
+              <AboutTextSubtitle>Sentences to show the word's utility.</AboutTextSubtitle> 
+            </AboutItem>
+          </AboutInfoWrapper>
+        </AboutContainer>
+
+        <Footer>
+        
+        </Footer>
       </HomeWrapper>
     );
   }

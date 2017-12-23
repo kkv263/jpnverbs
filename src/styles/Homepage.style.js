@@ -69,18 +69,26 @@ cursor: pointer;
   }
 `
 
-export const AboutWrapper = styled.div`
+export const AboutContainer = styled.div`
 width: 100%;
 display:grid;
-grid-template-columns: 1fr 1fr 1fr 1fr;
+grid-template-columns: 1fr 1fr;
+`
+
+export const AboutSlogan = styled.div`
+`
+
+export const AboutInfoWrapper = styled.div`
+display:grid;
+grid-template-columns: 1fr 1fr;
 `
 
 export const AboutItem = styled.div`
-height: 80vh;
+height: 50vh;
 `
 
 export const AboutTextHeader = styled.h1`
-font-size: 2.5em;
+font-size: 2em;
 text-align:center;
 font-family: 'Cabin', sans-serif;
 `
@@ -89,4 +97,18 @@ width:60%;
 margin-left: 20%;
 height:55%;
 background:blue;
+`
+
+export const AboutTextSubtitle = styled.div`
+width: 80%;
+margin: 0 auto;
+font-family: 'Hind Siliguri', sans-serif;
+font-size: 1.25em;
+text-align:center;
+`
+
+export const Footer = styled.div`
+background: #45B29D;
+height: 5vh;
+margin: 0 auto;
 `
