@@ -70,7 +70,8 @@ cursor: pointer;
 `
 
 export const AboutContainer = styled.div`
-width: 100%;
+width: 90%;
+margin:0 auto;
 display:grid;
 grid-template-columns: 1fr 1fr;
 `
@@ -109,6 +110,12 @@ text-align:center;
 
 export const Footer = styled.div`
 background: #45B29D;
-height: 5vh;
 margin: 0 auto;
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr ;
+
+`
+
+export const FooterText = styled.div`
+color: white;
 `

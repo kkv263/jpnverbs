@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { HomeWrapper, ConjugateWrapper,
          SearchBar, Slogan, Tip, Button, AboutSlogan,
          AboutWrapper, AboutItem, AboutTextHeader, AboutTextImage, 
-         AboutTextSubtitle, Footer, AboutInfoWrapper, AboutContainer} from '../styles/Homepage.style'
+         AboutTextSubtitle, Footer, AboutInfoWrapper, AboutContainer, FooterText} from '../styles/Homepage.style'
 import axios from 'axios';
 
 class Homepage extends Component {
@@ -79,9 +79,10 @@ class Homepage extends Component {
             </AboutItem>
           </AboutInfoWrapper>
         </AboutContainer>
-
         <Footer>
-        
+          <FooterText>
+          This site uses the EDICT and KANJIDIC dictionary files. These files are the property of the Electronic Dictionary Research and Development Group, and are used in conformance with the Group's licence.
+          </FooterText>
         </Footer>
       </HomeWrapper>
     );
