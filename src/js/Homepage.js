@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { HomeWrapper, ConjugateWrapper,
          SearchBar, Slogan, Tip, Button, AboutSlogan,
          AboutWrapper, AboutItem, AboutTextHeader, AboutTextImage, 
-         AboutTextSubtitle, Footer, AboutInfoWrapper, AboutContainer, FooterText} from '../styles/Homepage.style'
+         AboutTextSubtitle, AboutInfoWrapper, AboutContainer, Header} from '../styles/Homepage.style'
 import axios from 'axios';
 
 class Homepage extends Component {
@@ -43,6 +43,7 @@ class Homepage extends Component {
     return (
       <HomeWrapper>
         <ConjugateWrapper>
+        <Header>jVerbs</Header>
         <Slogan>An Online Japanese Verb Conjugator </Slogan>
           <form onSubmit={this.handleSubmit}>
             <label>
@@ -53,6 +54,7 @@ class Homepage extends Component {
         <Tip>Try searches like: 飲む, 食べる, 読む</Tip>
 
         </ConjugateWrapper> 
+        {/* probably for future releases
         <AboutContainer>
           <AboutSlogan>
           </AboutSlogan>
@@ -78,12 +80,8 @@ class Homepage extends Component {
               <AboutTextSubtitle>Sentences to show the word's utility.</AboutTextSubtitle> 
             </AboutItem>
           </AboutInfoWrapper>
-        </AboutContainer>
-        <Footer>
-          <FooterText>
-          This site uses the EDICT and KANJIDIC dictionary files. These files are the property of the Electronic Dictionary Research and Development Group, and are used in conformance with the Group's licence.
-          </FooterText>
-        </Footer>
+        </AboutContainer> */}
+
       </HomeWrapper>
     );
   }

@@ -7,7 +7,7 @@ width: 100%;
 export const SearchTitleWrapper = styled.div`
 width: 100%;
 height: 35vh;
-background: linear-gradient(to bottom right,rgba(98, 131, 149,.6),rgba(69, 178, 157, .6)), url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=2555&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D') no-repeat;
+background: linear-gradient(to bottom right,rgba(98, 131, 149, 1),rgba(69, 178, 157, 1)), url('') no-repeat;
 display: flex;
 align-items: center;
 justify-content: center;

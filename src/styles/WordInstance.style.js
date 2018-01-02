@@ -8,6 +8,8 @@ export const fadeIn = keyframes`
 export const WIWrapper = styled.div`
 width: 100%;
 background-color:white;
+position:relative;
+min-height: 100vh;
 `
 
 export const WordTitleWrapper = styled.div`
@@ -58,6 +60,7 @@ margin-left: 5%;
 margin-right: 2.5%;
 display:grid;
 width: 65%;
+padding-bottom: 10%;
 `
 
 export const WordWrapper = styled.div`
@@ -161,4 +164,23 @@ cursor: pointer;
     background-color: #e92a4c;
   }
 `
+export const Footer = styled.div`
+background: #45B29D;
+position:absolute;
+bottom: 0;
+width: 100%;
+`
 
+export const FooterContainter = styled.div`
+width: 50%;
+margin: 0 auto;
+display: grid;
+grid-template-columns: 1fr ;
+`
+
+export const FooterText = styled.div`
+margin-top: 2.5%;
+margin-bottom: 2.5%;
+color: white;
+font-family: 'Cabin', sans-serif;
+`

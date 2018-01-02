@@ -4,7 +4,7 @@ import { WIWrapper, WordWrapper, SearchBar, WordContainer,
   WordHeader, WordAttributes, WordTitleWrapper,
   AttributesWrapper, WordDefinition, Notes, 
   WordFooter, FormWrapper, SubtitleHeader, Tab, 
-  FormTitle} from '../styles/WordInstance.style';
+  FormTitle, Footer, FooterContainter, FooterText} from '../styles/WordInstance.style';
 import axios from 'axios';
 
 class WordInstance extends Component {
@@ -155,6 +155,13 @@ class WordInstance extends Component {
           </WordWrapper>
           {showTabs}
         </WordContainer>
+        <Footer>
+          <FooterContainter>
+            <FooterText>
+            This site uses the EDICT and KANJIDIC dictionary files. These files are the property of the Electronic Dictionary Research and Development Group, and are used in conformance with the Group's licence.
+            </FooterText>
+          </FooterContainter>
+        </Footer>
       </WIWrapper>)
     );
   }

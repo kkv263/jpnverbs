@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 
+export const Header = styled.h1`
+text-align:center;
+position:absolute;
+top: 2%;
+color:white;
+font-size: 4em;
+font-family: 'Courgette', cursive;
+
+`
 
 export const HomeWrapper = styled.div`
 width: 100%;
@@ -10,8 +19,8 @@ height: 100vh;
 export const ConjugateWrapper = styled.div`
 position: relative;
 width: 100%;
-height: 70vh;
-background: linear-gradient(to bottom right,rgba(98, 131, 149,.6),rgba(69, 178, 157, .6)), url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=2555&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D') center center no-repeat;
+height: 100vh;
+background: linear-gradient(to bottom right,rgba(98, 131, 149,1),rgba(69, 178, 157, 1)), url('') center center no-repeat;
 background-size: cover;
 display: flex;
 align-items: center;
@@ -110,12 +119,18 @@ text-align:center;
 
 export const Footer = styled.div`
 background: #45B29D;
+padding-bottom: 2%;
+`
+
+export const FooterContainter = styled.div`
+width: 90%;
 margin: 0 auto;
 display: grid;
-grid-template-columns: 1fr 1fr 1fr 1fr ;
-
+grid-template-columns: 1fr 1fr 1fr ;
 `
 
 export const FooterText = styled.div`
+margin-top: 5%;
 color: white;
+font-family: 'Cabin', sans-serif;
 `
