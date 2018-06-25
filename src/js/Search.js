@@ -82,8 +82,12 @@ class Search extends Component {
     axios.get('/api/v1/search/' + searchValue + '/1')
     .then(data => {
       var entry = data.data.docs;
+      console.log(entry);
       if (entry.length === 1){
-        this.props.history.push("/entry/" + entry[0].kdict[0]);
+        if (entry[0].kdict[0] != null) 
+          this.props.history.push("/entry/" + entry[0].kdict[0]);
+        else
+          this.props.history.push("/entry/" + entry[0].hdict[0]); 
       }else{
         window.location.href="/search/" + searchValue + '/1';
       }

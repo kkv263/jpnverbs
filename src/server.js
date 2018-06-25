@@ -8,6 +8,8 @@ var Entry = require('./models/entry');
 var app = express();
 var router = express.Router();
 
+var charMap = require ('./js/charmap.js');
+
 var port = process.env.API_PORT || 3001;
 
 //const mongoUrl = 'mongodb://localhost/test'
@@ -48,8 +50,12 @@ router.route('/search/:name/:page').get(function(req, res) {
 var value = req.params.name;
 var page = req.params.page;
 
+//for english to hiragana, only translate if first character is an roman letter
+value = charMap(value)
+console.log(value)
 //var query = {"$or": [{'kdict.0': value}, {'hdict' : value},]};
-var query =   {"$or": [{'kdict': value}, {'hdict' : value}, {'forms.plainp': value}, {'forms.plainn': value},{'forms.politep': value},{'forms.politen': value}]};
+var query =   {"$or": [{'kdict': value}, {'hdict' : value}, {'forms.plainp': value}, 
+{'forms.plainn': value},{'forms.politep': value},{'forms.politen': value}, {'info.definition': new RegExp(value, 'i') }]};
 var options = {
   select: 'kdict hdict info',
   page: page,
