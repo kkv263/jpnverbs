@@ -7,7 +7,7 @@ top: 2%;
 color:white;
 font-size: 4em;
 font-family: 'Courgette', cursive;
-
+text-shadow: 2px 2px #3E4E50;
 `
 
 export const HomeWrapper = styled.div`
@@ -33,6 +33,7 @@ color: #f9f9f9;
 margin-bottom: 2%;
 font-family: 'Cabin', sans-serif;
 font-size: 1.75em;
+text-shadow: 2px 2px #3E4E50;
 `
 
 export const Tip = styled.h1`
@@ -68,13 +69,16 @@ margin-left: 10px;
 border: 0px;
 border-radius: 8px;
 background-color:#EC4664;
-box-shadow: 0px 9px 14px 0px rgba(0, 0, 0, 0.1);
+box-shadow: 0px 5px 0px #C23952;
 color: #F9f9f9;
 font-size: 1.1em; 
 outline: none;
 cursor: pointer;
-  &:hover {
+transition: all ease 0.2s;
+  &:active {
     background-color: #e92a4c;
+    box-shadow: 0 1px 0 #C23952;
+    transform:translateY(3px);
   }
 `
 

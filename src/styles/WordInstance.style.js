@@ -1,8 +1,18 @@
 import styled, {keyframes} from 'styled-components';
 
+
 export const fadeIn = keyframes`
 0%   { opacity: 0;}
 100%  { opacity: 1;}
+`
+export const HomeLogo = styled.h1`
+color: #45B29D;
+font-size: 2.5em;
+font-family: 'Courgette', cursive;
+text-shadow: 2px 2px #f9f9f9;
+cursor:pointer;
+margin-bottom:5%;
+margin-top:2.5%;
 `
 
 export const WIWrapper = styled.div`
@@ -151,8 +161,9 @@ background-color:white;
 
 export const Button = styled.input`
 width:100px;
-height:5.5vh;
+height:4.5vh;
 margin-left: -103px;
+padding-top:4px;
 border: 0px;
 border-radius: 8px;
 background-color:#EC4664;
@@ -160,8 +171,12 @@ color: #F9f9f9;
 font-size: 1.1em; 
 outline: none;
 cursor: pointer;
-  &:hover {
+box-shadow: 0 4px 0 #C23952;
+transition: all ease 0.2s;
+  &:active {
     background-color: #e92a4c;
+    box-shadow: 0 1px 0 #C23952;
+    transform:translateY(2px);
   }
 `
 export const Footer = styled.div`

@@ -3,6 +3,16 @@ import styled from 'styled-components'
 export const SearchContainer = styled.div`
 width: 100%;
 `
+export const HomeLogo = styled.h1`
+position:absolute;
+top: 2%;
+left: 2%;
+color:white;
+font-size: 2.5em;
+font-family: 'Courgette', cursive;
+text-shadow: 2px 2px #3E4E50;
+cursor:pointer;
+`
 
 export const SearchTitleWrapper = styled.div`
 width: 100%;
@@ -33,7 +43,7 @@ background-color:white;
 
 export const Button = styled.input`
 width:100px;
-height:7.5vh;
+height:6.5vh;
 margin-left: -107px;
 border: 0px;
 border-radius: 8px;
@@ -42,8 +52,13 @@ color: #F9f9f9;
 font-size: 1.1em; 
 outline: none;
 cursor: pointer;
-  &:hover {
+padding-top:4px;
+box-shadow: 0 4px 0 #C23952;
+transition: all ease 0.2s;
+  &:active {
     background-color: #e92a4c;
+    box-shadow: 0 1px 0 #C23952;
+    transform:translateY(2px);
   }
 `
 

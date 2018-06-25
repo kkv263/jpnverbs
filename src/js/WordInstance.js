@@ -4,8 +4,9 @@ import { WIWrapper, WordWrapper, SearchBar, WordContainer,
   WordHeader, WordAttributes, WordTitleWrapper,
   AttributesWrapper, WordDefinition, Notes, 
   WordFooter, FormWrapper, SubtitleHeader, Tab, 
-  FormTitle, Footer, FooterContainter, FooterText} from '../styles/WordInstance.style';
+  FormTitle, Footer, FooterContainter, FooterText, HomeLogo} from '../styles/WordInstance.style';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 class WordInstance extends Component {
   constructor(props) {
@@ -136,6 +137,7 @@ class WordInstance extends Component {
     return (
       this.state.loading ? null : (<WIWrapper>
         <WordContainer>
+          <Link style={{ textDecoration: 'none' }} to={"/"}><HomeLogo>jVerbs</HomeLogo></Link>
           <form onSubmit={this.handleSubmit}>
             <label>
               <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />

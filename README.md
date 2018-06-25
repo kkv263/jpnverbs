@@ -2,7 +2,7 @@
 
 ## Checklist
 + ⬜️Add frequency for search results
-+ ⬜️Navigation through website
++ ~✔️Navigation through website~
 + ⬜️Intregrate Redux
 + ⬜️About Section
 + ⬜️Mobile Support

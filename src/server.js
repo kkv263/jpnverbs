@@ -52,7 +52,7 @@ var page = req.params.page;
 
 //for english to hiragana, only translate if first character is an roman letter
 value = charMap(value)
-console.log(value)
+
 //var query = {"$or": [{'kdict.0': value}, {'hdict' : value},]};
 var query =   {"$or": [{'kdict': value}, {'hdict' : value}, {'forms.plainp': value}, 
 {'forms.plainn': value},{'forms.politep': value},{'forms.politen': value}, {'info.definition': new RegExp(value, 'i') }]};

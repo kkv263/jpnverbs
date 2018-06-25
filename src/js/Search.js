@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { SearchContainer, SearchTitleWrapper, SearchBar, Button,
     ResultsGridWrapper, ResultsLeft, ResultsRight, ResultsItem, 
     WordDefinition, WordAttributes, LinkText, ResultsText, PaginationContainer, 
-    BottomContainer, PaginationButton} from '../styles/Search.style';
+    BottomContainer, PaginationButton, HomeLogo} from '../styles/Search.style';
 import axios from "axios";
 import { Link } from 'react-router-dom'
 
@@ -112,7 +112,7 @@ class Search extends Component {
     const entriesList = entry.map ((entry, index) => 
     <ResultsItem key={index}>
       <ResultsLeft>{(entry.kdict[0] ? entry.kdict[0] : entry.hdict[0])} 
-        <Link to={"/entry/" + (entry.kdict[0] ? entry.kdict[0] : entry.hdict[0])}><LinkText>see more...▸</LinkText></Link>
+        <Link style={{ textDecoration: 'none' }} to={"/entry/" + (entry.kdict[0] ? entry.kdict[0] : entry.hdict[0])}><LinkText>see more...▸</LinkText></Link>
       </ResultsLeft>
       <ResultsRight>
         <ol>
@@ -129,6 +129,7 @@ class Search extends Component {
     return (
       this.state.loading ? null : (<SearchContainer>
         <SearchTitleWrapper>
+        <Link to={"/"}><HomeLogo>jVerbs</HomeLogo></Link>
           <form onSubmit={this.handleSubmit}>
             <label>
               <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />

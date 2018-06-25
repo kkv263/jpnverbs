@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { HomeWrapper, ConjugateWrapper,
-         SearchBar, Slogan, Tip, Button, AboutSlogan,
-         AboutWrapper, AboutItem, AboutTextHeader, AboutTextImage, 
-         AboutTextSubtitle, AboutInfoWrapper, AboutContainer, Header} from '../styles/Homepage.style'
+         SearchBar, Slogan, Tip, Button,Header} from '../styles/Homepage.style'
 import axios from 'axios';
 
 class Homepage extends Component {
@@ -53,7 +51,7 @@ class Homepage extends Component {
             </label>
             <Button type="submit" value="Search"/>
           </form>
-        <Tip>Try searches like: 飲む, 食べる, 読む</Tip>
+        <Tip>Try searches like: 食べる, たべる, taberu, to eat</Tip>
 
         </ConjugateWrapper> 
         {/* probably for future releases
