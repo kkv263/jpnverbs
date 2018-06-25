@@ -10,6 +10,6 @@
 + ~✔️Navigation through website~
 + ~✔️Add ToDo List~
 + ~✔️Add database, intregrate with database~
-+ ~✔️Mocha Tests with data ~
++ ~✔️Mocha Tests with data~
 + ~✔️Add Homepage, Search Page, Word Instance page~
 + ~✔️Initial Commit~
