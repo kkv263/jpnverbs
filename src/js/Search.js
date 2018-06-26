@@ -72,7 +72,6 @@ class Search extends Component {
     else {
       activePage = event;
     }
-    
     window.location.href="/search/" + this.state.searchValue + '/' + activePage;
   }
 
@@ -91,10 +90,6 @@ class Search extends Component {
       }else{
         window.location.href="/search/" + searchValue + '/1';
       }
-
-      this.setState({
-      });
-
     });
   }
 
@@ -112,7 +107,7 @@ class Search extends Component {
     const entriesList = entry.map ((entry, index) => 
     <ResultsItem key={index}>
       <ResultsLeft>{(entry.kdict[0] ? entry.kdict[0] : entry.hdict[0])} 
-        <Link style={{ textDecoration: 'none' }} to={"/entry/" + (entry.kdict[0] ? entry.kdict[0] : entry.hdict[0])}><LinkText>see more...▸</LinkText></Link>
+        <Link onClick = {() => this.sendFreq(entry.kdict[0] ? entry.kdict[0] : entry.hdict[0])} style={{ textDecoration: 'none' }} to={"/entry/" + (entry.kdict[0] ? entry.kdict[0] : entry.hdict[0])}><LinkText>see more...▸</LinkText></Link>
       </ResultsLeft>
       <ResultsRight>
         <ol>

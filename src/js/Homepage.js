@@ -26,16 +26,12 @@ class Homepage extends Component {
      
       if (entry.length === 1){
         if (entry[0].kdict[0] != null) 
-        this.props.history.push("/entry/" + entry[0].kdict[0]);
-      else
-        this.props.history.push("/entry/" + entry[0].hdict[0]); 
+          this.props.history.push("/entry/" + entry[0].kdict[0]);
+        else
+          this.props.history.push("/entry/" + entry[0].hdict[0]); 
       }else{
         this.props.history.push("/search/" + searchValue + '/1');
       }
-
-      this.setState({
-      });
-
     });
   }
 

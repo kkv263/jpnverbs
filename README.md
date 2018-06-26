@@ -1,12 +1,12 @@
 ## Jpnverbs - a web application that conjugates japanese verbs into various forms.
 
 ## Checklist
-+ ⬜️~Add frequency for search results~ Now add frequency if result clicked on
 + ⬜️Intregrate Redux
 + ⬜️About Section
 + ⬜️Mobile Support
 + ⬜️Launch Application
 + ⬜️Ads? 😧
++ ~✔️Add frequency for search results~
 + ~✔️Navigation through website~
 + ~✔️Add ToDo List~
 + ~✔️Add database, intregrate with database~
