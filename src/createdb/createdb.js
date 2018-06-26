@@ -4,8 +4,8 @@ const data2 = require('./JMdict.json');
 const Entry = require('../models/entry');
 const conjugateEntry = require('./conjugate');
 var user = require('../cred');
-// const mongoUrl = 'mongodb://localhost/test'
 
+// const mongoUrl = 'mongodb://localhost/test'
 const mongoUrl = 'mongodb://' + user.user + ':' + user.pw +'@ds059207.mlab.com:59207/conjugations';
 
 //Connect to DB
@@ -32,13 +32,15 @@ function matchPos(regex, array){
 var re = /&v[^2-4zrti]-?[^c]*;/
 const miscArray = ['misc', 'field', 'ant', 'dial', 'pri', 's_inf'];
 console.log('Creating database');
+
 // around 180,000 entries
-for (var i = (30000) * 5; i < data2.length; i++){
+for (var i = 30000 * 5 ; i < data2.length ; i++){
   var conIndex = matchPos(re, data2[i]['sense'][0]['pos']);
   if ( conIndex !== -1){
       console.log(i);
       var entry = new Entry();
       var conjugate = false;
+      entry.freq = 0;
       // grabs all kanji if exists
       var kanjiArray = [];
 
@@ -66,7 +68,7 @@ for (var i = (30000) * 5; i < data2.length; i++){
       entry.conjugate = conjugate;
 
       for (var j = 0; j < data2[i]['sense'].length; j++){
-        // each loop new schema for these three
+        //each loop new schema for these three
         var definition = '';
         var pos = [];
         var xref = [];

@@ -22,7 +22,8 @@ var EntrySchema = new Schema({
   kdict: [String],  
   info: [InfoSchema],
   forms: [FormSchema],
-  conjugate: Boolean
+  conjugate: Boolean,
+  freq: Number
 });
 
 EntrySchema.plugin(mongoosePaginate);
