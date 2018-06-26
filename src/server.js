@@ -58,6 +58,9 @@ var query =   {"$or": [{'kdict': value}, {'hdict' : value}, {'forms.plainp': val
 {'forms.plainn': value},{'forms.politep': value},{'forms.politen': value}, {'info.definition': new RegExp(value, 'i') }]};
 var options = {
   select: 'kdict hdict info',
+  sort:{
+    freq: -1 //Sort by freq DESC
+  }, 
   page: page,
   limit: 10
 };
@@ -74,7 +77,7 @@ Entry.paginate(query, options, function(err, result) {
 
 router.route ('/entry/:name').get (function(req, res) {
   var value = req.params.name;
-  Entry.findOne({"$or": [{'kdict.0': value}, {'hdict' : value}]}, function(err, entries){
+  Entry.findOneAndUpdate({"$or": [{'kdict.0': value}, {'hdict' : value}]}, {$inc : {'freq' : 1}}, function(err, entries){
     if (err)
       res.send(err);
     res.json(entries);
