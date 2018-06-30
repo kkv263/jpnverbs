@@ -3,6 +3,8 @@ import { HomeWrapper, ConjugateWrapper,
          SearchBar, Slogan, Tip, Button,Header} from '../styles/Homepage.style'
 import axios from 'axios';
 
+var prod = 'https://intense-woodland-50358.herokuapp.com'
+
 class Homepage extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +22,7 @@ class Homepage extends Component {
   handleSubmit(event) {
     event.preventDefault();
     var searchValue = this.state.value;
-    axios.get('/api/v1/search/' + searchValue + '/1')
+    axios.get(prod + '/api/v1/search/' + searchValue + '/1')
     .then(data => {
       var entry = data.data.docs;
      

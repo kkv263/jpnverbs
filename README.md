@@ -7,6 +7,7 @@ Jpnverbs is an application that is supposed to serve as a verb conjugator for th
 + ⬜️Mobile Support
 + ⬜️Launch Application
 + ⬜️Ads? 😧
++ ~✔️First deploy for demo~
 + ~✔️Add frequency for search results~
 + ~✔️Navigation through website~
 + ~✔️Add ToDo List~
