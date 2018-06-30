@@ -1,5 +1,5 @@
 'use strict'
-var user = require('./cred');
+require('dotenv/config');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
@@ -13,7 +13,7 @@ var charMap = require ('./js/charmap.js');
 var port = process.env.API_PORT || 3001;
 
 //const mongoUrl = 'mongodb://localhost/test'
-const mongoUrl = 'mongodb://' + user.user + ':' + user.pw +'@ds059207.mlab.com:59207/conjugations';
+const mongoUrl = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PW +'@ds059207.mlab.com:59207/conjugations';
 
 //connect to db
 mongoose.connect(mongoUrl, { useMongoClient: true });
