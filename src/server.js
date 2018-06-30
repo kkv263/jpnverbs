@@ -10,7 +10,7 @@ var router = express.Router();
 
 var charMap = require ('./js/charmap.js');
 
-var port = process.env.API_PORT || 3001;
+var port = process.env.PORT || 3001;
 
 //const mongoUrl = 'mongodb://localhost/test'
 const mongoUrl = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PW +'@ds059207.mlab.com:59207/conjugations';
