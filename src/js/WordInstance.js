@@ -8,6 +8,8 @@ import { WIWrapper, WordWrapper, SearchBar, WordContainer,
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 
+var prod = 'https://intense-woodland-50358.herokuapp.com';
+
 class WordInstance extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +30,7 @@ class WordInstance extends Component {
   componentWillMount(){
     var query = this.props.match.params.name
 
-    axios.get('/api/v1/entry/' + query)
+    axios.get(prod + '/api/v1/entry/' + query)
       .then(data => {
         var entry = data.data;
         
@@ -51,7 +53,7 @@ class WordInstance extends Component {
   handleSubmit(event) {
     event.preventDefault();
     var searchValue = this.state.value;
-    axios.get('/api/v1/search/' + searchValue + '/1')
+    axios.get(prod + '/api/v1/search/' + searchValue + '/1')
     .then(data => {
       var entry = data.data.docs;
       if (entry.length === 1){
