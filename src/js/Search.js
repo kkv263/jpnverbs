@@ -6,7 +6,6 @@ import { SearchContainer, SearchTitleWrapper, SearchBar, Button,
 import axios from "axios";
 import { Link } from 'react-router-dom'
 
-var prod = 'https://intense-woodland-50358.herokuapp.com';
 
 class Search extends Component {
   constructor(props) {
@@ -33,7 +32,7 @@ class Search extends Component {
       searchValue: queryName
     });
 
-    axios.get(prod + '/api/v1/search/' + queryName + '/' + queryPage)
+    axios.get('/api/v1/search/' + queryName + '/' + queryPage)
       .then(data => {
         var entry = [];
         var pages = [];
