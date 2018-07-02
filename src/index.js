@@ -6,7 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import {AppContainer} from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 
-ReactDOM.render(<BrowserRouter><App /></BrowserRouter>,document.getElementById('root'));
+ReactDOM.render(<BrowserRouter basename={process.env.PUBLIC_URL} ><App /></BrowserRouter>,document.getElementById('root'));
 registerServiceWorker();
 
 if (module.hot) {
