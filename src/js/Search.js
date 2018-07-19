@@ -24,6 +24,7 @@ class Search extends Component {
   }
 
   componentDidMount() {
+    this.props.toggleLoading(true);
     let queryName = this.props.match.params.name;
     let queryPage = parseInt(this.props.match.params.page, 10);
 

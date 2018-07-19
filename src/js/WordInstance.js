@@ -15,6 +15,7 @@ import propTypes from 'prop-types';
 import { toggleTab } from '../action/pageActions';
 import { changeFormValue, toggleLoading } from '../action/searchActions';
 import { setEntry, setAltEntry } from '../action/wordActions';
+import WordInstanceSkeleton from './WordInstanceSkeleton';
 
 var prod = 'https://intense-woodland-50358.herokuapp.com';
 
@@ -27,6 +28,7 @@ class WordInstance extends Component {
   }
 
   componentDidMount(){
+    this.props.toggleLoading(true);
     var query = this.props.match.params.name
 
     axios.get(prod + '/api/v1/entry/' + query)
@@ -56,7 +58,6 @@ class WordInstance extends Component {
       }
 
     });
-    this.props.toggleLoading(true);
   }
 
   handleTab(value){
@@ -128,7 +129,7 @@ class WordInstance extends Component {
     }
 
     return (
-      this.props.loading ? null : (<WIWrapper>
+      this.props.loading ? <WordInstanceSkeleton/> : (<WIWrapper>
         <BaseHeader>
           <Link style={{ textDecoration: 'none' }} to={"/"}><HomeLogo>jVerbs</HomeLogo></Link>
           <SearchForm onSubmit={this.handleSubmit}>
@@ -139,7 +140,6 @@ class WordInstance extends Component {
           </SearchForm>
         </BaseHeader>
         <WordContainer>
-
           <WordWrapper>
             <WordTitleWrapper>
               <WordHeader Color = "#45B29D">{this.props.entry.kdict[0]}</WordHeader>

@@ -14,6 +14,7 @@ export const SKText = styled.div`
 width: ${props => props.w};
 height: ${props => props.h};
 margin-top: ${props => props.mt};
+margin-bottom: ${props => props.mb};
 animation: ${shine} linear 1s infinite;
 background: lightgrey;
 -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);

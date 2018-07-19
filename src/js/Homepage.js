@@ -36,7 +36,6 @@ class Homepage extends Component {
       }else{
         this.props.history.push("/search/" + searchValue + '/1');
       }
-      this.props.toggleLoading(true);
     });
   }
 
