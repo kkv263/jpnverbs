@@ -5,7 +5,7 @@ import { SearchContainer, SearchTitleWrapper, SearchBar, Button,
     BottomContainer, PaginationButton, HomeLogo} from '../styles/Search.style';
 import axios from "axios";
 import { Link } from 'react-router-dom'
-
+import SearchSkeleton from './SearchSkeleton';
 import { connect } from 'react-redux';
 import { setData } from '../action/dataActions';
 import { changeFormValue, changeQueryValue, toggleLoading } from '../action/searchActions';
@@ -113,7 +113,7 @@ class Search extends Component {
     ); 
 
     return (
-      this.props.loading ? null : (<SearchContainer>
+      this.props.loading ? <SearchSkeleton /> : (<SearchContainer>
         <SearchTitleWrapper>
         <Link to={"/"}><HomeLogo>jVerbs</HomeLogo></Link>
           <form onSubmit={this.handleSubmit}>

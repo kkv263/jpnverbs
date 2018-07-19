@@ -2,11 +2,11 @@
 Jpnverbs is an application that is supposed to serve as a verb conjugator for the Japanese language. It utilizes the JEDict file to parse for Japanese verbs, and formulates the conjugated forms of the words as well as a definition of the word. In the future I hope to add more features for a more fleshed out website. This website uses the MERN stack (MongoDB, Express, React, Node)
 
 ## Checklist
-+ ⬜️Intregrate Redux
 + ⬜️About Section
 + ⬜️Mobile Support
 + ⬜️Launch Application
 + ⬜️Ads? 😧
++ ~✔️Integrate Redux~
 + ~✔️First deploy for demo~
 + ~✔️Add frequency for search results~
 + ~✔️Navigation through website~

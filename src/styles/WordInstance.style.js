@@ -5,14 +5,25 @@ export const fadeIn = keyframes`
 0%   { opacity: 0;}
 100%  { opacity: 1;}
 `
+
+export const BaseHeader = styled.div`
+position:relative;
+width:100%;
+background: linear-gradient(to bottom right,rgba(98, 131, 149, 1),rgba(69, 178, 157, 1)), url('') no-repeat;
+height:12.5vh;
+margin-bottom:2.5%;
+
+`
+
 export const HomeLogo = styled.h1`
-color: #45B29D;
+position:absolute;
+color:white;
+top:15%;
+left:5%;
 font-size: 2.5em;
 font-family: 'Courgette', cursive;
-text-shadow: 2px 2px #f9f9f9;
+text-shadow: 2px 2px #3E4E50;
 cursor:pointer;
-margin-bottom:5%;
-margin-top:2.5%;
 `
 
 export const WIWrapper = styled.div`
@@ -23,7 +34,6 @@ min-height: 100vh;
 `
 
 export const WordTitleWrapper = styled.div`
-margin-top: 2.5%;
 margin-bottom: 1%;
 `
 
@@ -141,9 +151,15 @@ transition: color ease .1s;
   }
 `
 
-export const SearchBar = styled.input`
+export const SearchForm = styled.form`
+position:absolute;
+right:5%;
+top: 25%;
+`
+
+export const SearchBar = styled.input `
 margin-bottom: 2.5%;
-width: 600px;
+min-width: 400px;
 height: 6vh;
 outline: none;
 border: 1px solid;
@@ -187,15 +203,14 @@ width: 100%;
 `
 
 export const FooterContainter = styled.div`
-width: 50%;
+width: 90%;
 margin: 0 auto;
-display: grid;
-grid-template-columns: 1fr ;
 `
 
 export const FooterText = styled.div`
-margin-top: 2.5%;
-margin-bottom: 2.5%;
+margin-top: 1%;
+margin-bottom: 1%;
 color: white;
 font-family: 'Cabin', sans-serif;
+font-size:.75em;
 `

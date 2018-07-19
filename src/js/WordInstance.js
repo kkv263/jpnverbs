@@ -4,7 +4,8 @@ import { WIWrapper, WordWrapper, SearchBar, WordContainer,
   WordHeader, WordAttributes, WordTitleWrapper,
   AttributesWrapper, WordDefinition, Notes, 
   WordFooter, FormWrapper, SubtitleHeader, Tab, 
-  FormTitle, Footer, FooterContainter, FooterText, HomeLogo} from '../styles/WordInstance.style';
+  FormTitle, Footer, FooterContainter, FooterText, HomeLogo, 
+  SearchForm, BaseHeader} from '../styles/WordInstance.style';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 
@@ -128,14 +129,17 @@ class WordInstance extends Component {
 
     return (
       this.props.loading ? null : (<WIWrapper>
-        <WordContainer>
+        <BaseHeader>
           <Link style={{ textDecoration: 'none' }} to={"/"}><HomeLogo>jVerbs</HomeLogo></Link>
-          <form onSubmit={this.handleSubmit}>
+          <SearchForm onSubmit={this.handleSubmit}>
             <label>
               <SearchBar type="text" value={this.props.searchValue} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
             </label>
             <Button type="submit" value="Search"/>
-          </form>
+          </SearchForm>
+        </BaseHeader>
+        <WordContainer>
+
           <WordWrapper>
             <WordTitleWrapper>
               <WordHeader Color = "#45B29D">{this.props.entry.kdict[0]}</WordHeader>
