@@ -81,6 +81,7 @@ class Search extends Component {
       }else{
         window.location.href="/search/" + searchValue + '/1';
       }
+      this.props.toggleLoading(true);
     });
   }
 

@@ -1,10 +1,11 @@
-import { CHANGE_ACTIVE_PAGE, RESET_PAGES, ADD_PAGE_ITEM, SET_RESULTS_LENGTH, SET_TOTAL_PAGES } from '../action/types'
+import { CHANGE_ACTIVE_PAGE, RESET_PAGES, ADD_PAGE_ITEM, SET_RESULTS_LENGTH, SET_TOTAL_PAGES, TOGGLE_TAB } from '../action/types'
 
 const initialState = {
     activePage: 0,
     pages: [],
     resultsLength: 0,
-    totalPages: 0
+    totalPages: 0,
+    activeTab: 0,
   };
   
 export default function(state = initialState, action) {
@@ -39,6 +40,13 @@ export default function(state = initialState, action) {
             ...state,
             totalPages:action.payload
         }
+
+        case TOGGLE_TAB:
+        return {
+            ...state,
+            activeTab:action.payload
+        }
+
       default:
         return state;
     }

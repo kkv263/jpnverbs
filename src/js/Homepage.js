@@ -4,7 +4,7 @@ import { HomeWrapper, ConjugateWrapper,
 import axios from 'axios';
 
 import { connect } from 'react-redux';
-import { changeFormValue } from '../action/searchActions';
+import { changeFormValue,toggleLoading } from '../action/searchActions';
 
 import propTypes from 'prop-types';
 
@@ -36,6 +36,7 @@ class Homepage extends Component {
       }else{
         this.props.history.push("/search/" + searchValue + '/1');
       }
+      this.props.toggleLoading(true);
     });
   }
 
@@ -89,11 +90,14 @@ class Homepage extends Component {
 
 Homepage.propTypes = {
   changeFormValue: propTypes.func.isRequired,
+  toggleLoading: propTypes.func.isRequired,
+  loading: propTypes.bool.isRequired,
   searchValue: propTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
-  searchValue: state.search.searchValue
+  searchValue: state.search.searchValue,
+  loading: state.search.loading
 });
 
-export default connect(mapStateToProps, {changeFormValue})(Homepage);
+export default connect(mapStateToProps, {changeFormValue, toggleLoading})(Homepage);

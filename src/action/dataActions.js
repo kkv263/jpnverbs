@@ -11,4 +11,3 @@ export const setData = (data) => dispatch => {
       payload: newData
   });
 }
-

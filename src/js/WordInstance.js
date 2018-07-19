@@ -8,54 +8,46 @@ import { WIWrapper, WordWrapper, SearchBar, WordContainer,
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 
+import { connect } from 'react-redux';
+import propTypes from 'prop-types';
+
+import { toggleTab } from '../action/pageActions';
+import { changeFormValue, toggleLoading } from '../action/searchActions';
+import { setEntry, setAltEntry } from '../action/wordActions';
+
 var prod = 'https://intense-woodland-50358.herokuapp.com';
 
 class WordInstance extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: '',
-      forms: [],
-      kanji: '',
-      kother: [],
-      hira: '',
-      info: [],
-      activeTab: 0,
-      loading: true,
-  };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTab = this.handleTab.bind(this);
   }
 
-  componentWillMount(){
+  componentDidMount(){
     var query = this.props.match.params.name
 
     axios.get(prod + '/api/v1/entry/' + query)
       .then(data => {
-        var entry = data.data;
-        
-        this.setState({
-          forms: entry.forms,
-          kanji: entry.kdict[0],
-          kother: (entry.kdict.slice(1)).concat(entry.hdict.slice(1)),
-          hira: entry.hdict[0],
-          info: entry.info,
-          loading: false
-        });
+        let entry = data.data;
+        this.props.setEntry(entry);
+        this.props.toggleLoading(false);
+        this.props.setAltEntry(entry.kdict, entry.hdict)
 
       });
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.props.changeFormValue(event.target.value);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    var searchValue = this.state.value;
+    let searchValue = this.props.searchValue;
     axios.get(prod + '/api/v1/search/' + searchValue + '/1')
     .then(data => {
-      var entry = data.data.docs;
+      let entry = data.data.docs;
       if (entry.length === 1){
         window.location.href="/entry/" + entry[0].kdict[0];
       }else{
@@ -63,18 +55,16 @@ class WordInstance extends Component {
       }
 
     });
+    this.props.toggleLoading(true);
   }
 
   handleTab(value){
-    var updatedArray = [false, false];
-    updatedArray[value] = true;
-    this.setState({ activeTab: value});
+    this.props.toggleTab(value);
   }
 
   render() {
-    var activeTab = this.state.activeTab;
-
-    const forms = this.state.forms;
+    var activeTab = this.props.activeTab;
+    const forms = this.props.entry.forms;
     const formsList = forms.map ((forms, index) => 
     <WordTable key={index}>
       <WordCell>
@@ -99,7 +89,7 @@ class WordInstance extends Component {
     </WordTable>
     ); 
 
-    const info = this.state.info;
+    const info = this.props.entry.info;
     const infoList = info.map ((info,index) => 
     <div key={index}>
       <WordAttributes>{info.pos.join(', ')}</WordAttributes>
@@ -109,7 +99,7 @@ class WordInstance extends Component {
     </div>
     );
 
-    const otherForms = this.state.kother;
+    const otherForms = this.props.altEntry;
     var length = otherForms.length;
     const otherFormsList = otherForms.map((otherForms, index) =>
     <span key={index}>{otherForms + (length - 1 === index ? '' : ', ')}</span>);
@@ -128,7 +118,7 @@ class WordInstance extends Component {
       case 1:
         showTabs = (          
         <FormWrapper>
-        <FormTitle>Conjugation Table for: {this.state.kanji} ({info[0].pos.join(', ')})</FormTitle>
+        <FormTitle>Conjugation Table for: {this.props.entry.kdict[0]} ({info[0].pos.join(', ')})</FormTitle>
           {formsList}
         </FormWrapper>);
           break;
@@ -137,19 +127,19 @@ class WordInstance extends Component {
     }
 
     return (
-      this.state.loading ? null : (<WIWrapper>
+      this.props.loading ? null : (<WIWrapper>
         <WordContainer>
           <Link style={{ textDecoration: 'none' }} to={"/"}><HomeLogo>jVerbs</HomeLogo></Link>
           <form onSubmit={this.handleSubmit}>
             <label>
-              <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
+              <SearchBar type="text" value={this.props.searchValue} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
             </label>
             <Button type="submit" value="Search"/>
           </form>
           <WordWrapper>
             <WordTitleWrapper>
-              <WordHeader Color = "#45B29D">{this.state.kanji}</WordHeader>
-              <WordHeader Color = "#3E4E50">{this.state.hira}</WordHeader>
+              <WordHeader Color = "#45B29D">{this.props.entry.kdict[0]}</WordHeader>
+              <WordHeader Color = "#3E4E50">{this.props.entry.hdict[0]}</WordHeader>
               {otherForms.length !== 0 ? (<WordFooter>Alternative Forms: <p>{otherFormsList}</p> </WordFooter>) : null}
             </WordTitleWrapper>
             <Tab>
@@ -171,4 +161,26 @@ class WordInstance extends Component {
   }
 }
 
-export default WordInstance;
+WordInstance.propTypes = {
+  toggleLoading: propTypes.func.isRequired,
+  changeFormValue: propTypes.func.isRequired,
+  toggleTab: propTypes.func.isRequired,
+  setEntry: propTypes.func.isRequired,
+  setAltEntry: propTypes.func.isRequired,
+  loading: propTypes.bool.isRequired,
+  searchValue: propTypes.string.isRequired,
+  activeTab: propTypes.number.isRequired,
+  entry: propTypes.object.isRequired,
+  altEntry: propTypes.array.isRequired,
+}
+
+const mapStateToProps = state => ({
+  loading: state.search.loading,
+  searchValue: state.search.searchValue,
+  activeTab: state.page.activeTab,
+  entry: state.word.entry,
+  altEntry: state.word.altEntry,
+});
+
+export default connect(mapStateToProps, {toggleLoading,changeFormValue, toggleTab, 
+  setEntry, setAltEntry})(WordInstance);

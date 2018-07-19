@@ -7,3 +7,6 @@ export const SET_RESULTS_LENGTH = 'SET_RESULTS_LENGTH';
 export const SET_TOTAL_PAGES = 'SET_TOTAL_PAGES';
 export const SET_DATA = 'SET_DATA';
 export const TOGGLE_LOADING = 'TOGGLE_LOADING';
+export const TOGGLE_TAB = 'TOGGLE_TAB';
+export const SET_ENTRY = 'SET_ENTRY';
+export const SET_ALT_ENTRY = 'SET_ALT_ENTRY';

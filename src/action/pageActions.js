@@ -1,4 +1,4 @@
-import { CHANGE_ACTIVE_PAGE, RESET_PAGES, ADD_PAGE_ITEM, SET_RESULTS_LENGTH, SET_TOTAL_PAGES } from './types';
+import { CHANGE_ACTIVE_PAGE, RESET_PAGES, ADD_PAGE_ITEM, SET_RESULTS_LENGTH, SET_TOTAL_PAGES, TOGGLE_TAB } from './types';
 
 export const changeActivePage = (activePage) => dispatch => {
     dispatch({
@@ -38,3 +38,10 @@ export const setTotalPages = (totalPages) => dispatch => {
   });
 }
 
+export const toggleTab = (tab) => dispatch => {
+
+  dispatch({
+    type:TOGGLE_TAB,
+    payload: tab
+  });
+}
