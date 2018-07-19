@@ -3,25 +3,27 @@ import { HomeWrapper, ConjugateWrapper,
          SearchBar, Slogan, Tip, Button,Header} from '../styles/Homepage.style'
 import axios from 'axios';
 
+import { connect } from 'react-redux';
+import { changeFormValue } from '../action/searchActions';
+
+import propTypes from 'prop-types';
+
 var prod = 'https://intense-woodland-50358.herokuapp.com'
 
 class Homepage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: ''
-  };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.props.changeFormValue(event.target.value);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    var searchValue = this.state.value;
+    var searchValue = this.props.searchValue;
     axios.get(prod + '/api/v1/search/' + searchValue + '/1')
     .then(data => {
       var entry = data.data.docs;
@@ -45,7 +47,7 @@ class Homepage extends Component {
         <Slogan>An Online Japanese Verb Conjugator </Slogan>
           <form onSubmit={this.handleSubmit}>
             <label>
-              <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
+              <SearchBar type="text" value={this.props.searchValue} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
             </label>
             <Button type="submit" value="Search"/>
           </form>
@@ -85,4 +87,13 @@ class Homepage extends Component {
   }
 }
 
-export default Homepage;
+Homepage.propTypes = {
+  changeFormValue: propTypes.func.isRequired,
+  searchValue: propTypes.string.isRequired,
+}
+
+const mapStateToProps = state => ({
+  searchValue: state.search.searchValue
+});
+
+export default connect(mapStateToProps, {changeFormValue})(Homepage);

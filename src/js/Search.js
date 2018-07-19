@@ -6,66 +6,68 @@ import { SearchContainer, SearchTitleWrapper, SearchBar, Button,
 import axios from "axios";
 import { Link } from 'react-router-dom'
 
-var prod = 'https://intense-woodland-50358.herokuapp.com';
+import { connect } from 'react-redux';
+import { changeFormValue, changeQueryValue } from '../action/searchActions';
+import { changeActivePage, resetPages, addPages, setResultLength, setTotalPages } from '../action/pageActions';
+
+import propTypes from 'prop-types';
+
+const prod = 'https://intense-woodland-50358.herokuapp.com';
 
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
-      searchValue: '',
-      resultsLength: '',
       loading: true,
       entry: [],
-      pages: [],
-      activePage: 0,
-      totalPages: 0
   };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePage = this.handlePage.bind(this);
   }
 
-  componentWillMount() {
-    var queryName = this.props.match.params.name;
-    var queryPage = parseInt(this.props.match.params.page, 10);
-    this.setState({
-      searchValue: queryName
-    });
+  componentDidMount() {
+    let queryName = this.props.match.params.name;
+    let queryPage = parseInt(this.props.match.params.page, 10);
+
+    this.props.changeQueryValue(queryName);
 
     axios.get(prod + '/api/v1/search/' + queryName + '/' + queryPage)
       .then(data => {
+
         var entry = [];
-        var pages = [];
         if (data.data !== null)
           entry = data.data.docs;
-        var numPages = 4;
-        var offset = Math.floor((queryPage - 1) / numPages);
-        var start = offset*numPages;
-        var totalPages = data.data.pages;
+        let numPages = 4;
+        let offset = Math.floor((queryPage - 1) / numPages);
+        let start = offset*numPages;
+        let totalPages = data.data.pages;
 
-        for (var i = start; i < ((start + numPages) > totalPages ? totalPages : (start + numPages)); i++){
-          pages.push((i + 1));
+        this.props.resetPages();
+        this.props.setResultLength(data.data.total)
+        this.props.setTotalPages(totalPages);
+
+        for (let i = start; i < ((start + numPages) > totalPages ? totalPages : (start + numPages)); i++){
+          this.props.addPages(this.props.pages, i+1);
         }
 
+        this.props.changeActivePage(queryPage);
+        
+
         this.setState({
-          resultsLength: data.data.total,
           loading:false,
           entry: entry,
-          pages: pages,
-          activePage: queryPage,
-          totalPages: totalPages
         });
 
       });
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.props.changeFormValue(event.target.value)
   }
 
   handlePage(event) {
-    var activePage = this.state.activePage;
+    let activePage = this.props.activePage;
     if (event === 'prev') 
       activePage -= 1;
     else if (event === 'next')
@@ -73,13 +75,13 @@ class Search extends Component {
     else {
       activePage = event;
     }
-    window.location.href="/search/" + this.state.searchValue + '/' + activePage;
+    window.location.href="/search/" + this.props.queryValue + '/' + activePage;
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    var searchValue = this.state.value;
-    axios.get('/api/v1/search/' + searchValue + '/1')
+    var searchValue = this.props.searchValue;
+    axios.get(prod + '/api/v1/search/' + searchValue + '/1')
     .then(data => {
       var entry = data.data.docs;
       console.log(entry);
@@ -95,10 +97,10 @@ class Search extends Component {
   }
 
   render() {
-    var searchValue = this.state.searchValue;
-    var resultsLength = this.state.resultsLength;
-    var pages = this.state.pages;
-    var activePage = this.state.activePage;
+    let searchValue = this.props.queryValue;
+    let resultsLength = this.props.resultsLength;
+    let pages = this.props.pages;
+    let activePage = this.props.activePage;
 
     const pagesList = pages.map((page,index) =>
       <PaginationButton key={index} onClick = {() => this.handlePage(page)} active={page === activePage}>{page}</PaginationButton>
@@ -128,7 +130,7 @@ class Search extends Component {
         <Link to={"/"}><HomeLogo>jVerbs</HomeLogo></Link>
           <form onSubmit={this.handleSubmit}>
             <label>
-              <SearchBar type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
+              <SearchBar type="text" value={this.props.searchValue} onChange={this.handleChange} placeholder = "Enter a word in English or Japanese..." />
             </label>
             <Button type="submit" value="Search"/>
           </form>
@@ -139,10 +141,10 @@ class Search extends Component {
           <ResultsText>「 {searchValue} 」 - {resultsLength} similar results found:</ResultsText>
           {entriesList}
         </ResultsGridWrapper>
-        <PaginationContainer noDisplay={this.state.totalPages === 1}>
+        <PaginationContainer noDisplay={this.props.totalPages === 1}>
         <PaginationButton noDisplay={activePage === 1} onClick = {() => this.handlePage('prev')}>‹</PaginationButton>
           {pagesList}
-        <PaginationButton noDisplay={activePage === this.state.totalPages} onClick = {() => this.handlePage('next')}>›</PaginationButton>
+        <PaginationButton noDisplay={activePage === this.props.totalPages} onClick = {() => this.handlePage('next')}>›</PaginationButton>
         </PaginationContainer>
         </BottomContainer>) : 
         (<BottomContainer >
@@ -155,4 +157,30 @@ class Search extends Component {
   }
 }
 
-export default Search;
+Search.propTypes = {
+  addPages: propTypes.func.isRequired,
+  changeFormValue: propTypes.func.isRequired,
+  changeQueryValue: propTypes.func.isRequired,
+  changeActivePage: propTypes.func.isRequired,
+  resetPages: propTypes.func.isRequired,
+  setResultLength: propTypes.func.isRequired,
+  setTotalPages: propTypes.func.isRequired,
+  searchValue: propTypes.string.isRequired,
+  queryValue: propTypes.string.isRequired,
+  activePage: propTypes.number.isRequired,
+  pages: propTypes.array.isRequired,
+  resultsLength: propTypes.number.isRequired,
+  totalPages: propTypes.number.isRequired
+}
+
+const mapStateToProps = state => ({
+  searchValue: state.search.searchValue,
+  queryValue: state.search.queryValue,
+  activePage: state.page.activePage,
+  pages: state.page.pages,
+  resultsLength: state.page.resultsLength,
+  totalPages: state.page.totalPages
+});
+
+export default connect(mapStateToProps, {changeFormValue, changeQueryValue, 
+  changeActivePage, resetPages, addPages, setResultLength, setTotalPages})(Search);
