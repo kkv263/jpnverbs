@@ -5,3 +5,5 @@ export const ADD_PAGE_ITEM = 'ADD_PAGE_ITEM';
 export const RESET_PAGES = 'RESET_PAGES';
 export const SET_RESULTS_LENGTH = 'SET_RESULTS_LENGTH';
 export const SET_TOTAL_PAGES = 'SET_TOTAL_PAGES';
+export const SET_DATA = 'SET_DATA';
+export const TOGGLE_LOADING = 'TOGGLE_LOADING';

@@ -1,8 +1,9 @@
-import { CHANGE_FORM_VALUE, CHANGE_QUERY_VALUE } from '../action/types';
+import { CHANGE_FORM_VALUE, CHANGE_QUERY_VALUE, TOGGLE_LOADING } from '../action/types';
 
 const initialState = {
     searchValue: '',
     queryValue: '',
+    loading: true,
   };
   
   export default function(state = initialState, action) {
@@ -18,6 +19,12 @@ const initialState = {
         return {
           ...state,
           queryValue:action.payload
+        }
+
+        case TOGGLE_LOADING:
+        return {
+          ...state,
+          loading: action.payload
         }
   
         default:

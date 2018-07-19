@@ -7,7 +7,8 @@ import axios from "axios";
 import { Link } from 'react-router-dom'
 
 import { connect } from 'react-redux';
-import { changeFormValue, changeQueryValue } from '../action/searchActions';
+import { setData } from '../action/dataActions';
+import { changeFormValue, changeQueryValue, toggleLoading } from '../action/searchActions';
 import { changeActivePage, resetPages, addPages, setResultLength, setTotalPages } from '../action/pageActions';
 
 import propTypes from 'prop-types';
@@ -17,10 +18,6 @@ const prod = 'https://intense-woodland-50358.herokuapp.com';
 class Search extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loading: true,
-      entry: [],
-  };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePage = this.handlePage.bind(this);
@@ -34,10 +31,6 @@ class Search extends Component {
 
     axios.get(prod + '/api/v1/search/' + queryName + '/' + queryPage)
       .then(data => {
-
-        var entry = [];
-        if (data.data !== null)
-          entry = data.data.docs;
         let numPages = 4;
         let offset = Math.floor((queryPage - 1) / numPages);
         let start = offset*numPages;
@@ -46,18 +39,14 @@ class Search extends Component {
         this.props.resetPages();
         this.props.setResultLength(data.data.total)
         this.props.setTotalPages(totalPages);
+        this.props.setData(data.data.docs)
 
         for (let i = start; i < ((start + numPages) > totalPages ? totalPages : (start + numPages)); i++){
           this.props.addPages(this.props.pages, i+1);
         }
 
         this.props.changeActivePage(queryPage);
-        
-
-        this.setState({
-          loading:false,
-          entry: entry,
-        });
+        this.props.toggleLoading(false);
 
       });
   }
@@ -83,8 +72,7 @@ class Search extends Component {
     var searchValue = this.props.searchValue;
     axios.get(prod + '/api/v1/search/' + searchValue + '/1')
     .then(data => {
-      var entry = data.data.docs;
-      console.log(entry);
+      let entry = data.data.docs;
       if (entry.length === 1){
         if (entry[0].kdict[0] != null) 
           this.props.history.push("/entry/" + entry[0].kdict[0]);
@@ -106,7 +94,7 @@ class Search extends Component {
       <PaginationButton key={index} onClick = {() => this.handlePage(page)} active={page === activePage}>{page}</PaginationButton>
     );
 
-    const entry = this.state.entry;
+    let entry = this.props.entryData;
     const entriesList = entry.map ((entry, index) => 
     <ResultsItem key={index}>
       <ResultsLeft>{(entry.kdict[0] ? entry.kdict[0] : entry.hdict[0])} 
@@ -123,9 +111,8 @@ class Search extends Component {
     </ResultsItem>
     ); 
 
-
     return (
-      this.state.loading ? null : (<SearchContainer>
+      this.props.loading ? null : (<SearchContainer>
         <SearchTitleWrapper>
         <Link to={"/"}><HomeLogo>jVerbs</HomeLogo></Link>
           <form onSubmit={this.handleSubmit}>
@@ -165,12 +152,16 @@ Search.propTypes = {
   resetPages: propTypes.func.isRequired,
   setResultLength: propTypes.func.isRequired,
   setTotalPages: propTypes.func.isRequired,
+  setData: propTypes.func.isRequired,
+  toggleLoading: propTypes.func.isRequired,
   searchValue: propTypes.string.isRequired,
   queryValue: propTypes.string.isRequired,
   activePage: propTypes.number.isRequired,
   pages: propTypes.array.isRequired,
   resultsLength: propTypes.number.isRequired,
-  totalPages: propTypes.number.isRequired
+  totalPages: propTypes.number.isRequired,
+  entryData: propTypes.array.isRequired,
+  loading: propTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -179,8 +170,11 @@ const mapStateToProps = state => ({
   activePage: state.page.activePage,
   pages: state.page.pages,
   resultsLength: state.page.resultsLength,
-  totalPages: state.page.totalPages
+  totalPages: state.page.totalPages,
+  entryData: state.data.entryData,
+  loading: state.search.loading
 });
 
 export default connect(mapStateToProps, {changeFormValue, changeQueryValue, 
-  changeActivePage, resetPages, addPages, setResultLength, setTotalPages})(Search);
+  changeActivePage, resetPages, addPages, setResultLength, setTotalPages, 
+  setData, toggleLoading})(Search);
