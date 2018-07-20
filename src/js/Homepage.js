@@ -26,17 +26,19 @@ class Homepage extends Component {
     var searchValue = this.props.searchValue;
     axios.get(prod + '/api/v1/search/' + searchValue + '/1')
     .then(data => {
-      var entry = data.data.docs;
+      let entry = data.data.docs;
      
-      if (entry.length === 1){
+      if (entry.length !== 1){
+        return
+      }
+      else{
         if (entry[0].kdict[0] != null) 
           this.props.history.push("/entry/" + entry[0].kdict[0]);
         else
           this.props.history.push("/entry/" + entry[0].hdict[0]); 
-      }else{
-        this.props.history.push("/search/" + searchValue + '/1');
       }
     });
+    this.props.history.push("/search/" + searchValue + '/1'); 
   }
 
   render() {

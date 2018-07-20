@@ -37,7 +37,6 @@ class WordInstance extends Component {
         this.props.setEntry(entry);
         this.props.toggleLoading(false);
         this.props.setAltEntry(entry.kdict, entry.hdict)
-
       });
   }
 
@@ -51,13 +50,17 @@ class WordInstance extends Component {
     axios.get(prod + '/api/v1/search/' + searchValue + '/1')
     .then(data => {
       let entry = data.data.docs;
-      if (entry.length === 1){
-        window.location.href="/entry/" + entry[0].kdict[0];
-      }else{
-        this.props.history.push("/search/" + searchValue + '/1');
+      if (entry.length !== 1){
+        return
       }
-
+      else{
+        if (entry[0].kdict[0] != null) 
+          this.props.history.push("/entry/" + entry[0].kdict[0]);
+        else
+          this.props.history.push("/entry/" + entry[0].hdict[0]); 
+      }
     });
+    this.props.history.push("/search/" + searchValue + '/1'); 
   }
 
   handleTab(value){
