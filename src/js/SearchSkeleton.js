@@ -32,7 +32,30 @@ export default class SearchSkeleton extends Component {
                 <SKText w="300px" h="20px" mt="15px"/>
               </ResultsRight>
             </ResultsItem>
-            <ResultsItem><SKText w="300px" h="30px"/>
+            <ResultsItem>
+            <ResultsLeft>
+                <SKText w="305px" h="30px"/>
+              </ResultsLeft>
+            <ResultsRight>
+                <SKText w="350px" h="10px" mt="15px"/>
+                <SKText w="400px" h="20px" mt="15px"/>
+                <SKText w="400px" h="20px" mt="15px"/>
+              </ResultsRight>
+            </ResultsItem>
+            <ResultsItem>
+            <ResultsLeft>
+                <SKText w="300px" h="30px"/>
+              </ResultsLeft>
+            <ResultsRight>
+              <SKText w="350px" h="10px" mt="15px"/>
+                <SKText w="400px" h="20px" mt="15px"/>
+                <SKText w="400px" h="20px" mt="15px"/>
+              </ResultsRight>
+            </ResultsItem>
+            <ResultsItem>
+            <ResultsLeft>
+                <SKText w="250px" h="30px"/>
+              </ResultsLeft>
             <ResultsRight>
                 <SKText w="350px" h="10px" mt="15px"/>
                 <SKText w="400px" h="20px" mt="15px"/>
